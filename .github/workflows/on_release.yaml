@@ -20,7 +20,7 @@ jobs:
         working-directory: ./lambda-api
     
     steps:
-
+    
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
