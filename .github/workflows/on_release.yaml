@@ -11,8 +11,45 @@ permissions:
   pull-requests: write
 
 jobs:
-  build-deploy:
-    name: Build & Deploy Application
+  build-deploy-api:
+    name: Build & Deploy API
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./lambda-api
+    steps:
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/linkifybio-oidc-role
+          role-session-name: linkifybio-role-session
+          aws-region: us-east-1
+          mask-aws-account-id: 'false'
+
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Install node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Application
+        run: npm run build
+
+      - name: Zip Application
+        run: zip -r build.zip build
+
+      - name: Update Lambda Function Code
+      run: |
+        aws lambda update-function-code --function-name linkifybio-api-production --zip-file fileb://build.zip
+  
+  build-deploy-react:
+    name: Build & Deploy React Site
     runs-on: ubuntu-latest
     defaults:
       run:

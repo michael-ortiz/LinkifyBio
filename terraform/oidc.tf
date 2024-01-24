@@ -41,7 +41,7 @@ data "aws_iam_policy_document" "trust" {
   }
 }
 
-data "aws_iam_policy_document" "bucket_access" {
+data "aws_iam_policy_document" "permissions" {
   statement {
     effect    = "Allow"
     actions   = ["s3:ListBucket"]
@@ -52,21 +52,25 @@ data "aws_iam_policy_document" "bucket_access" {
     actions = [
       "s3:GetObject",
       "s3:PutObject",
-      "s3:DeleteObject"
+      "s3:DeleteObject",
+      "lambda:UpdateFunctionCode"
     ]
-    resources = ["${aws_s3_bucket.app_bucket.arn}/*"]
+    resources = [
+      "${aws_s3_bucket.app_bucket.arn}/*", 
+      aws_lambda_function.api.arn
+      ]
   }
 }
 
-resource "aws_iam_policy" "bucket_access" {
+resource "aws_iam_policy" "permissions" {
   name        = "${var.app_name}-s3-bucket-access-policy"
   description = "Access to S3 to publish React App"
-  policy      = data.aws_iam_policy_document.bucket_access.json
+  policy      = data.aws_iam_policy_document.permissions.json
 }
 
-resource "aws_iam_role_policy_attachment" "bucket_access" {
+resource "aws_iam_role_policy_attachment" "permissions" {
   role       = aws_iam_role.oidc_role.name
-  policy_arn = aws_iam_policy.bucket_access.arn
+  policy_arn = aws_iam_policy.permissions.arn
 }
 
 output "oidc_iam_role" {
