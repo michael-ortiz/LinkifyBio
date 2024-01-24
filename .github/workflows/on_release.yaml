@@ -11,12 +11,14 @@ permissions:
   pull-requests: write
 
 jobs:
+
   build-deploy-api:
     name: Build & Deploy API
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./lambda-api
+    
     steps:
 
       - name: Configure AWS Credentials
