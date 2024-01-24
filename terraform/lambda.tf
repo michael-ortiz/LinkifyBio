@@ -3,8 +3,7 @@ resource "aws_lambda_function" "api" {
   handler       = "index.handler"
   runtime       = "nodejs16.x"
 
-  filename         = "lambda.zip" 
-  source_code_hash = filebase64sha256("lambda.zip")
+  filename = data.archive_file.empty_zip.output_path
 
   role = aws_iam_role.lambda_exec.arn
 
@@ -14,6 +13,10 @@ resource "aws_lambda_function" "api" {
       PROFILE_IMAGES_BUCKET_NAME = aws_s3_bucket.profile_images_bucket.id
       CDN_DOMAIN_NAME            = local.cdn_domain_name
     }
+  }
+
+  lifecycle {
+    ignore_changes = [filename]
   }
 }
 
@@ -75,4 +78,13 @@ resource "aws_iam_role_policy" "lambda_dynamodb_access" {
 resource "aws_lambda_function_url" "url" {
   function_name      = aws_lambda_function.api.function_name
   authorization_type = "NONE"
+}
+
+data "archive_file" "empty_zip" {
+  type        = "zip"
+  output_path = "/tmp/empty.zip"
+  source {
+    content  = ""
+    filename = "empty.txt"
+  }
 }

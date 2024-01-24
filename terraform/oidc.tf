@@ -72,7 +72,3 @@ resource "aws_iam_role_policy_attachment" "permissions" {
   role       = aws_iam_role.oidc_role.name
   policy_arn = aws_iam_policy.permissions.arn
 }
-
-output "oidc_iam_role" {
-  value = aws_iam_role.oidc_role
-}
