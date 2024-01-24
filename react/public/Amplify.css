@@ -1,0 +1,16 @@
+.amplify-button.amplify-field-group__control.amplify-button--primary.amplify-button--fullwidth {
+    background: black;
+    border-radius: 20px;
+}
+
+.amplify-button.amplify-field-group__control.amplify-button--primary.amplify-button--fullwidth:hover {
+    background: gray;
+}
+
+.amplify-button.amplify-field-group__control.amplify-button--link.amplify-button--small {
+    color: black;
+}
+
+.amplify-button.amplify-field-group__control.amplify-button--link.amplify-button--small:hover {
+    background: lightgray;
+}
