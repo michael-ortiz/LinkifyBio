@@ -43,7 +43,7 @@ jobs:
         run: npm run build
 
       - name: Zip Application
-        run: zip -r build.zip build
+        run: zip -r build.zip .
 
       - name: Update Lambda Function Code
         run: |
