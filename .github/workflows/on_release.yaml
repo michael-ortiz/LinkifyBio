@@ -46,8 +46,8 @@ jobs:
         run: zip -r build.zip build
 
       - name: Update Lambda Function Code
-      run: |
-        aws lambda update-function-code --function-name linkifybio-api-production --zip-file fileb://build.zip
+        run: |
+          aws lambda update-function-code --function-name linkifybio-api-production --zip-file fileb://build.zip
   
   build-deploy-react:
     name: Build & Deploy React Site
