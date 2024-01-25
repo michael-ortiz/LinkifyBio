@@ -355,6 +355,11 @@ function PageSettings() {
                                 </InputAdornment>
                             ),
                         }}
+                        inputProps={{
+                            autoCorrect: 'none',
+                            autoCapitalize: 'none',
+                            autoComplete: 'none',
+                        }}
                         style={{ flex: 1, marginRight: '10px' }}
                     />
                     <Button variant="contained" color="primary" onClick={editingPageId ?  handleSubmitEditPageAlias : handleEditPageAlias }>{editingPageId ? "Save" : "Edit"}</Button>
