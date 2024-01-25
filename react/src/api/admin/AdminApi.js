@@ -244,3 +244,15 @@ export async function checkIfAliasIsAvailable(id) {
 
     return response.json();
 }
+
+export async function updatePageid(id, newId) {
+    const response = await fetch(`${url}/admin/page/${id}/update/pageId/${newId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            authorization: (await fetchAuthSession()).tokens.accessToken.toString()
+        },
+    });
+
+    return response.json();
+}

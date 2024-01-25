@@ -1,10 +1,10 @@
-import { Container, TextField, Box, Link, Typography, IconButton, Breadcrumbs, Avatar, Modal, Slider } from '@mui/material';
+import { Container, TextField, Box, Link, Typography, IconButton, Breadcrumbs, Avatar, Modal, Slider, InputAdornment } from '@mui/material';
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material-next/Button';
-import { getBio, updateBioInfo, deletePage } from '../../../api/admin/AdminApi';
+import { getBio, updateBioInfo, deletePage, updatePageid, checkIfAliasIsAvailable } from '../../../api/admin/AdminApi';
 import { GlobalContext } from '../../../context/GlobalContext';
-import { Delete, ArrowBack, Close } from '@mui/icons-material';
+import { Delete, ArrowBack, Close, Check } from '@mui/icons-material';
 import Dropzone from 'react-dropzone';
 import AvatarEditor from 'react-avatar-editor';
 import { uploadProfileImage } from '../../../api/admin/AdminApi';
@@ -26,6 +26,11 @@ function PageSettings() {
     const [imageEditor, setImageEditor] = useState(null);
     const [name, setName] = React.useState(state.selectedPage.bioInfo.name || '');
     const [imageUrl, setImageUrl] = useState(state.selectedPage.bioInfo.imageUrl || '');
+    const [pageId, setPageId] = React.useState(state.selectedPage.id || '');
+    const [editingPageId, setEditingPageId] = React.useState(false);
+    const [isAvailable, setIsAvailable] = React.useState(false);
+
+
     const [descriptionTitle, setDescriptionTitle] = React.useState(state.selectedPage.bioInfo.descriptionTitle || '');
     const [descriptionTitleLength, setDescriptionTitleLength] = React.useState(state.selectedPage.bioInfo.descriptionTitle.length || '');
     const [isLoading, setIsLoading] = React.useState(false);
@@ -96,6 +101,55 @@ function PageSettings() {
         });
     };
 
+    const handleEditPageAlias = () => {
+
+        setEditingPageId(editingPageId ? false : true);
+        
+    };
+
+    const handleSubmitEditPageAlias = async () => {
+
+        if (state.selectedPage.id !== pageId) {
+
+            setIsLoading(true);
+
+            await checkIfAliasIsAvailable(pageId).then((data) => {
+                if (!data.available) {
+                    alert('This alias is already taken. Please choose another one.');
+                    return;
+                }
+            });
+
+            await updatePageid(state.selectedPage.id, pageId).then((data) =>  {
+                dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
+                setEditingPageId(editingPageId ? false : true);
+                setIsLoading(false);
+            });
+        } else {
+            setEditingPageId(editingPageId ? false : true);
+
+        }
+    };
+
+    const isAliasAvailable = async (alias) => {
+
+        if (alias !== '') {
+            checkIfAliasIsAvailable(alias).then((data) => {
+                setIsAvailable(data.available)
+                return true
+            }).catch(() => {
+                setIsAvailable(false);
+                return false
+            });
+        }
+
+        return false;
+    };
+
+    const shouldShowAliasCheck = () => {
+        return editingPageId && pageId !== state.selectedPage.id && pageId !== ''
+    }
+
     const deleteLinkAction = async () => {
 
         confirm({ title: state.selectedPage.id, description: `Are you sure you want to delete this page? This operation is non-reversible.` })
@@ -130,7 +184,7 @@ function PageSettings() {
     }
 
     return (
-        
+
         <Container maxWidth="false" sx={{ height: '100vh', width: '100vw' }}>
 
             <Header />
@@ -205,7 +259,7 @@ function PageSettings() {
                             )}
                         </Dropzone>}
 
-                        {selectedImage && <Slider min={1.0} max={3.0} step={0.01} value={zoom} onChange={handleZoomChange} disabled={selectedImage == null} /> }
+                        {selectedImage && <Slider min={1.0} max={3.0} step={0.01} value={zoom} onChange={handleZoomChange} disabled={selectedImage == null} />}
 
                         {selectedImage ? <Button
                             color="tertiary"
@@ -280,6 +334,31 @@ function PageSettings() {
                     <Button variant="contained" color="primary" onClick={openPicEditor}>Edit Picture</Button>
                 </Box>
 
+                <h2>Page Alias</h2>
+
+                <Box display="flex" alignItems="center" justifyContent="space-between" marginBottom="20px">
+                    <TextField
+                        id="id"
+                        disabled={!editingPageId}
+                        label="Alias"
+                        variant="outlined"
+                        value={pageId}
+                        onChange={(e) => {
+                            setPageId(e.target.value)
+                            isAliasAvailable(e.target.value);
+                        }}
+                        InputLabelProps={{ shrink: true }}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    { shouldShowAliasCheck() && isAvailable ? <Check sx={{ color: 'green' }} /> : shouldShowAliasCheck() ? <Close sx={{ color: 'red' }} /> : null}
+                                </InputAdornment>
+                            ),
+                        }}
+                        style={{ flex: 1, marginRight: '10px' }}
+                    />
+                    <Button variant="contained" color="primary" onClick={editingPageId ?  handleSubmitEditPageAlias : handleEditPageAlias }>{editingPageId ? "Save" : "Edit"}</Button>
+                </Box>
                 <h2>Page Details</h2>
 
                 <form autoComplete="off" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
