@@ -1,10 +1,7 @@
 import { Box } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 
 function HeaderPublic() {
 
-
-    const navigate = useNavigate();
 
     return (
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
