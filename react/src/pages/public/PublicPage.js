@@ -5,6 +5,7 @@ import { getBioData } from '../../api/public/PublicApi';
 import React from 'react';
 import { SocialIcon } from 'react-social-icons/component'
 import 'react-social-icons'
+import { Helmet } from 'react-helmet';
 
 export default class PublicPage extends React.Component {
 
