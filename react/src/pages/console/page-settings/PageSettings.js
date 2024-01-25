@@ -334,11 +334,11 @@ function PageSettings() {
                     <Button variant="contained" color="primary" onClick={openPicEditor}>Edit Picture</Button>
                 </Box>
 
-                <h2>Page Alias</h2>
+                <h2>Alias</h2>
 
                 <Box display="flex" alignItems="center" justifyContent="space-between" marginBottom="20px">
                     <TextField
-                        id="id"
+                        id="alias"
                         disabled={!editingPageId}
                         label="Alias"
                         variant="outlined"
@@ -364,7 +364,7 @@ function PageSettings() {
                     />
                     <Button variant="contained" color="primary" onClick={editingPageId ?  handleSubmitEditPageAlias : handleEditPageAlias }>{editingPageId ? "Save" : "Edit"}</Button>
                 </Box>
-                <h2>Page Details</h2>
+                <h2>Details</h2>
 
                 <form autoComplete="off" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 

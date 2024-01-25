@@ -20,8 +20,6 @@ export default class PublicPage extends React.Component {
     componentDidMount() {
         const id = window.location.href.split('/')[3]
         getBioData(id).then((data) => {
-            document.title = `${data.bioInfo.name} - LinkifyBio`;
-
             this.setState({ bioInfo: data.bioInfo });
             this.setState({ links: data.links });
             this.setState({ socialMediaLinks: data.socialMediaLinks });
@@ -38,8 +36,10 @@ export default class PublicPage extends React.Component {
         if (!this.state.error) {
 
             return (
-
                 <Container maxWidth="sm">
+                    <Helmet>
+                        <title>{`${this.state.bioInfo.name === undefined ? "Loading" : this.state.bioInfo.name } - LinkifyBio`}</title>
+                    </Helmet>
                     <Box display="flex" justifyContent="center" alignItems="center">
                         <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" gap={1} width="100%">
                             <Box justifyContent="center" marginTop={10} alignItems="center" textAlign="center">
@@ -121,7 +121,7 @@ export default class PublicPage extends React.Component {
                         <Typography variant="h2" align="center">Oops!</Typography>
                         <Typography variant="h2" align="center">Page Not Found</Typography>
 
-                        <Button variant="contained" href='https://linkifybio.com' sx={{ marginTop: 10}} color="primary" startIcon={
+                        <Button variant="contained" href='https://linkifybio.com' sx={{ marginTop: 10 }} color="primary" startIcon={
                             <img
                                 src={'/logox100.png'}
                                 style={{ height: 20, width: 20, marginRight: -3 }}

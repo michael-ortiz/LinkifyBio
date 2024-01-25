@@ -1,16 +1,23 @@
 import { Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 function HeaderPublic() {
 
+
+    const navigate = useNavigate();
+
     return (
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box onClick={() => window.location.reload()} sx={{ display: 'flex', alignItems: 'center' }}>
+
                 <img
                     src={'/logox100.png'}
                     style={{ height: 30, width: 30, marginRight: 5, userSelect: 'none', userDrag: 'none' }}
                     draggable="false"
                     alt='linkifybio'
+                    onClick={() => window.location.reload()}
                 />
+
                 <h3 style={{ userSelect: 'none' }}>LinkifyBio</h3>
             </Box>
         </Box>
