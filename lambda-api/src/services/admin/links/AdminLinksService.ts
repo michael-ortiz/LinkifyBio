@@ -14,7 +14,7 @@ export default class AdminLinksService {
 
             const response = await Page.get({ id, owner });
 
-            let links: IPageLink[] = response.links;
+            let links: IPageLink[] = response.links || [];
 
             link = {
                 id: uuidv4(),
@@ -40,7 +40,7 @@ export default class AdminLinksService {
 
             const response = await Page.get({ id, owner });
 
-            let links: IPageLink[] = response.links;
+            let links: IPageLink[] = response.links || [];
 
             links = links.filter((l: IPageLink) => l.id !== linkId);
 
@@ -61,7 +61,7 @@ export default class AdminLinksService {
 
             const response = await Page.get({ id, owner });
 
-            let links: IPageLink[] = response.links;
+            let links: IPageLink[] = response.links || [];
 
             links = links.map((l: IPageLink) => l.id === link.id ? link : l);
 
@@ -80,7 +80,7 @@ export default class AdminLinksService {
 
             const response = await Page.get({ id, owner });
 
-            let links: IPageLink[] = response.links;
+            let links: IPageLink[] = response.links || [];
 
             links = links.sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id));
 

@@ -17,6 +17,7 @@ const client_s3_1 = require("@aws-sdk/client-s3");
 const crypto_1 = __importDefault(require("crypto"));
 const PageSchema_1 = require("../../../schema/PageSchema");
 const CoreUtils_1 = require("../../../utils/CoreUtils");
+const Exceptions_1 = require("../../../excpetions/Exceptions");
 const s3Client = new client_s3_1.S3Client({ region: 'us-east-1' });
 class AdminPagesService {
     createPage(request, owner) {
@@ -63,6 +64,32 @@ class AdminPagesService {
             catch (error) {
                 console.log(error);
                 throw new Error("Alias not found.");
+            }
+        });
+    }
+    updatePageId(id, newId, owner) {
+        return __awaiter(this, void 0, void 0, function* () {
+            (0, CoreUtils_1.validatePageId)(id);
+            (0, CoreUtils_1.validatePageId)(newId);
+            try {
+                const originalPage = yield PageSchema_1.Page.get({ id, owner });
+                if (originalPage === undefined) {
+                    throw new Exceptions_1.NotFoundException("Page not found.");
+                }
+                if ((yield this.checkIfPageIsAvailable(newId)).available) {
+                    originalPage.id = newId;
+                    const newPage = new PageSchema_1.Page(originalPage);
+                    newPage.save();
+                    yield PageSchema_1.Page.delete({ id, owner });
+                    return newPage;
+                }
+                else {
+                    throw new Error("New page id is not available.");
+                }
+            }
+            catch (error) {
+                console.log(error);
+                throw error;
             }
         });
     }

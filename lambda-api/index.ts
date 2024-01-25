@@ -140,7 +140,19 @@ app.post('/admin/page/:id/social/link/update', async (req: Request, res: Respons
 
 app.post('/admin/page/:id/info/update', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const response = await adminServices.pages.updatePageInfo(req.params.id, req.body, "michael.ortiz.porrata@gmail.com");
+    const token = await validateToken(req.headers.authorization);
+
+    const response = await adminServices.pages.updatePageInfo(req.params.id, req.body, token.username);
+    res.json(response);
+  } catch (err) {
+    catchErrors(err, next);
+  }
+});
+
+app.post('/admin/page/:id/update/pageId/:newPageId', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const token = await validateToken(req.headers.authorization);
+    const response = await adminServices.pages.updatePageId(req.params.id, req.params.newPageId, token.username);
     res.json(response);
   } catch (err) {
     catchErrors(err, next);

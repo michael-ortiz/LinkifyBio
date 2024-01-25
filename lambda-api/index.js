@@ -145,7 +145,18 @@ app.post('/admin/page/:id/social/link/update', (req, res, next) => __awaiter(voi
 }));
 app.post('/admin/page/:id/info/update', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const response = yield adminServices.pages.updatePageInfo(req.params.id, req.body, "michael.ortiz.porrata@gmail.com");
+        const token = yield (0, Auth_1.validateToken)(req.headers.authorization);
+        const response = yield adminServices.pages.updatePageInfo(req.params.id, req.body, token.username);
+        res.json(response);
+    }
+    catch (err) {
+        catchErrors(err, next);
+    }
+}));
+app.post('/admin/page/:id/update/pageId/:newPageId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const token = yield (0, Auth_1.validateToken)(req.headers.authorization);
+        const response = yield adminServices.pages.updatePageId(req.params.id, req.params.newPageId, token.username);
         res.json(response);
     }
     catch (err) {

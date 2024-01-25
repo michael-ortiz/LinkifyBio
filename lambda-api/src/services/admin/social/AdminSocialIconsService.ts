@@ -12,7 +12,7 @@ export default class AdminSocialIconsService {
 
             const response = await Page.get({ id, owner });
 
-            let socialMediaLinks: IPageLink[] = response.socialMediaLinks;
+            let socialMediaLinks: IPageLink[] = response.socialMediaLinks || [];
 
             socialMediaLinks = socialMediaLinks.sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id));
 
@@ -33,7 +33,7 @@ export default class AdminSocialIconsService {
 
             const response = await Page.get({ id, owner });
 
-            let socialMediaLinks: IPageLink[] = response.socialMediaLinks;
+            let socialMediaLinks: IPageLink[] = response.socialMediaLinks || [];
 
             link = {
                 id: uuidv4(),
@@ -58,7 +58,7 @@ export default class AdminSocialIconsService {
 
             const response = await Page.get({ id, owner });
 
-            let socialMediaLinks: IPageLink[] = response.socialMediaLinks;
+            let socialMediaLinks: IPageLink[] = response.socialMediaLinks || [];
 
             socialMediaLinks = socialMediaLinks.filter((l: IPageLink) => l.id !== linkId);
 
@@ -79,7 +79,7 @@ export default class AdminSocialIconsService {
 
             const response = await Page.get({ id, owner });
 
-            let socialMediaLinks: IPageLink[] = response.socialMediaLinks;
+            let socialMediaLinks: IPageLink[] = response.socialMediaLinks || [];
 
             socialMediaLinks = socialMediaLinks.map((l: IPageLink) => l.id === link.id ? link : l);
 

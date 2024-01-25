@@ -1,11 +1,12 @@
 
 import { validateCreatePageRequest, validateUpdatePageInfoRequest } from "../../../utils/RequestValidationUtils";
 
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand, NotFound } from "@aws-sdk/client-s3";
 import crypto from 'crypto';
 import { Page } from "../../../schema/PageSchema";
 import { IPage, IPageInfo } from "../../../interfaces/IPage";
 import { validatePageId } from "../../../utils/CoreUtils";
+import { NotFoundException } from "../../../excpetions/Exceptions";
 
 const s3Client = new S3Client({ region: 'us-east-1' });
 
@@ -46,24 +47,57 @@ export default class AdminPagesService {
             throw new Error("Error saving bio. See logs for more details.");
         }
     }
- 
-    async checkIfPageIsAvailable(id: string): Promise<{ available: boolean}> {
+
+    async checkIfPageIsAvailable(id: string): Promise<{ available: boolean }> {
 
         validatePageId(id);
 
         try {
 
-            const data  = await Page.get(id);
+            const data = await Page.get(id);
 
             if (data === undefined) {
                 return { available: true };
             }
 
             return { available: false };
-            
+
         } catch (error) {
             console.log(error);
             throw new Error("Alias not found.");
+        }
+    }
+
+    async updatePageId(id: string, newId: string, owner: string): Promise<IPage> {
+
+        validatePageId(id);
+        validatePageId(newId);
+
+        try {
+
+            const originalPage = await Page.get({ id, owner });
+
+            if (originalPage === undefined) {
+                throw new NotFoundException("Page not found.");
+            }
+
+            if ((await this.checkIfPageIsAvailable(newId)).available) {
+                originalPage.id = newId;
+
+                const newPage = new Page(originalPage);
+
+                newPage.save();
+
+                await Page.delete({ id, owner });
+
+                return newPage
+            } else {
+                throw new Error("New page id is not available.");
+            }
+
+        } catch (error) {
+            console.log(error);
+            throw error; 
         }
     }
 
@@ -120,7 +154,7 @@ export default class AdminPagesService {
         if (!upload || !upload.file || !upload.file.data) {
             throw new Error('File is empty');
         }
-        
+
         const hash = crypto.createHash('sha512');
         hash.update(`${owner}-${pageId}-${new Date().toISOString()}`);
         const hashedFileName = hash.digest('hex');

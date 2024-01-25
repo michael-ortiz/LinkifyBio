@@ -1,9 +1,12 @@
 import dynamoose from 'dynamoose';
+import { IPage, IPageInfo, IPageLink } from '../interfaces/IPage';
+import { Item } from 'dynamoose/dist/Item';
 const dotenv = require('dotenv');
 dotenv.config();
 
 dynamoose.Table.defaults.set({create: false});
 
+export interface PageModel extends IPage, Item { }
 
 const PageSchema = new dynamoose.Schema({
     id: {
@@ -53,4 +56,4 @@ const PageSchema = new dynamoose.Schema({
     },
 });
 
-export const Page = dynamoose.model(process.env.BIO_LINKS_TABLE_NAME!, PageSchema);
+export const Page = dynamoose.model<PageModel>(process.env.BIO_LINKS_TABLE_NAME!, PageSchema);

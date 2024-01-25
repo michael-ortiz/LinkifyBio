@@ -19,7 +19,7 @@ class AdminLinksService {
             (0, RequestValidationUtils_1.validateAddBioLinkRequest)(link);
             try {
                 const response = yield PageSchema_1.Page.get({ id, owner });
-                let links = response.links;
+                let links = response.links || [];
                 link = {
                     id: uuidv4(),
                     name: link.name,
@@ -40,7 +40,7 @@ class AdminLinksService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const response = yield PageSchema_1.Page.get({ id, owner });
-                let links = response.links;
+                let links = response.links || [];
                 links = links.filter((l) => l.id !== linkId);
                 yield PageSchema_1.Page.update({ id, owner }, { links: links });
                 return true;
@@ -56,7 +56,7 @@ class AdminLinksService {
             (0, RequestValidationUtils_1.validateModifyBioLinkRequest)(link);
             try {
                 const response = yield PageSchema_1.Page.get({ id, owner });
-                let links = response.links;
+                let links = response.links || [];
                 links = links.map((l) => l.id === link.id ? link : l);
                 yield PageSchema_1.Page.update({ id, owner }, { links });
                 return link;
@@ -71,7 +71,7 @@ class AdminLinksService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const response = yield PageSchema_1.Page.get({ id, owner });
-                let links = response.links;
+                let links = response.links || [];
                 links = links.sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id));
                 yield PageSchema_1.Page.update({ id, owner }, { links });
                 return links;

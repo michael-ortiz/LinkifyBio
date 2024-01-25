@@ -18,7 +18,7 @@ class AdminSocialIconsService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const response = yield PageSchema_1.Page.get({ id, owner });
-                let socialMediaLinks = response.socialMediaLinks;
+                let socialMediaLinks = response.socialMediaLinks || [];
                 socialMediaLinks = socialMediaLinks.sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id));
                 yield PageSchema_1.Page.update({ id, owner }, { socialMediaLinks });
                 return socialMediaLinks;
@@ -34,7 +34,7 @@ class AdminSocialIconsService {
             (0, RequestValidationUtils_1.validateAddBioSocialMediaLinkRequest)(link);
             try {
                 const response = yield PageSchema_1.Page.get({ id, owner });
-                let socialMediaLinks = response.socialMediaLinks;
+                let socialMediaLinks = response.socialMediaLinks || [];
                 link = {
                     id: uuidv4(),
                     url: (0, CoreUtils_1.formatUrl)(link.url),
@@ -54,7 +54,7 @@ class AdminSocialIconsService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const response = yield PageSchema_1.Page.get({ id, owner });
-                let socialMediaLinks = response.socialMediaLinks;
+                let socialMediaLinks = response.socialMediaLinks || [];
                 socialMediaLinks = socialMediaLinks.filter((l) => l.id !== linkId);
                 yield PageSchema_1.Page.update({ id, owner }, { socialMediaLinks: socialMediaLinks });
                 return true;
@@ -70,7 +70,7 @@ class AdminSocialIconsService {
             (0, RequestValidationUtils_1.validateModifySocialMediaLinkRequest)(link);
             try {
                 const response = yield PageSchema_1.Page.get({ id, owner });
-                let socialMediaLinks = response.socialMediaLinks;
+                let socialMediaLinks = response.socialMediaLinks || [];
                 socialMediaLinks = socialMediaLinks.map((l) => l.id === link.id ? link : l);
                 yield PageSchema_1.Page.update({ id, owner }, { socialMediaLinks });
                 return link;

@@ -1,3 +1,5 @@
+import { Item } from "dynamoose/dist/Item";
+
 export interface IPage {
     id: string;
     owner?: string;

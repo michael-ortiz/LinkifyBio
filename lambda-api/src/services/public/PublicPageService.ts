@@ -16,7 +16,7 @@ export class PublicPageService {
                 descriptionTitle: data.bioInfo.descriptionTitle,
             }
 
-            const links: IPageLink[] = data.links
+            const links: IPageLink[] = data.links ?? []
                 .map((link: IPageLink): IPageLink => ({
                     id: link.id,
                     name: link.name,
@@ -24,7 +24,7 @@ export class PublicPageService {
                     updatedAt: link.updatedAt
                 }))
 
-            const socialMediaLinks: IPageLink[] = data.socialMediaLinks
+            const socialMediaLinks: IPageLink[] = data.socialMediaLinks ?? []
                 .map((link: IPageLink): IPageLink => ({
                     id: link.id,
                     name: link.name,

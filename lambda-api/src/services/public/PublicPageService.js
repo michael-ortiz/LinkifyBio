@@ -14,6 +14,7 @@ const Exceptions_1 = require("../../excpetions/Exceptions");
 const PageSchema_1 = require("../../schema/PageSchema");
 class PublicPageService {
     getPageData(id) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const data = yield PageSchema_1.Page.get(id);
@@ -22,14 +23,14 @@ class PublicPageService {
                     imageUrl: data.bioInfo.imageUrl,
                     descriptionTitle: data.bioInfo.descriptionTitle,
                 };
-                const links = data.links
+                const links = (_a = data.links) !== null && _a !== void 0 ? _a : []
                     .map((link) => ({
                     id: link.id,
                     name: link.name,
                     url: link.url,
                     updatedAt: link.updatedAt
                 }));
-                const socialMediaLinks = data.socialMediaLinks
+                const socialMediaLinks = (_b = data.socialMediaLinks) !== null && _b !== void 0 ? _b : []
                     .map((link) => ({
                     id: link.id,
                     name: link.name,
