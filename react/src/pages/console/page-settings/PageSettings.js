@@ -12,6 +12,7 @@ import { useConfirm } from "material-ui-confirm";
 import Header from '../../../components/Header';
 import { MainBoxStyle } from '../../../constants/Styles';
 import CircularProgress from '@mui/material/CircularProgress';
+import { validateAlias } from '../../../utils/CoreUtils';
 
 function PageSettings() {
 
@@ -112,6 +113,11 @@ function PageSettings() {
         if (state.selectedPage.id !== pageId) {
 
             setIsLoading(true);
+
+            if (!validateAlias(pageId)) {
+                alert('This alias is invalid. Please choose another one.');
+                return;
+            }
 
             await checkIfAliasIsAvailable(pageId).then((data) => {
                 if (!data.available) {

@@ -1,5 +1,5 @@
 import { Container, TextField, Box, Link, Typography, IconButton, Breadcrumbs, InputAdornment } from '@mui/material';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useCallback, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material-next/Button';
 import { GlobalContext } from '../../../context/GlobalContext';
@@ -7,6 +7,7 @@ import { ArrowBack, Check, Close } from '@mui/icons-material';
 import { checkIfAliasIsAvailable } from '../../../api/admin/AdminApi';
 import Header from '../../../components/Header';
 import { MainBoxStyle } from '../../../constants/Styles';
+import { validateAlias } from '../../../utils/CoreUtils';
 
 function AliasPage() {
 
@@ -16,31 +17,52 @@ function AliasPage() {
 
     const [id, setId] = React.useState(state.alias || '');
     const [isAvailable, setIsAvailable] = React.useState(false);
+    const latestIdChecked = useRef('');
+
+    const isAliasAvailable = useCallback((alias) => {
+        latestIdChecked.current = alias;
+    
+        if (!validateAlias(alias)) {
+            setIsAvailable(false);
+            return;
+        }
+    
+        checkIfAliasIsAvailable(alias)
+            .then((response) => {
+                if (alias === latestIdChecked.current) {
+                    setIsAvailable(response.available);
+                }
+            })
+            .catch((error) => {
+                if (alias === latestIdChecked.current) {
+                    setIsAvailable(false);
+                }
+            });
+    }, []);
+
+    const handleIdChange = (event) => {
+        const newId = event.target.value;
+        setId(newId);
+
+        if (validateAlias(newId)) {
+            isAliasAvailable(newId);
+        } else {
+            setIsAvailable(false);
+        }
+    };
 
     useEffect(() => {
-        isAliasAvailable(state.alias)
+        isAliasAvailable(id);
     });
-
-    const isAliasAvailable = async (alias) => {
-
-        if (alias !== '') {
-            checkIfAliasIsAvailable(alias).then((data) => {
-                setIsAvailable(data.available)
-                return true
-            }).catch(() => {
-                setIsAvailable(false);
-                return false
-            });
-        }
-
-        return false;
-    };
 
     const handleContinue = async () => {
 
-        if (id !== '' && isAliasAvailable(id)) {
+        if (validateAlias(id)) {
             dispatch({ type: 'SET_ALIAS', payload: id });
             navigate(`/console/page/create/details`)
+        } else {
+            alert(id + ' is invalid or not available.')
+            setIsAvailable(false);
         }
     };
 
@@ -73,10 +95,7 @@ function AliasPage() {
                         label="Alias"
                         variant="outlined"
                         value={id}
-                        onChange={(e) => {
-                            setId(e.target.value);
-                            isAliasAvailable(e.target.value);
-                        }}
+                        onChange={handleIdChange}
                         InputLabelProps={{ shrink: true }}
                         style={{ width: '100%', marginBottom: '20px' }}
                         InputProps={{
