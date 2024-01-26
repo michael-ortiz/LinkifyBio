@@ -38,6 +38,13 @@ function PageColors() {
     const [showButtonLinkIconColorPicker, setShowButtonLinkIconColorPicker] = React.useState(false);
     const [showSocialIconsColor, setShowSocialIconsColor] = React.useState(false);
 
+    const isInLightColors = (color) => {
+
+        console.log(color);
+        return color === '#ffffff' || color === '#f5f5f5'  || color === '#ffeb3b';
+
+    }
+
     const defaultPickerColors = [
         "#f44336",
         "#e91e63",
@@ -184,8 +191,9 @@ function PageColors() {
                 </Modal>
 
                 <Box display="flex" alignItems="center">
-                    <Box height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: backgroundColor, borderRadius: 10, borderColor: 'lightgray' }} />
-                    <Button variant="contained" onClick={() => setShowBackgroundColorPicker(true)}>Choose</Button>
+                    <Box display="flex" justifyContent="center" alignItems="center" height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: backgroundColor, borderRadius: 10, borderColor: 'lightgray' }} >
+                        <Button onClick={() => setShowBackgroundColorPicker(true)} sx={{ color: isInLightColors(backgroundColor) ? 'black' : 'white', width: '100%', height: '100%' }}>Choose</Button>
+                    </Box>
                 </Box>
 
                 {/* Text Color  */}
@@ -206,9 +214,11 @@ function PageColors() {
                 </Modal>
 
                 <Box display="flex" alignItems="center">
-                    <Box height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: textColor, borderRadius: 10, borderColor: 'lightgray' }} />
-                    <Button variant="contained" onClick={() => setShowTextColorPicker(true)}>Choose</Button>
+                    <Box display="flex" justifyContent="center" alignItems="center" height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: textColor, borderRadius: 10, borderColor: 'lightgray' }} >
+                        <Button onClick={() => setShowTextColorPicker(true)} sx={{ color: isInLightColors(textColor) ? 'black' : 'white', width: '100%', height: '100%' }}>Choose</Button>
+                    </Box>
                 </Box>
+                
 
                 {/* Button Color  */}
 
@@ -228,10 +238,11 @@ function PageColors() {
                 </Modal>
 
                 <Box display="flex" alignItems="center">
-                    <Box height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: buttonColor, borderRadius: 10, borderColor: 'lightgray' }} />
-                    <Button variant="contained" onClick={() => setShowButtonColorPicker(true)}>Choose</Button>
+                    <Box display="flex" justifyContent="center" alignItems="center" height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: buttonColor, borderRadius: 10, borderColor: 'lightgray' }} >
+                        <Button onClick={() => setShowButtonColorPicker(true)} sx={{ color: isInLightColors(buttonColor) ? 'black' : 'white', width: '100%', height: '100%' }}>Choose</Button>
+                    </Box>
                 </Box>
-
+                
                 {/* Button Hover  */}
 
                 <h2>Button Hover</h2>
@@ -249,11 +260,12 @@ function PageColors() {
                     </Box>
                 </Modal>
 
-                <Box display="flex" alignItems="center">
-                    <Box height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: buttonHoverColor, borderRadius: 10, borderColor: 'lightgray' }} />
-                    <Button variant="contained" onClick={() => setShowButtonHoverColorPicker(true)}>Choose</Button>
-                </Box>
 
+                <Box display="flex" alignItems="center">
+                    <Box display="flex" justifyContent="center" alignItems="center" height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: buttonHoverColor, borderRadius: 10, borderColor: 'lightgray' }} >
+                        <Button onClick={() => setShowButtonHoverColorPicker(true)} sx={{ color: isInLightColors(buttonHoverColor) ? 'black' : 'white', width: '100%', height: '100%' }}>Choose</Button>
+                    </Box>
+                </Box>
 
                 {/* Button Text Color  */}
 
@@ -273,8 +285,9 @@ function PageColors() {
                 </Modal>
 
                 <Box display="flex" alignItems="center">
-                    <Box height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: buttonTextColor, borderRadius: 10, borderColor: 'lightgray' }} />
-                    <Button variant="contained" onClick={() => setShowButtonTextColorPicker(true)}>Choose</Button>
+                    <Box display="flex" justifyContent="center" alignItems="center" height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: buttonTextColor, borderRadius: 10, borderColor: 'lightgray' }} >
+                        <Button onClick={() => setShowButtonTextColorPicker(true)} sx={{ color: isInLightColors(buttonTextColor) ? 'black' : 'white', width: '100%', height: '100%' }}>Choose</Button>
+                    </Box>
                 </Box>
 
                 {/* Button Link Icon Color  */}
@@ -295,8 +308,9 @@ function PageColors() {
                 </Modal>
 
                 <Box display="flex" alignItems="center">
-                    <Box height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: buttonLinkIconColor, borderRadius: 10, borderColor: 'lightgray' }} />
-                    <Button variant="contained" onClick={() => setShowButtonLinkIconColorPicker(true)}>Choose</Button>
+                    <Box display="flex" justifyContent="center" alignItems="center" height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: buttonLinkIconColor, borderRadius: 10, borderColor: 'lightgray' }} >
+                        <Button onClick={() => setShowButtonLinkIconColorPicker(true)} sx={{ color: isInLightColors(buttonLinkIconColor) ? 'black' : 'white', width: '100%', height: '100%' }}>Choose</Button>
+                    </Box>
                 </Box>
 
                 {/* Social Icons Color  */}
@@ -317,10 +331,11 @@ function PageColors() {
                 </Modal>
 
                 <Box display="flex" alignItems="center">
-                    <Box height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: socialIconsColor, borderRadius: 10, borderColor: 'lightgray' }} />
-                    <Button variant="contained" onClick={() => setShowSocialIconsColor(true)}>Choose</Button>
+                    <Box display="flex" justifyContent="center" alignItems="center" height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: socialIconsColor, borderRadius: 10, borderColor: 'lightgray' }} >
+                        <Button onClick={() => setShowSocialIconsColor(true)} sx={{ color: isInLightColors(socialIconsColor) ? 'black' : 'white', width: '100%', height: '100%' }}>Choose</Button>
+                    </Box>
                 </Box>
-
+         
                 <Box display="flex" justifyContent="center">
                     <Button
                         color="tertiary"
