@@ -35,7 +35,8 @@ function SocialLinkAddPage() {
             });;
 
         }).catch((error) => {
-            console.log(error);
+            alert('Failed to add social icon. Please check for a valid URL and try again.');
+            console.error(error);
             setIsLoading(false);
         });
     };
