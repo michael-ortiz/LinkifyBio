@@ -4,7 +4,7 @@ const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))
 const urlRegex = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/
 const pageIdRegex = /^[a-zA-Z0-9-]*$/
 const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
-const phoneNumberRegex = /^\+?[1-9]\d{1,14}$/;
+const phoneNumberRegex = /^(tel:)?\+?[1-9]\d{1,14}$/;
 
 export function formatUrl(url: string) {
 
@@ -24,7 +24,7 @@ export function formatUrl(url: string) {
         if (url.startsWith("tel:")) {
             return url;
         }
-        
+
         return `tel:${url}`;
     }
     
@@ -56,7 +56,7 @@ export function validateUrlAllowingNull(url: string) {
 
 export function validateUrl(url: string) {
 
-    if (!urlRegex.test(url)) {
+    if (!urlRegex.test(url) && !emailRegex.test(url) && !phoneNumberRegex.test(url)) {
         throw new Error("Url is invalid.");
     }
 }
