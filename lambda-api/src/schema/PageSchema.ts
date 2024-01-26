@@ -48,6 +48,18 @@ const PageSchema = new dynamoose.Schema({
             },
         }],
     },
+    pageColors: {
+        type: Object,
+        schema: {
+            buttonColor: String,
+            buttonHoverColor: String,
+            buttonTextColor: String,
+            buttonLinkIconColor: String,
+            backgroundColor: String,
+            textColor: String,
+            socialIconsColor: String
+        },
+    },
     verified: {
         type: Boolean,
     },

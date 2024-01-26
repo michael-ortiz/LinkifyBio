@@ -203,6 +203,16 @@ app.get('/admin/page/:id/availability', (req, res, next) => __awaiter(void 0, vo
         catchErrors(err, next);
     }
 }));
+app.post('/admin/page/:id/update/colors', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const token = yield (0, Auth_1.validateToken)(req.headers.authorization);
+        const response = yield adminServices.pages.updatePageColors(req.params.id, req.body, token.username);
+        res.json(response);
+    }
+    catch (err) {
+        catchErrors(err, next);
+    }
+}));
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err);

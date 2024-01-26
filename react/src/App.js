@@ -19,6 +19,7 @@ import '@aws-amplify/ui-react/styles.css';
 import PublicMainPage from './pages/public/PublicMainPage';
 
 import config from './congito/AwsExports.json';
+import PageColors from './pages/console/page-settings/PageColors';
 
 Amplify.configure(config);
 
@@ -43,6 +44,7 @@ export default function App() {
                   <Route path="/social/editor" element={<SocialLinkEditorPage />} />
                   <Route path="/social/add" element={<SocialLinkAddPage />} />
                   <Route path="/page/settings" element={<PageSettings />} />
+                  <Route path="/page/colors" element={<PageColors />} />
                   <Route path="/page/create/alias" element={<AliasPage />} />
                   <Route path="/page/create/details" element={<CreatePage />} />
                 </Routes>

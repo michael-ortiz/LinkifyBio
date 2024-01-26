@@ -256,3 +256,16 @@ export async function updatePageid(id, newId) {
 
     return response.json();
 }
+
+export async function updatePageColors(id, colors) {
+    const response = await fetch(`${url}/admin/page/${id}/update/colors`, {
+        method: 'POST',
+        body: JSON.stringify(colors),
+        headers: {
+            'Content-Type': 'application/json',
+            authorization: (await fetchAuthSession()).tokens.accessToken.toString()
+        },
+    });
+
+    return response.json();
+}

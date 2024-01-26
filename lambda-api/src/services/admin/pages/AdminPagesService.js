@@ -35,6 +35,15 @@ class AdminPagesService {
                     imageUrl: request.bioInfo.imageUrl || "",
                     descriptionTitle: request.bioInfo.descriptionTitle,
                 },
+                pageColors: {
+                    buttonColor: "#000000", // Black Color
+                    buttonHoverColor: "#808080", // Dark Gray Color
+                    buttonTextColor: "#ffffff", // White Color
+                    buttonLinkIconColor: "#ffffff", // White Color
+                    backgroundColor: "#ffffff", // White Color
+                    textColor: "#000000", // Black Color
+                    socialIconsColor: "#8f2f00", // Dark Orange Color
+                },
                 links: [],
                 socialMediaLinks: [],
                 createdAt: new Date().toISOString(),
@@ -154,6 +163,23 @@ class AdminPagesService {
             return {
                 imageUrl: `https://${process.env.CDN_DOMAIN_NAME}/${encodeURIComponent(hashedFileName)}`
             };
+        });
+    }
+    updatePageColors(id, colors, owner) {
+        return __awaiter(this, void 0, void 0, function* () {
+            (0, CoreUtils_1.validatePageColors)(colors);
+            const existingPage = yield PageSchema_1.Page.get({ id, owner });
+            if (!existingPage) {
+                throw new Error("Page does not exists. Cannot update colors.");
+            }
+            try {
+                const page = yield PageSchema_1.Page.update({ id, owner }, { pageColors: colors });
+                return page;
+            }
+            catch (error) {
+                console.log(error);
+                throw new Error("Error updating Page info. See logs for more details.");
+            }
         });
     }
 }

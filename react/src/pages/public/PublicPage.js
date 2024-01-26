@@ -6,8 +6,11 @@ import React from 'react';
 import { SocialIcon } from 'react-social-icons/component'
 import 'react-social-icons'
 import { Helmet } from 'react-helmet';
+import { DefaultPageColors } from '../../utils/DefaultColors';
 
 export default class PublicPage extends React.Component {
+
+    defaultColors = DefaultPageColors;
 
     state = {
         bioInfo: {},
@@ -15,6 +18,7 @@ export default class PublicPage extends React.Component {
         socialMediaLinks: [],
         isImageLoaded: false,
         isLoading: true,
+        pageColors: this.defaultColors,
         error: false
     };
 
@@ -24,15 +28,28 @@ export default class PublicPage extends React.Component {
             this.setState({ bioInfo: data.bioInfo });
             this.setState({ links: data.links });
             this.setState({ socialMediaLinks: data.socialMediaLinks });
+
+            if (data.pageColors !== undefined) {
+                this.setState({ pageColors: data.pageColors });
+                this.setBackgroundColor(data.pageColors.backgroundColor)
+            }
+
+            this.setState({ pageColors: data.pageColors ?? this.defaultColors });
             this.setState({ isLoading: false })
             this.setState({ error: false })
         }).catch((error) => {
             this.setState({ error: true })
+            this.setBackgroundColor(this.state.pageColors.backgroundColor)
         });
+
+    }
+
+    setBackgroundColor = (color) => {
+        console.log(color)
+        document.body.style.backgroundColor = color;
     }
 
     render() {
-
 
         if (!this.state.error) {
 
@@ -54,8 +71,8 @@ export default class PublicPage extends React.Component {
                                         sx={{ width: 100, height: 100, display: this.state.isImageLoaded ? 'block' : 'none' }}
                                     />
                                 </center>
-                                <h1>{this.state.bioInfo.name}</h1>
-                                <p>{this.state.bioInfo.descriptionTitle}</p>
+                                <h1 style={{ color: this.state.pageColors.textColor }}>{this.state.bioInfo.name}</h1>
+                                <p style={{ color: this.state.pageColors.textColor }}>{this.state.bioInfo.descriptionTitle}</p>
                             </Box>
 
                             <Box display="flex" justifyContent="center" alignItems="center" marginBottom={4} flexWrap="wrap">
@@ -81,18 +98,18 @@ export default class PublicPage extends React.Component {
                                                 target='_blank'
                                                 sx={{
                                                     width: "100%",
-                                                    backgroundColor: "#000000",
+                                                    backgroundColor: this.state.pageColors.buttonColor,
                                                     display: 'flex',
                                                     alignItems: 'center',
                                                     justifyContent: 'center', // Change this line
                                                     padding: '12px',
                                                     '&:hover': {
-                                                        backgroundColor: "#808080",
+                                                        backgroundColor: this.state.pageColors.buttonHoverColor,
                                                     }
                                                 }}
                                             >
-                                                <SocialIcon url={`${link.url}`} bgColor="transparent" fgColor='white' style={{ height: 30, width: 30 }} />
-                                                <Box style={{ textAlign: 'center', flexGrow: 1, marginRight: 30 }}> 
+                                                <SocialIcon bgColor="transparent" fgColor={this.state.pageColors.buttonLinkIconColor} style={{ height: 30, width: 30 }} />
+                                                <Box style={{ textAlign: 'center', flexGrow: 1, marginRight: 30, color: this.state.pageColors.buttonLinkIconColor }}>
                                                     {link.name}
                                                 </Box>
                                             </Button>
@@ -104,13 +121,23 @@ export default class PublicPage extends React.Component {
                         </Box>
                     </Box>
                     <Box display="flex" justifyContent="center" sx={{ marginTop: 5 }}>
-                        <Button variant="contained" href='https://linkifybio.com' sx={{ color: "#8f2f00" }} color="primary" startIcon={
-                            <img
-                                src={'/logox100.png'}
-                                style={{ height: 20, width: 20, marginRight: -3 }}
-                                draggable="false"
-                                alt='linkifybio'
-                            />}>
+                        <Button variant="filled"
+                            href='https://linkifybio.com'
+                            sx={{
+                                color: "#8f2f00",
+                                backgroundColor: 'white',
+                                '&:hover': {
+                                    backgroundColor: 'gainsboro',
+                                }
+                            }}
+
+                            startIcon={
+                                <img
+                                    src={'/logox100.png'}
+                                    style={{ height: 20, width: 20, marginRight: -3 }}
+                                    draggable="false"
+                                    alt='linkifybio'
+                                />}>
                             Create your LinkifyBio
                         </Button>
                     </Box>

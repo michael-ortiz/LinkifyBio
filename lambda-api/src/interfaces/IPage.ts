@@ -6,8 +6,19 @@ export interface IPage {
     bioInfo: IPageInfo
     links?: IPageLink[],
     socialMediaLinks?: IPageLink[],
+    pageColors: IPageColors,
     verified?: boolean,
     createdAt?: string
+}
+
+export interface IPageColors {
+    buttonColor: string;
+    buttonHoverColor: string;
+    buttonTextColor: string;
+    buttonLinkIconColor: string;
+    backgroundColor: string
+    textColor: string;
+    socialIconsColor: string;
 }
 
 export interface IPageInfo {

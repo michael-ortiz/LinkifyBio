@@ -2,7 +2,7 @@ import { ListItemText, ListItem, List, Box, Container, Divider, Link, Breadcrumb
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../context/GlobalContext';
-import { Link as linksIcon, ArrowBack, Public, Settings, Visibility } from '@mui/icons-material';
+import { Link as linksIcon, ArrowBack, Public, Settings, Visibility, Palette } from '@mui/icons-material';
 import copy from 'copy-to-clipboard';
 import Button from '@mui/material-next/Button';
 import Header from '../../components/Header';
@@ -38,6 +38,13 @@ function ActionsPage() {
             icon: Visibility,
             openNewTab: true
         },
+        {
+            title: "Page Colors",
+            path: "/console/page/colors",
+            icon: Palette,
+            openNewTab: false
+        },
+
         {
             title: "Page Settings",
             path: "/console/page/settings",

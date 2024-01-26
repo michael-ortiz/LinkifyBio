@@ -205,6 +205,16 @@ app.get('/admin/page/:id/availability', async (req: Request, res: Response, next
   }
 });
 
+app.post('/admin/page/:id/update/colors', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const token = await validateToken(req.headers.authorization);
+    const response = await adminServices.pages.updatePageColors(req.params.id, req.body,token.username);
+    res.json(response);
+  } catch (err) {
+    catchErrors(err, next);
+  }
+});
+
 
 // Error handling middleware
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

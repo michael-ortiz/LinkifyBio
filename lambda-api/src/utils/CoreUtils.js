@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateDescription = exports.validateName = exports.validateUrl = exports.validateUrlAllowingNull = exports.validatePageId = exports.formatUrl = void 0;
+exports.validatePageColors = exports.validateDescription = exports.validateName = exports.validateUrl = exports.validateUrlAllowingNull = exports.validatePageId = exports.formatUrl = void 0;
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const urlRegex = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
 const pageIdRegex = /^[a-zA-Z0-9-]*$/;
+const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 function formatUrl(url) {
     if (emailRegex.test(url)) {
         return `mailto:${url}`;
@@ -53,3 +54,15 @@ function validateDescription(descriptionTitle) {
     }
 }
 exports.validateDescription = validateDescription;
+function validatePageColors(colors) {
+    if (!hexColorRegex.test(colors.buttonColor)
+        || !hexColorRegex.test(colors.buttonHoverColor)
+        || !hexColorRegex.test(colors.buttonLinkIconColor)
+        || !hexColorRegex.test(colors.buttonLinkIconColor)
+        || !hexColorRegex.test(colors.backgroundColor)
+        || !hexColorRegex.test(colors.textColor)
+        || !hexColorRegex.test(colors.socialIconsColor)) {
+        throw new Error("Color is invalid.");
+    }
+}
+exports.validatePageColors = validatePageColors;

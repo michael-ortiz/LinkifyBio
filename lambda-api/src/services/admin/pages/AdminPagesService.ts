@@ -4,8 +4,8 @@ import { validateCreatePageRequest, validateUpdatePageInfoRequest } from "../../
 import { S3Client, PutObjectCommand, NotFound } from "@aws-sdk/client-s3";
 import crypto from 'crypto';
 import { Page } from "../../../schema/PageSchema";
-import { IPage, IPageInfo } from "../../../interfaces/IPage";
-import { validatePageId } from "../../../utils/CoreUtils";
+import { IPage, IPageColors, IPageInfo } from "../../../interfaces/IPage";
+import { validatePageColors, validatePageId } from "../../../utils/CoreUtils";
 import { NotFoundException } from "../../../excpetions/Exceptions";
 
 const s3Client = new S3Client({ region: 'us-east-1' });
@@ -30,6 +30,15 @@ export default class AdminPagesService {
                 name: request.bioInfo.name,
                 imageUrl: request.bioInfo.imageUrl || "",
                 descriptionTitle: request.bioInfo.descriptionTitle,
+            },
+            pageColors: {
+                buttonColor: "#000000", // Black Color
+                buttonHoverColor: "#808080", // Dark Gray Color
+                buttonTextColor: "#ffffff", // White Color
+                buttonLinkIconColor: "#ffffff", // White Color
+                backgroundColor: "#ffffff", // White Color
+                textColor: "#000000", // Black Color
+                socialIconsColor: "#8f2f00", // Dark Orange Color
             },
             links: [],
             socialMediaLinks: [],
@@ -171,6 +180,25 @@ export default class AdminPagesService {
         return {
             imageUrl: `https://${process.env.CDN_DOMAIN_NAME}/${encodeURIComponent(hashedFileName)}`
         };
+    }
+
+    async updatePageColors(id: string, colors: IPageColors, owner: string): Promise<IPage> {
+
+        validatePageColors(colors);
+
+        const existingPage = await Page.get({ id, owner });
+
+        if (!existingPage) {
+            throw new Error("Page does not exists. Cannot update colors.");
+        }
+
+        try {
+            const page = await Page.update({ id, owner }, { pageColors: colors });
+            return page;
+        } catch (error) {
+            console.log(error);
+            throw new Error("Error updating Page info. See logs for more details.");
+        }
     }
 
 }

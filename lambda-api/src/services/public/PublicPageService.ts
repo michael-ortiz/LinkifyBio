@@ -37,6 +37,7 @@ export class PublicPageService {
                 bioInfo,
                 links,
                 socialMediaLinks,
+                pageColors: data.pageColors,
                 verified: data.verified,
                 createdAt: data.createdAt,
             }
