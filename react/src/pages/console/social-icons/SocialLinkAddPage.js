@@ -78,6 +78,7 @@ function SocialLinkAddPage() {
 
                     <TextField
                         id="url"
+                        type="url"
                         label="URL"
                         variant="outlined"
                         value={linkUrl}

@@ -82,6 +82,7 @@ function LinkAddPage() {
                     />
 
                     <TextField
+                        type="url"
                         id="url"
                         label="URL"
                         variant="outlined"
