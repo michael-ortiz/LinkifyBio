@@ -108,7 +108,7 @@ export default class PublicPage extends React.Component {
                                                     }
                                                 }}
                                             >
-                                                <SocialIcon bgColor="transparent" fgColor={this.state.pageColors.buttonLinkIconColor} style={{ height: 30, width: 30 }} />
+                                                <SocialIcon url={link.url}  bgColor="transparent" fgColor={this.state.pageColors.buttonLinkIconColor} style={{ height: 30, width: 30 }} />
                                                 <Box style={{ textAlign: 'center', flexGrow: 1, marginRight: 30, color: this.state.pageColors.buttonTextColor }}>
                                                     {link.name}
                                                 </Box>
