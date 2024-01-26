@@ -164,7 +164,7 @@ function PageColors() {
                     <h1>Page Colors</h1>
                 </Box>
 
-
+                <p>Choose colors to customize your LinkifyBio page!</p>
 
                 {/* Background Color  */}
 
