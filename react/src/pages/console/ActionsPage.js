@@ -21,6 +21,12 @@ function ActionsPage() {
 
     const options = [
         {
+            title: "View Page",
+            path: `/${selectedPage.id}`,
+            icon: Visibility,
+            openNewTab: true
+        },
+        {
             title: "Manage Links",
             path: "/console/links/view",
             icon: linksIcon,
@@ -44,13 +50,7 @@ function ActionsPage() {
             path: "/console/page/settings",
             icon: Settings,
             openNewTab: false
-        },
-        {
-            title: "View Page",
-            path: `/${selectedPage.id}`,
-            icon: Visibility,
-            openNewTab: true
-        },
+        }
     ]
 
     return (
