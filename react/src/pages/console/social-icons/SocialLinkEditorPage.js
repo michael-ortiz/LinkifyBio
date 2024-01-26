@@ -7,7 +7,7 @@ import { GlobalContext } from '../../../context/GlobalContext';
 import { Delete, ArrowBack } from '@mui/icons-material';
 import { useConfirm } from "material-ui-confirm";
 import Header from '../../../components/Header';
-import { MainBoxStyle } from '../../../utils/Styles';
+import { MainBoxStyle } from '../../../constants/Styles';
 import CircularProgress from '@mui/material/CircularProgress';
 
 function SocialLinkEditorPage() {

@@ -9,7 +9,7 @@ import Dropzone from 'react-dropzone';
 import AvatarEditor from 'react-avatar-editor';
 import { uploadProfileImage } from '../../../api/admin/AdminApi';
 import Header from '../../../components/Header';
-import { MainBoxStyle } from '../../../utils/Styles';
+import { MainBoxStyle } from '../../../constants/Styles';
 import CircularProgress from '@mui/material/CircularProgress';
 
 function CreatePage() {

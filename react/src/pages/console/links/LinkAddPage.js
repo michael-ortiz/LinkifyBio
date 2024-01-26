@@ -6,7 +6,7 @@ import { getBio, addLink } from '../../../api/admin/AdminApi';
 import { GlobalContext } from '../../../context/GlobalContext';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import Header from '../../../components/Header';
-import { MainBoxStyle } from '../../../utils/Styles';
+import { MainBoxStyle } from '../../../constants/Styles';
 import CircularProgress from '@mui/material/CircularProgress';
 
 function LinkAddPage() {

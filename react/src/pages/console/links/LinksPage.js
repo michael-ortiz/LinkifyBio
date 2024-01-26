@@ -8,7 +8,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { reorderLinks } from '../../../api/admin/AdminApi';
 import { SocialIcon } from 'react-social-icons';
 import Header from '../../../components/Header';
-import { MainBoxStyle } from '../../../utils/Styles';
+import { MainBoxStyle } from '../../../constants/Styles';
 
 function LinksPage() {
 

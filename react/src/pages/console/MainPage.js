@@ -7,7 +7,7 @@ import { Public, Check } from '@mui/icons-material';
 import Button from '@mui/material-next/Button';
 import { withAuthenticator } from '@aws-amplify/ui-react'
 import Header from '../../components/Header';
-import { MainBoxStyle } from '../../utils/Styles';
+import { MainBoxStyle } from '../../constants/Styles';
 import { CircularProgress } from '@mui/material';
 
 function MainPage() {

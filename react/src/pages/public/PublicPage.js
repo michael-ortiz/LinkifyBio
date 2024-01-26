@@ -6,7 +6,7 @@ import React from 'react';
 import { SocialIcon } from 'react-social-icons/component'
 import 'react-social-icons'
 import { Helmet } from 'react-helmet';
-import { DefaultPageColors } from '../../utils/DefaultColors';
+import { DefaultPageColors } from '../../constants/DefaultColors';
 
 export default class PublicPage extends React.Component {
 

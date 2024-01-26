@@ -6,7 +6,7 @@ import { GlobalContext } from '../../../context/GlobalContext';
 import { ArrowBack, Check, Close } from '@mui/icons-material';
 import { checkIfAliasIsAvailable } from '../../../api/admin/AdminApi';
 import Header from '../../../components/Header';
-import { MainBoxStyle } from '../../../utils/Styles';
+import { MainBoxStyle } from '../../../constants/Styles';
 
 function AliasPage() {
 

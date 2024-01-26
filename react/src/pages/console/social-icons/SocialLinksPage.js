@@ -9,7 +9,7 @@ import { reorderSocialLinks } from '../../../api/admin/AdminApi';
 import { SocialIcon } from 'react-social-icons/component'
 import 'react-social-icons'
 import Header from '../../../components/Header';
-import { MainBoxStyle } from '../../../utils/Styles';
+import { MainBoxStyle } from '../../../constants/Styles';
 
 function SocialLinksPage() {
 

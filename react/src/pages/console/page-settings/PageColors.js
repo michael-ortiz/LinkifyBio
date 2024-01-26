@@ -5,11 +5,11 @@ import Button from '@mui/material-next/Button';
 import { GlobalContext } from '../../../context/GlobalContext';
 import { ArrowBack } from '@mui/icons-material';
 import Header from '../../../components/Header';
-import { MainBoxStyle } from '../../../utils/Styles';
+import { MainBoxStyle } from '../../../constants/Styles';
 import CircularProgress from '@mui/material/CircularProgress';
-import { DefaultPageColors } from '../../../utils/DefaultColors';
+import { DefaultPageColors } from '../../../constants/DefaultColors';
 import { CirclePicker } from 'react-color';
-import { ColorPickerStyle } from '../../../utils/Styles';
+import { ColorPickerStyle } from '../../../constants/Styles';
 import { updatePageColors } from '../../../api/admin/AdminApi';
 
 function PageColors() {

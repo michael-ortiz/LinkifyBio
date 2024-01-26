@@ -6,7 +6,7 @@ import { Link as linksIcon, ArrowBack, Public, Settings, Visibility, Palette } f
 import copy from 'copy-to-clipboard';
 import Button from '@mui/material-next/Button';
 import Header from '../../components/Header';
-import { MainBoxStyle } from '../../utils/Styles';
+import { MainBoxStyle } from '../../constants/Styles';
 
 function ActionsPage() {
 
