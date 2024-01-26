@@ -105,7 +105,7 @@ function PageSettings() {
     const handleEditPageAlias = () => {
 
         setEditingPageId(editingPageId ? false : true);
-        
+
     };
 
     const handleSubmitEditPageAlias = async () => {
@@ -126,7 +126,7 @@ function PageSettings() {
                 }
             });
 
-            await updatePageid(state.selectedPage.id, pageId).then((data) =>  {
+            await updatePageid(state.selectedPage.id, pageId).then((data) => {
                 dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
                 setEditingPageId(editingPageId ? false : true);
                 setIsLoading(false);
@@ -357,7 +357,7 @@ function PageSettings() {
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
-                                    { shouldShowAliasCheck() && isAvailable ? <Check sx={{ color: 'green' }} /> : shouldShowAliasCheck() ? <Close sx={{ color: 'red' }} /> : null}
+                                    {shouldShowAliasCheck() && isAvailable ? <Check sx={{ color: 'green' }} /> : shouldShowAliasCheck() ? <Close sx={{ color: 'red' }} /> : null}
                                 </InputAdornment>
                             ),
                         }}
@@ -368,7 +368,7 @@ function PageSettings() {
                         }}
                         style={{ flex: 1, marginRight: '10px' }}
                     />
-                    <Button variant="contained" color="primary" onClick={editingPageId ?  handleSubmitEditPageAlias : handleEditPageAlias }>{editingPageId ? "Save" : "Edit"}</Button>
+                    <Button variant="contained" color="primary" onClick={editingPageId ? handleSubmitEditPageAlias : handleEditPageAlias}>{editingPageId ? "Save" : "Edit"}</Button>
                 </Box>
                 <h2>Details</h2>
 
@@ -399,19 +399,21 @@ function PageSettings() {
                         style={{ width: '100%', marginBottom: '20px' }}
                     />
 
-                    <Button
-                        color="tertiary"
-                        size="large"
-                        variant="filled"
-                        sx={{
-                            width: "100%", textAlign: "center", backgroundColor: "#000000", '&:hover': {
-                                backgroundColor: "#808080", // Change this to your desired highlight color
-                            }
-                        }}
-                        onClick={handleSubmit}
-                    >
-                        Save
-                    </Button>
+                    <Box sx={{ marginBottom: 5, width: '100%' }}>
+                        <Button
+                            color="tertiary"
+                            size="large"
+                            variant="filled"
+                            sx={{
+                                width: "100%", textAlign: "center", backgroundColor: "#000000", '&:hover': {
+                                    backgroundColor: "#808080", // Change this to your desired highlight color
+                                }
+                            }}
+                            onClick={handleSubmit}
+                        >
+                            Save
+                        </Button>
+                    </Box>
                 </form>
             </Box>
         </Container>
