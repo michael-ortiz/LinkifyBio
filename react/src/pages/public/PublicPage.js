@@ -39,7 +39,7 @@ export default class PublicPage extends React.Component {
             return (
                 <Container maxWidth="sm">
                     <Helmet>
-                        <title>{`${this.state.bioInfo.name === undefined ? "Loading" : this.state.bioInfo.name } - LinkifyBio`}</title>
+                        <title>{`${this.state.bioInfo.name === undefined ? "Loading" : this.state.bioInfo.name} - LinkifyBio`}</title>
                     </Helmet>
                     <Box display="flex" justifyContent="center" alignItems="center">
                         <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" gap={1} width="100%">
@@ -57,6 +57,17 @@ export default class PublicPage extends React.Component {
                                 <h1>{this.state.bioInfo.name}</h1>
                                 <p>{this.state.bioInfo.descriptionTitle}</p>
                             </Box>
+
+                            <Box display="flex" justifyContent="center" alignItems="center" marginBottom={4} flexWrap="wrap">
+                                {
+                                    this.state.socialMediaLinks.map((link, index) => (
+                                        <Box key={index} margin={1}>
+                                            <SocialIcon url={link.url} bgColor="transparent" fgColor='#8f2f00' />
+                                        </Box>
+                                    ))
+                                }
+                            </Box>
+
                             {this.state.links ?
                                 this.state.links.map((link, index) => (
                                     <Box key={index} width="100%">
@@ -67,6 +78,7 @@ export default class PublicPage extends React.Component {
                                                 size="large"
                                                 variant="filled"
                                                 href={link.url}
+                                                target='_blank'
                                                 sx={{
                                                     width: "100%",
                                                     backgroundColor: "#000000",
@@ -79,8 +91,8 @@ export default class PublicPage extends React.Component {
                                                     }
                                                 }}
                                             >
-                                                <SocialIcon url={`${link.url}`} bgColor="transparent" fgColor='white' style={{ height: 30, width: 30 }} /> {/* Add marginRight */}
-                                                <Box style={{ textAlign: 'center', flexGrow: 1, marginRight: 30 }}> {/* Remove margin and add flexGrow */}
+                                                <SocialIcon url={`${link.url}`} bgColor="transparent" fgColor='white' style={{ height: 30, width: 30 }} />
+                                                <Box style={{ textAlign: 'center', flexGrow: 1, marginRight: 30 }}> 
                                                     {link.name}
                                                 </Box>
                                             </Button>
@@ -91,24 +103,15 @@ export default class PublicPage extends React.Component {
                             }
                         </Box>
                     </Box>
-                    <Box display="flex" justifyContent="center" alignItems="center" marginBottom={4} marginTop={4} flexWrap="wrap">
-                        {
-                            this.state.socialMediaLinks.map((link, index) => (
-                                <Box key={index} margin={1}>
-                                    <SocialIcon url={link.url} bgColor="transparent" fgColor='#1DA1F2' />
-                                </Box>
-                            ))
-                        }
-                    </Box>
-                    <Box display="flex" justifyContent="center">
-                        <Button variant="contained" href='https://linkifybio.com' color="primary" startIcon={
+                    <Box display="flex" justifyContent="center" sx={{ marginTop: 5 }}>
+                        <Button variant="contained" href='https://linkifybio.com' sx={{ color: "#8f2f00" }} color="primary" startIcon={
                             <img
                                 src={'/logox100.png'}
                                 style={{ height: 20, width: 20, marginRight: -3 }}
                                 draggable="false"
                                 alt='linkifybio'
                             />}>
-                            LinkifyBio
+                            Create your LinkifyBio
                         </Button>
                     </Box>
                 </Container>
@@ -122,15 +125,16 @@ export default class PublicPage extends React.Component {
                         <Typography variant="h2" align="center">Oops!</Typography>
                         <Typography variant="h2" align="center">Page Not Found</Typography>
 
-                        <Button variant="contained" href='https://linkifybio.com' sx={{ marginTop: 10 }} color="primary" startIcon={
+                        <Button variant="contained" href='https://linkifybio.com' sx={{ marginTop: 10, color: "#8f2f00" }} color="primary" startIcon={
                             <img
                                 src={'/logox100.png'}
                                 style={{ height: 20, width: 20, marginRight: -3 }}
                                 draggable="false"
                                 alt='linkifybio'
                             />}>
-                            Create a LinkifyBio page
+                            Create your LinkifyBio
                         </Button>
+
                     </Box>
                 </Container>
             )

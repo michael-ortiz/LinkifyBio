@@ -15,7 +15,7 @@ function HeaderPublic() {
                     onClick={() => window.location.reload()}
                 />
 
-                <h3 style={{ userSelect: 'none' }}>LinkifyBio</h3>
+                <h3 style={{ userSelect: 'none', color: '#8f2f00' }}>LinkifyBio</h3>
             </Box>
         </Box>
     );

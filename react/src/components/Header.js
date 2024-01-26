@@ -54,7 +54,7 @@ function Header() {
                     onClick={() => navigate('/console')}
                 />
 
-                <h3 style={{ userSelect: 'none' }}>LinkifyBio</h3>
+                <h3 style={{ userSelect: 'none', color: '#8f2f00' }}>LinkifyBio</h3>
             </Box>
 
             <Dialog open={openSettings} onClose={() => setOpenSettings(false)}>

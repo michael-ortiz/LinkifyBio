@@ -23,22 +23,26 @@ function ActionsPage() {
         {
             title: "Manage Links",
             path: "/console/links/view",
-            icon: linksIcon
+            icon: linksIcon,
+            openNewTab: false
         },
         {
             title: "Manage Social Icons Links",
             path: "/console/social/view",
-            icon: Public
+            icon: Public,
+            openNewTab: false
         },
         {
             title: "View Page",
             path: `/${selectedPage.id}`,
-            icon: Visibility
+            icon: Visibility,
+            openNewTab: true
         },
         {
             title: "Page Settings",
             path: "/console/page/settings",
-            icon: Settings
+            icon: Settings,
+            openNewTab: false
         }
     ]
 
@@ -94,22 +98,23 @@ function ActionsPage() {
                         {options.map((selectOption, index) => (
 
                             <React.Fragment key={index}>
-                                <ListItem
-                                    sx={{
-                                        width: '100%',
-                                        '&:hover': {
-                                            backgroundColor: 'action.hover',
-                                        }
-                                    }}
-                                    onClick={() => navigate(`${selectOption.path}`)}
-                                >
-                                    <ListItemIcon>
-                                        <selectOption.icon />
-                                    </ListItemIcon>
+                                <a href={selectOption.path} target={selectOption.openNewTab ? "_blank" : ""} rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'black' }}>
+                                    <ListItem
+                                        sx={{
+                                            width: '100%',
+                                            '&:hover': {
+                                                backgroundColor: 'action.hover',
+                                            }
+                                        }}
+                                    >
+                                        <ListItemIcon>
+                                            <selectOption.icon />
+                                        </ListItemIcon>
 
-                                    <ListItemText primary={selectOption.title} />
+                                        <ListItemText primary={selectOption.title} />
 
-                                </ListItem>
+                                    </ListItem>
+                                </a>
                                 <Divider />
                             </React.Fragment>
                         ))}
