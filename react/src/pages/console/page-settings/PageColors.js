@@ -29,7 +29,6 @@ function PageColors() {
     const [buttonLinkIconColor, setButtonLinkIconColor] = React.useState(pageColors.buttonLinkIconColor || DefaultPageColors.buttonLinkIconColor);
     const [socialIconsColor, setSocialIconsColor] = React.useState(pageColors.socialIconsColor || DefaultPageColors.socialIconsColor);
 
-
     const [showBackgroundColorPicker, setShowBackgroundColorPicker] = React.useState(false);
     const [showTextColorPicker, setShowTextColorPicker] = React.useState(false);
     const [showButtonColorPicker, setShowButtonColorPicker] = React.useState(false);
@@ -40,9 +39,7 @@ function PageColors() {
 
     const isInLightColors = (color) => {
 
-        console.log(color);
         return color === '#ffffff' || color === '#f5f5f5'  || color === '#ffeb3b';
-
     }
 
     const defaultPickerColors = [
