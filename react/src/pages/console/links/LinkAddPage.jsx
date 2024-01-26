@@ -33,6 +33,10 @@ function LinkAddPage() {
                 navigate(`/console/links/view`)
             });
 
+        }).catch((error) => {
+            alert('Failed to add link. Please check for a valid name and URL and try again.');
+            console.error(error);
+            setIsLoading(false);
         });
     };
 
