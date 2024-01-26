@@ -73,11 +73,11 @@ function Header() {
             </Dialog>
 
             <Box sx={{ marginTop: 2, alignItems: 'right' }}>
-                <Button variant="outlined" sx={{color: '#8f2f00', borderColor: '#8f2f00'}} onClick={() => signOut()}>Sign Out</Button>
+                <Button variant="outlined" sx={{ color: '#8f2f00', borderColor: '#8f2f00' }} onClick={() => signOut()}>Sign Out</Button>
 
                 {!isFederated &&
                     <IconButton onClick={() => setOpenSettings(true)}>
-                        <Settings />
+                        <Settings sx={{ color: '#8f2f00' }} />
                     </IconButton>
                 }
             </Box>

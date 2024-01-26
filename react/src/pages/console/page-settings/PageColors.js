@@ -321,19 +321,22 @@ function PageColors() {
                     <Button variant="contained" onClick={() => setShowSocialIconsColor(true)}>Choose</Button>
                 </Box>
 
-                <Button
-                    color="tertiary"
-                    size="large"
-                    variant="filled"
-                    sx={{
-                        marginTop: 5, width: "100%", textAlign: "center", backgroundColor: "#000000", '&:hover': {
-                            backgroundColor: "#808080",
-                        }
-                    }}
-                    onClick={handleSubmit}
-                >
-                    Save
-                </Button>
+                <Box display="flex" justifyContent="center">
+                    <Button
+                        color="tertiary"
+                        size="large"
+                        variant="filled"
+                        sx={{
+                            marginTop: 5, marginBottom: 5, width: "100%", textAlign: "center", backgroundColor: "#000000", '&:hover': {
+                                backgroundColor: "#808080",
+                            }
+                        }}
+                        onClick={handleSubmit}
+                    >
+                        Save
+                    </Button>
+
+                </Box>
 
             </Box>
         </Container>
