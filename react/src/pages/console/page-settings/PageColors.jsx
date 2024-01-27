@@ -7,10 +7,11 @@ import { ArrowBack } from '@mui/icons-material';
 import Header from '../../../components/Header';
 import { MainBoxStyle } from '../../../constants/Styles';
 import CircularProgress from '@mui/material/CircularProgress';
-import { DefaultPageColors } from '../../../constants/DefaultColors';
+import { ColorPickerState, DefaultPageColors } from '../../../constants/DefaultColors';
 import { CirclePicker } from 'react-color';
 import { ColorPickerStyle } from '../../../constants/Styles';
 import { updatePageColors } from '../../../api/admin/AdminApi';
+import { DefaultColorPickerColors } from '../../../constants/Colors';
 
 function PageColors() {
 
@@ -20,69 +21,15 @@ function PageColors() {
 
     const pageColors = state.selectedPage.pageColors || {};
 
+    console.log(pageColors);
+
     const [isLoading, setIsLoading] = React.useState(false);
-    const [backgroundColor, setBackgroundColor] = React.useState(pageColors.backgroundColor || DefaultPageColors.backgroundColor);
-    const [textColor, setTextColor] = React.useState(pageColors.textColor || DefaultPageColors.textColor);
-    const [buttonColor, setButtonColor] = React.useState(pageColors.buttonColor || "#000000");
-    const [buttonHoverColor, setButtonHoverColor] = React.useState(pageColors.buttonHoverColor || DefaultPageColors.buttonHoverColor);
-    const [buttonTextColor, setButtonTextColor] = React.useState(pageColors.buttonTextColor || DefaultPageColors.buttonTextColor);
-    const [buttonLinkIconColor, setButtonLinkIconColor] = React.useState(pageColors.buttonLinkIconColor || DefaultPageColors.buttonLinkIconColor);
-    const [socialIconsColor, setSocialIconsColor] = React.useState(pageColors.socialIconsColor || DefaultPageColors.socialIconsColor);
-
-    const [showBackgroundColorPicker, setShowBackgroundColorPicker] = React.useState(false);
-    const [showTextColorPicker, setShowTextColorPicker] = React.useState(false);
-    const [showButtonColorPicker, setShowButtonColorPicker] = React.useState(false);
-    const [showButtonHoverColorPicker, setShowButtonHoverColorPicker] = React.useState(false);
-    const [showButtonTextColorPicker, setShowButtonTextColorPicker] = React.useState(false);
-    const [showButtonLinkIconColorPicker, setShowButtonLinkIconColorPicker] = React.useState(false);
-    const [showSocialIconsColor, setShowSocialIconsColor] = React.useState(false);
-
-    const isInLightColors = (color) => {
-
-        return color === '#ffffff' || color === '#f5f5f5'  || color === '#ffeb3b';
-    }
-
-    const defaultPickerColors = [
-        "#f44336",
-        "#e91e63",
-        "#9c27b0",
-        "#673ab7",
-        "#3f51b5",
-        "#2196f3",
-        "#03a9f4",
-        "#00bcd4",
-        "#009688",
-        "#4caf50",
-        "#8bc34a",
-        "#cddc39",
-        "#ffeb3b",
-        "#ffc107",
-        "#ff9800",
-        "#ff5722",
-        "#795548",
-        "#607d8b",
-        '#ffffff',  // White
-        '#f5f5f5', // Light Gray
-        '#a9a9a9', // Dark Gray
-        '#808080', // Gray
-        '#696969', // Dim Gray
-        '#000000', // Black
-    ]
-
+    const [colors, setColors] = React.useState(pageColors || DefaultPageColors);
+    const [showColorPicker, setShowColorPicker] = React.useState(ColorPickerState)
 
     const handleSubmit = () => {
 
         setIsLoading(true);
-
-        const colors = {
-            backgroundColor,
-            textColor,
-            buttonColor,
-            buttonHoverColor,
-            buttonTextColor,
-            buttonLinkIconColor,
-            socialIconsColor
-        }
 
         updatePageColors(state.selectedPage.id, colors).then((data) => {
 
@@ -98,39 +45,48 @@ function PageColors() {
 
     }
 
-    const buttonColorChange = (color) => {
-        setButtonColor(color.hex)
-        setShowButtonColorPicker(false);
+    const colorsToPick = [
+        {
+            name: 'Background Color',
+            type: 'backgroundColor',
+        },
+        {
+            name: 'Text Color',
+            type: 'textColor',
+        },
+        {
+            name: 'Button Color',
+            type: 'buttonColor',
+        },
+        {
+            name: 'Button Hover Color',
+            type: 'buttonHoverColor',
+        },
+        {
+            name: 'Button Text Color',
+            type: 'buttonTextColor',
+        },
+        {
+            name: 'Button Link Icon Color',
+            type: 'buttonLinkIconColor',
+        },
+        {
+            name: 'Social Icons Color',
+            type: 'socialIconsColor',
+        }
+    ]
+
+    const toggleColorPicker = (type, shouldShow) => {
+        setShowColorPicker({ ...showColorPicker, [type]: shouldShow })
     }
 
-    const buttonHoverColorChange = (color) => {
-        setButtonHoverColor(color.hex)
-        setShowButtonHoverColorPicker(false);
+    const changeColor = (type, hex) => {
+        setColors({ ...colors, [type]: hex });
+        toggleColorPicker(type, false);
     }
 
-    const buttonTextColorChange = (color) => {
-        setButtonTextColor(color.hex)
-        setShowButtonTextColorPicker(false);
-    }
-
-    const buttonLinkIconColorChange = (color) => {
-        setButtonLinkIconColor(color.hex)
-        setShowButtonLinkIconColorPicker(false);
-    }
-
-    const backgroundColorChange = (color) => {
-        setBackgroundColor(color.hex)
-        setShowBackgroundColorPicker(false);
-    }
-
-    const textColorChange = (color) => {
-        setTextColor(color.hex)
-        setShowTextColorPicker(false);
-    }
-
-    const socialIconsColorChange = (color) => {
-        setSocialIconsColor(color.hex)
-        setShowSocialIconsColor(false);
+    const isInLightColors = (color) => {
+        return color === '#ffffff' || color === '#f5f5f5' || color === '#ffeb3b';
     }
 
     if (isLoading) {
@@ -170,169 +126,36 @@ function PageColors() {
 
                 <p>Choose colors to customize your LinkifyBio page!</p>
 
-                {/* Background Color  */}
+                {
+                    colorsToPick.map((item, index) => (
 
-                <h2>Background Color</h2>
+                        <React.Fragment key={index}>
 
-                <Modal
-                    open={showBackgroundColorPicker}
-                    onClose={() => setShowBackgroundColorPicker(false)}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Box sx={ColorPickerStyle}>
-                        <center>
-                            <CirclePicker colors={defaultPickerColors} onChange={backgroundColorChange} />
-                        </center>
-                    </Box>
-                </Modal>
+                            <h2>{item.name}</h2>
 
-                <Box display="flex" alignItems="center">
-                    <Box display="flex" justifyContent="center" alignItems="center" height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: backgroundColor, borderRadius: 10, borderColor: 'lightgray' }} >
-                        <Button onClick={() => setShowBackgroundColorPicker(true)} sx={{ color: isInLightColors(backgroundColor) ? 'black' : 'white', width: '100%', height: '100%' }}>Choose</Button>
-                    </Box>
-                </Box>
+                            <Modal
+                                open={showColorPicker[item.type]}
+                                onClose={() => toggleColorPicker(item.type, false)}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                            >
+                                <Box sx={ColorPickerStyle}>
+                                    <center>
+                                        <CirclePicker colors={DefaultColorPickerColors} onChange={(e) => changeColor(item.type, e.hex)} />
+                                    </center>
+                                </Box>
+                            </Modal>
 
-                {/* Text Color  */}
+                            <Box display="flex" alignItems="center">
+                                <Box display="flex" justifyContent="center" alignItems="center" height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: colors[item.type], borderRadius: 10, borderColor: 'lightgray' }} >
+                                    <Button onClick={() => toggleColorPicker(item.type, true)} sx={{ color: isInLightColors(colors[item.type]) ? 'black' : 'white', width: '100%', height: '100%' }}>Choose</Button>
+                                </Box>
+                            </Box>
 
-                <h2>Text Color</h2>
+                        </React.Fragment>
+                    ))
+                }
 
-                <Modal
-                    open={showTextColorPicker}
-                    onClose={() => setShowTextColorPicker(false)}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Box sx={ColorPickerStyle}>
-                        <center>
-                            <CirclePicker colors={defaultPickerColors} onChange={textColorChange} />
-                        </center>
-                    </Box>
-                </Modal>
-
-                <Box display="flex" alignItems="center">
-                    <Box display="flex" justifyContent="center" alignItems="center" height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: textColor, borderRadius: 10, borderColor: 'lightgray' }} >
-                        <Button onClick={() => setShowTextColorPicker(true)} sx={{ color: isInLightColors(textColor) ? 'black' : 'white', width: '100%', height: '100%' }}>Choose</Button>
-                    </Box>
-                </Box>
-                
-
-                {/* Button Color  */}
-
-                <h2>Button Color</h2>
-
-                <Modal
-                    open={showButtonColorPicker}
-                    onClose={() => setShowButtonColorPicker(false)}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Box sx={ColorPickerStyle}>
-                        <center>
-                            <CirclePicker colors={defaultPickerColors} onChange={buttonColorChange} />
-                        </center>
-                    </Box>
-                </Modal>
-
-                <Box display="flex" alignItems="center">
-                    <Box display="flex" justifyContent="center" alignItems="center" height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: buttonColor, borderRadius: 10, borderColor: 'lightgray' }} >
-                        <Button onClick={() => setShowButtonColorPicker(true)} sx={{ color: isInLightColors(buttonColor) ? 'black' : 'white', width: '100%', height: '100%' }}>Choose</Button>
-                    </Box>
-                </Box>
-                
-                {/* Button Hover  */}
-
-                <h2>Button Hover</h2>
-
-                <Modal
-                    open={showButtonHoverColorPicker}
-                    onClose={() => setShowButtonHoverColorPicker(false)}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Box sx={ColorPickerStyle}>
-                        <center>
-                            <CirclePicker colors={defaultPickerColors} onChange={buttonHoverColorChange} />
-                        </center>
-                    </Box>
-                </Modal>
-
-
-                <Box display="flex" alignItems="center">
-                    <Box display="flex" justifyContent="center" alignItems="center" height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: buttonHoverColor, borderRadius: 10, borderColor: 'lightgray' }} >
-                        <Button onClick={() => setShowButtonHoverColorPicker(true)} sx={{ color: isInLightColors(buttonHoverColor) ? 'black' : 'white', width: '100%', height: '100%' }}>Choose</Button>
-                    </Box>
-                </Box>
-
-                {/* Button Text Color  */}
-
-                <h2>Button Text Color</h2>
-
-                <Modal
-                    open={showButtonTextColorPicker}
-                    onClose={() => setShowButtonTextColorPicker(false)}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Box sx={ColorPickerStyle}>
-                        <center>
-                            <CirclePicker colors={defaultPickerColors} onChange={buttonTextColorChange} />
-                        </center>
-                    </Box>
-                </Modal>
-
-                <Box display="flex" alignItems="center">
-                    <Box display="flex" justifyContent="center" alignItems="center" height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: buttonTextColor, borderRadius: 10, borderColor: 'lightgray' }} >
-                        <Button onClick={() => setShowButtonTextColorPicker(true)} sx={{ color: isInLightColors(buttonTextColor) ? 'black' : 'white', width: '100%', height: '100%' }}>Choose</Button>
-                    </Box>
-                </Box>
-
-                {/* Button Link Icon Color  */}
-
-                <h2>Button Link Icon Color</h2>
-
-                <Modal
-                    open={showButtonLinkIconColorPicker}
-                    onClose={() => setShowButtonLinkIconColorPicker(false)}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Box sx={ColorPickerStyle}>
-                        <center>
-                            <CirclePicker colors={defaultPickerColors} onChange={buttonLinkIconColorChange} />
-                        </center>
-                    </Box>
-                </Modal>
-
-                <Box display="flex" alignItems="center">
-                    <Box display="flex" justifyContent="center" alignItems="center" height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: buttonLinkIconColor, borderRadius: 10, borderColor: 'lightgray' }} >
-                        <Button onClick={() => setShowButtonLinkIconColorPicker(true)} sx={{ color: isInLightColors(buttonLinkIconColor) ? 'black' : 'white', width: '100%', height: '100%' }}>Choose</Button>
-                    </Box>
-                </Box>
-
-                {/* Social Icons Color  */}
-
-                <h2>Social Icons Color</h2>
-
-                <Modal
-                    open={showSocialIconsColor}
-                    onClose={() => setShowSocialIconsColor(false)}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Box sx={ColorPickerStyle}>
-                        <center>
-                            <CirclePicker colors={defaultPickerColors} onChange={socialIconsColorChange} />
-                        </center>
-                    </Box>
-                </Modal>
-
-                <Box display="flex" alignItems="center">
-                    <Box display="flex" justifyContent="center" alignItems="center" height={50} width={'100%'} border={1} marginRight={2} sx={{ backgroundColor: socialIconsColor, borderRadius: 10, borderColor: 'lightgray' }} >
-                        <Button onClick={() => setShowSocialIconsColor(true)} sx={{ color: isInLightColors(socialIconsColor) ? 'black' : 'white', width: '100%', height: '100%' }}>Choose</Button>
-                    </Box>
-                </Box>
-         
                 <Box display="flex" justifyContent="center">
                     <Button
                         color="tertiary"
