@@ -80,8 +80,8 @@ resource "aws_cognito_user_pool_client" "client" {
   allowed_oauth_flows  = ["code", "implicit"]
   allowed_oauth_scopes = ["email", "openid"]
 
-  callback_urls = ["https://linkifybio.com/console/", "http://localhost:3000/console/"]
-  logout_urls   = ["https://linkifybio.com/", "http://localhost:3000/"]
+  callback_urls = ["https://linkifybio.com/console/", "http://localhost:3000/console/", "http://localhost:5173/console/"]
+  logout_urls   = ["https://linkifybio.com/", "http://localhost:3000/", "http://localhost:5173/"]
 
   allowed_oauth_flows_user_pool_client = true
   generate_secret                      = false

@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import { Helmet } from 'react-helmet';
 
-export default function MainPage() {
+export default function PublicMainPage() {
 
     const navigate = useNavigate();
 
