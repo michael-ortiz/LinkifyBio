@@ -1,7 +1,6 @@
 import LinksPage from './pages/console/links/LinksPage';
 import ActionsPage from './pages/console/ActionsPage';
 import LinkEditorPage from './pages/console/links/LinkEditorPage';
-import MainPage from './pages/console/MainPage';
 import PublicPage from './pages/public/PublicPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { GlobalProvider } from './context/GlobalContext';
@@ -16,10 +15,11 @@ import AliasPage from './pages/console/create-page/AliasPage';
 import { Authenticator } from '@aws-amplify/ui-react';
 import { Amplify } from 'aws-amplify';
 import '@aws-amplify/ui-react/styles.css';
-import PublicMainPage from './pages/public/PublicMainPage';
 
 import config from './congito/AwsExports.json';
 import PageColors from './pages/console/page-settings/PageColors';
+import PublicMainPage from './pages/public/PublicMainPage';
+import MainPage from './pages/console/MainPage';
 
 Amplify.configure(config);
 
