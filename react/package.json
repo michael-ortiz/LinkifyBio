@@ -11,9 +11,6 @@
     "@fontsource/roboto": "^5.0.8",
     "@mui/icons-material": "^5.15.4",
     "@mui/material-next": "^6.0.0-alpha.117",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
     "aws-amplify": "^6.0.12",
     "copy-to-clipboard": "^3.3.3",
     "material-ui-confirm": "^3.0.9",
@@ -25,10 +22,8 @@
     "react-dropzone": "^14.2.3",
     "react-helmet": "^6.1.0",
     "react-router-dom": "^6.21.2",
-    "react-scripts": "5.0.1",
     "react-social-icons": "^6.7.0",
-    "uuid": "^8.3.2",
-    "web-vitals": "^2.1.4"
+    "uuid": "^8.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
