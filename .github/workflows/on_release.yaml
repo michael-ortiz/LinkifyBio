@@ -80,6 +80,6 @@ jobs:
         run: npm run build
 
       - name: Deploy Application
-        run: aws s3 sync --delete ./build s3://linkifybio.com/
+        run: aws s3 sync --delete ./dist s3://linkifybio.com/
 
     
