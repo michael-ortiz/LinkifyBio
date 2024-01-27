@@ -8,6 +8,7 @@ import { Hub } from 'aws-amplify/utils';
 import { getCurrentUser } from '@aws-amplify/auth';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
+import { Helmet } from 'react-helmet';
 
 export default function PublicMainPage() {
 
@@ -73,6 +74,12 @@ export default function PublicMainPage() {
 
     return (
         <Container maxWidth="false" sx={{ height: '100vh', width: '100vw' }}>
+
+            <Helmet>
+                <title>LinkifyBio: A Public Page for your Links in Bio</title>
+                <meta name="description" content="Create a centralized public page for all your social media links. Share this link in your bio and let your followers access all your platforms from one place."/>
+            </Helmet>
+
             <HeaderPublic />
 
             <Box display="flex" justifyContent="center" alignItems="center" marginTop={[2, 10]}>
