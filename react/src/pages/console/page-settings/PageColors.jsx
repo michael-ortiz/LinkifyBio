@@ -19,12 +19,10 @@ function PageColors() {
 
     const { state, dispatch } = useContext(GlobalContext);
 
-    const pageColors = state.selectedPage.pageColors || {};
-
-    console.log(pageColors);
+    const statePageColors = state.selectedPage.pageColors || {};
 
     const [isLoading, setIsLoading] = React.useState(false);
-    const [colors, setColors] = React.useState(pageColors || DefaultPageColors);
+    const [colors, setColors] = React.useState(statePageColors || DefaultPageColors);
     const [showColorPicker, setShowColorPicker] = React.useState(ColorPickerState)
 
     const handleSubmit = () => {
@@ -180,4 +178,3 @@ function PageColors() {
 }
 
 export default PageColors;
-
