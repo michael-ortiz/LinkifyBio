@@ -10,7 +10,7 @@ import Header from '../../components/Header';
 import { MainBoxStyle } from '../../constants/Styles';
 import { CircularProgress } from '@mui/material';
 
-function MainPage() {
+function ConsoleMainPage() {
     const navigate = useNavigate();
 
     const [isLoading, setIsLoading] = React.useState(false);
@@ -109,5 +109,5 @@ function MainPage() {
     );
 }
 
-export default withAuthenticator(MainPage);
+export default withAuthenticator(ConsoleMainPage);
 

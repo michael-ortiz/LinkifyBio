@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import { Helmet } from 'react-helmet';
 
-export default function PublicMainPage() {
+export default function MainPage() {
 
     const navigate = useNavigate();
 
@@ -100,7 +100,7 @@ export default function PublicMainPage() {
                         }}
                         onClick={handleAuthClick}
                     >
-                        {isSignedIn ? "Go to Console" : "Log In or Sign Up"}
+                        {isSignedIn ? "Go to Console" : "Log In or Create Account"}
                     </Button>}
 
                     {!showAuth &&

@@ -1,7 +1,7 @@
 import LinksPage from './pages/console/links/LinksPage';
 import ActionsPage from './pages/console/ActionsPage';
 import LinkEditorPage from './pages/console/links/LinkEditorPage';
-import MainPage from './pages/console/MainPage';
+import ConsoleMainPage from './pages/console/ConsoleMainPage';
 import PublicPage from './pages/public/PublicPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { GlobalProvider } from './context/GlobalContext';
@@ -16,7 +16,7 @@ import AliasPage from './pages/console/create-page/AliasPage';
 import { Authenticator } from '@aws-amplify/ui-react';
 import { Amplify } from 'aws-amplify';
 import '@aws-amplify/ui-react/styles.css';
-import PublicMainPage from './pages/public/PublicMainPage';
+import MainPage from './pages/public/MainPage';
 
 import config from './congito/AwsExports.json';
 import PageColors from './pages/console/page-settings/PageColors';
@@ -28,14 +28,14 @@ export default function App() {
 
     <Router>
       <Routes>
-        <Route path="/" element={<PublicMainPage />} />
+        <Route path="/" element={<MainPage />} />
         <Route path="/:id" element={<PublicPage />} />
         <Route path="/console/*" element={
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
             <Authenticator loginMechanisms={['email']} socialProviders={["google"]}>
               <GlobalProvider>
                 <Routes>
-                  <Route path="/" element={<MainPage />} />
+                  <Route path="/" element={<ConsoleMainPage />} />
                   <Route path="/actions" element={<ActionsPage />} />
                   <Route path="/links/view" element={<LinksPage />} />
                   <Route path="/link/editor" element={<LinkEditorPage />} />
