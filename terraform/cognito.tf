@@ -13,13 +13,19 @@ resource "aws_cognito_user_pool" "main" {
   username_attributes = ["email"]
 
   password_policy {
-    minimum_length    = 8
-    require_lowercase = true
-    require_numbers   = true
-    require_symbols   = true
-    require_uppercase = true
+    minimum_length                   = 8
+    require_lowercase                = true
+    require_numbers                  = true
+    require_symbols                  = true
+    require_uppercase                = true
+    temporary_password_validity_days = 7
   }
 
+  email_configuration {
+    email_sending_account = "DEVELOPER"
+    from_email_address    = "LinkifyBio <no-reply@linkifybio.com>"
+    source_arn            = data.aws_ses_domain_identity.identity.arn
+  }
 }
 
 resource "aws_cognito_identity_provider" "google" {
@@ -95,9 +101,9 @@ resource "aws_cognito_user_pool_client" "client" {
 }
 
 resource "aws_cognito_user_pool_domain" "main" {
-  domain       = local.auth_domain_name
+  domain          = local.auth_domain_name
   certificate_arn = aws_acm_certificate.auth_cert.arn
-  user_pool_id = aws_cognito_user_pool.main.id
+  user_pool_id    = aws_cognito_user_pool.main.id
 }
 
 
@@ -111,4 +117,8 @@ resource "aws_route53_record" "auth-cognito" {
     name    = aws_cognito_user_pool_domain.main.cloudfront_distribution
     zone_id = aws_cognito_user_pool_domain.main.cloudfront_distribution_zone_id
   }
+}
+
+data "aws_ses_domain_identity" "identity" {
+  domain = "linkifybio.com"
 }
