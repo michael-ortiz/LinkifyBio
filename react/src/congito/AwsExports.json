@@ -9,8 +9,8 @@
       "email",
       "openid"
     ],
-    "redirectSignIn": "https://linkifybio.com/console/,http://localhost:3000/console/",
-    "redirectSignOut": "https://linkifybio.com/,http://localhost:3000/",
+    "redirectSignIn": "https://linkifybio.com/console/,http://localhost:5173/console/",
+    "redirectSignOut": "https://linkifybio.com/,http://localhost:5173/",
     "responseType": "code"
   },
   "federationTarget": "COGNITO_USER_POOLS"
