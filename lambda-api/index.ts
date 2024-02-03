@@ -47,7 +47,7 @@ app.get('/:pageId', async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-app.put('/:pageId/views/link/:linkId', async (req: Request, res: Response, next: NextFunction) => {
+app.put('/:pageId/click/link/:linkId', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const response = await publicService.incrementLinkViews(req.params.pageId, req.params.linkId);
     res.json(response);
