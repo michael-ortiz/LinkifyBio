@@ -1,4 +1,4 @@
-import { ListItemText, ListItem, List, Box, Container, Divider, ListItemIcon, Card, IconButton, Breadcrumbs, Typography, Link} from '@mui/material';
+import { ListItemText, ListItem, List, Box, Container, Divider, ListItemIcon, Card, IconButton, Breadcrumbs, Typography, Link } from '@mui/material';
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../../context/GlobalContext';
@@ -21,7 +21,7 @@ function PageAndLinkViews() {
         };
     });
 
-    const pageViews = state.selectedPage.pageViews;
+    const pageViews = state.selectedPage.pageViews || { views: 0 };
 
     document.body.scrollTop = document.documentElement.scrollTop = 0;
 
@@ -74,6 +74,7 @@ function PageAndLinkViews() {
                             </React.Fragment>
                         ))}
                     </List>
+                    {linkViews.length === 0 && <center><h3>No clicks</h3></center>}
                 </nav>
 
             </Box>
