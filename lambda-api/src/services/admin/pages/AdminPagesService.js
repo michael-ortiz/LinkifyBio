@@ -46,6 +46,8 @@ class AdminPagesService {
                 },
                 links: [],
                 socialMediaLinks: [],
+                pageViews: { views: 0 },
+                linkViews: [],
                 createdAt: new Date().toISOString(),
                 verified: false,
             };

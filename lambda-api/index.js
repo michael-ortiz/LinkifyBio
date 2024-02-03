@@ -29,12 +29,12 @@ app.use(express_1.default.urlencoded({ extended: true }));
 app.use(fileUpload());
 app.use(cors({
     origin: '*',
-    methods: ['GET', 'POST', 'DELETE'],
+    methods: ['GET', 'POST', 'DELETE', 'PUT'],
 }));
 app.use(function (req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Allow-Methods", "GET,POST,DELETE");
+    res.setHeader("Access-Control-Allow-Methods", "GET,POST,DELETE,PUT");
     res.setHeader("Access-Control-Allow-Headers", "*");
     next();
 });
@@ -44,9 +44,18 @@ const adminServices = {
     pages: new AdminPagesService_1.default(),
 };
 const publicService = new PublicPageService_1.PublicPageService();
-app.get('/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+app.get('/:pageId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const response = yield publicService.getPageData(req.params.id);
+        const response = yield publicService.getPageData(req.params.pageId);
+        res.json(response);
+    }
+    catch (err) {
+        catchErrors(err, next);
+    }
+}));
+app.put('/views/:pageId/link/:linkId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const response = yield publicService.incrementLinkViews(req.params.pageId, req.params.linkId);
         res.json(response);
     }
     catch (err) {

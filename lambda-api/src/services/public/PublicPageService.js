@@ -12,10 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PublicPageService = void 0;
 const Exceptions_1 = require("../../excpetions/Exceptions");
 const PageSchema_1 = require("../../schema/PageSchema");
+const CoreUtils_1 = require("../../utils/CoreUtils");
 class PublicPageService {
     getPageData(id) {
-        var _a, _b;
+        var _a, _b, _c;
         return __awaiter(this, void 0, void 0, function* () {
+            (0, CoreUtils_1.validatePageId)(id);
             try {
                 const data = yield PageSchema_1.Page.get(id);
                 const bioInfo = {
@@ -37,6 +39,9 @@ class PublicPageService {
                     url: link.url,
                     updatedAt: link.updatedAt
                 }));
+                const pageViews = (_c = data.pageViews) !== null && _c !== void 0 ? _c : { views: 0 };
+                // Increment page views
+                yield PageSchema_1.Page.update({ id }, { pageViews: { views: pageViews.views + 1 } });
                 return {
                     id: data.id,
                     bioInfo,
@@ -49,7 +54,41 @@ class PublicPageService {
             }
             catch (error) {
                 console.log(error);
-                throw new Exceptions_1.NotFoundException("Page not found.");
+                throw new Exceptions_1.NotFoundException("An error ocurredwhen fetching page.");
+            }
+        });
+    }
+    incrementLinkViews(pageId, linkId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            (0, CoreUtils_1.validatePageId)(pageId);
+            (0, CoreUtils_1.validateLinkId)(linkId);
+            try {
+                const data = yield PageSchema_1.Page.get(pageId);
+                let linkViews = data.linkViews || [];
+                let link = linkViews.find((l) => l.id === linkId) || {
+                    id: "temp-id",
+                    views: 0,
+                };
+                if (link.id == "temp-id") {
+                    const newLink = {
+                        id: linkId,
+                        views: 0,
+                    };
+                    linkViews.push(newLink);
+                    link = newLink;
+                }
+                const incrementedViewLink = {
+                    id: link.id,
+                    views: link.views + 1,
+                };
+                console.log(linkViews);
+                linkViews = linkViews.map(item => item === link ? incrementedViewLink : link);
+                console.log(linkViews);
+                yield PageSchema_1.Page.update({ id: pageId }, { linkViews });
+                return true;
+            }
+            catch (error) {
+                throw error;
             }
         });
     }

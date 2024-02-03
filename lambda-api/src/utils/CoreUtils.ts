@@ -5,6 +5,7 @@ const urlRegex = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9
 const pageIdRegex = /^[a-zA-Z0-9-]*$/
 const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 const phoneNumberRegex = /^(tel:)?\+?[1-9]\d{1,14}$/;
+const uuidv4Regex = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-4[0-9a-fA-F]{3}\b-[89abAB][0-9a-fA-F]{3}\b-[0-9a-fA-F]{12}$/;
 
 export function formatUrl(url: string) {
 
@@ -27,7 +28,7 @@ export function formatUrl(url: string) {
 
         return `tel:${url}`;
     }
-    
+
 
     throw Error("Invalid url.");
 }
@@ -40,6 +41,14 @@ export function validatePageId(id: string) {
 
     if (id.length > 120) {
         throw new Error("Id cannot be longer than 120 characters.");
+    }
+}
+
+export function validateLinkId(linkId: string) {
+
+    // Validate linkId is a UUID v4
+    if (!uuidv4Regex.test(linkId)) {
+        throw new Error("Invalid linkId.");
     }
 }
 

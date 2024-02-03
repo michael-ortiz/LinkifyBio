@@ -7,6 +7,8 @@ export interface IPage {
     links?: IPageLink[],
     socialMediaLinks?: IPageLink[],
     pageColors: IPageColors,
+    linkViews?: ILinkViews[],
+    pageViews?: IPageViews,
     verified?: boolean,
     createdAt?: string
 }
@@ -32,4 +34,13 @@ export interface IPageLink {
     name?: string;
     url: string;
     updatedAt?: string
+}
+
+export interface ILinkViews {
+    id: string;
+    views: number;
+}
+
+export interface IPageViews {
+    views: number;
 }

@@ -4,7 +4,7 @@ import { Item } from 'dynamoose/dist/Item';
 const dotenv = require('dotenv');
 dotenv.config();
 
-dynamoose.Table.defaults.set({create: false});
+dynamoose.Table.defaults.set({ create: false });
 
 export interface PageModel extends IPage, Item { }
 
@@ -59,6 +59,24 @@ const PageSchema = new dynamoose.Schema({
             textColor: String,
             socialIconsColor: String
         },
+    },
+    linkViews: {
+        type: Array,
+        schema: [
+            {
+                type: Object,
+                schema: {
+                    id: String,
+                    views: Number
+                }
+            }
+        ]
+    },
+    pageViews: {
+        type: Object,
+        schema: {
+            views: Number
+        }
     },
     verified: {
         type: Boolean,

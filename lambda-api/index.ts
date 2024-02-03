@@ -18,13 +18,13 @@ app.use(fileUpload());
 
 app.use(cors({
   origin: '*',
-  methods: ['GET', 'POST', 'DELETE'],
+  methods: ['GET', 'POST', 'DELETE', 'PUT'],
 }));
 
 app.use(function(req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Methods", "GET,POST,DELETE");
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,DELETE,PUT");
   res.setHeader("Access-Control-Allow-Headers", "*");
   next();
 }); 
@@ -38,9 +38,18 @@ const adminServices = {
 const publicService = new PublicPageService();
 
 
-app.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
+app.get('/:pageId', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const response = await publicService.getPageData(req.params.id);
+    const response = await publicService.getPageData(req.params.pageId);
+    res.json(response);
+  } catch (err) {
+    catchErrors(err, next);
+  }
+});
+
+app.put('/:pageId/views/link/:linkId', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const response = await publicService.incrementLinkViews(req.params.pageId, req.params.linkId);
     res.json(response);
   } catch (err) {
     catchErrors(err, next);

@@ -1,10 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validatePageColors = exports.validateDescription = exports.validateName = exports.validateUrl = exports.validateUrlAllowingNull = exports.validatePageId = exports.formatUrl = void 0;
+exports.validatePageColors = exports.validateDescription = exports.validateName = exports.validateUrl = exports.validateUrlAllowingNull = exports.validateLinkId = exports.validatePageId = exports.formatUrl = void 0;
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const urlRegex = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
 const pageIdRegex = /^[a-zA-Z0-9-]*$/;
 const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+const phoneNumberRegex = /^(tel:)?\+?[1-9]\d{1,14}$/;
+const uuidv4Regex = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-4[0-9a-fA-F]{3}\b-[89abAB][0-9a-fA-F]{3}\b-[0-9a-fA-F]{12}$/;
 function formatUrl(url) {
     if (emailRegex.test(url)) {
         return `mailto:${url}`;
@@ -14,6 +16,12 @@ function formatUrl(url) {
             return url;
         }
         return "https://" + url;
+    }
+    if (phoneNumberRegex.test(url)) {
+        if (url.startsWith("tel:")) {
+            return url;
+        }
+        return `tel:${url}`;
     }
     throw Error("Invalid url.");
 }
@@ -27,6 +35,13 @@ function validatePageId(id) {
     }
 }
 exports.validatePageId = validatePageId;
+function validateLinkId(linkId) {
+    // Validate linkId is a UUID v4
+    if (!uuidv4Regex.test(linkId)) {
+        throw new Error("Invalid linkId.");
+    }
+}
+exports.validateLinkId = validateLinkId;
 function validateUrlAllowingNull(url) {
     if (!url) {
         return;
@@ -37,7 +52,7 @@ function validateUrlAllowingNull(url) {
 }
 exports.validateUrlAllowingNull = validateUrlAllowingNull;
 function validateUrl(url) {
-    if (!urlRegex.test(url)) {
+    if (!urlRegex.test(url) && !emailRegex.test(url) && !phoneNumberRegex.test(url)) {
         throw new Error("Url is invalid.");
     }
 }

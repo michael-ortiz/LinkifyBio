@@ -60,6 +60,24 @@ const PageSchema = new dynamoose_1.default.Schema({
             socialIconsColor: String
         },
     },
+    linkViews: {
+        type: Array,
+        schema: [
+            {
+                type: Object,
+                schema: {
+                    id: String,
+                    views: Number
+                }
+            }
+        ]
+    },
+    pageViews: {
+        type: Object,
+        schema: {
+            views: Number
+        }
+    },
     verified: {
         type: Boolean,
     },
