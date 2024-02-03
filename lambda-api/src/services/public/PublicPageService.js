@@ -82,7 +82,7 @@ class PublicPageService {
                     id: link.id,
                     views: link.views + 1,
                 };
-                linkViews = linkViews.map(item => item === link ? incrementedViewLink : link);
+                linkViews = linkViews.map(item => item.id === link.id ? incrementedViewLink : item);
                 yield PageSchema_1.Page.update({ id: pageId }, { linkViews });
                 return true;
             }

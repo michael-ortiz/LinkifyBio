@@ -85,14 +85,13 @@ export class PublicPageService {
                 linkViews.push(newLink);
                 link = newLink;
             }
-
+            
             const incrementedViewLink = {
                 id: link.id,
                 views: link.views + 1,
             }
 
-            
-            linkViews = linkViews.map(item => item === link ? incrementedViewLink : link);
+            linkViews = linkViews.map(item => item.id === link.id ? incrementedViewLink : item);
 
             await Page.update({ id: pageId }, { linkViews });
 
