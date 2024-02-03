@@ -20,6 +20,7 @@ import config from './congito/AwsExports.json';
 import PageColors from './pages/console/page-settings/PageColors';
 import PublicMainPage from './pages/public/PublicMainPage';
 import MainPage from './pages/console/MainPage';
+import PageAndLinkViews from './pages/console/views/PageAndLinkViews';
 
 Amplify.configure(config);
 
@@ -47,6 +48,7 @@ export default function App() {
                   <Route path="/page/colors" element={<PageColors />} />
                   <Route path="/page/create/alias" element={<AliasPage />} />
                   <Route path="/page/create/details" element={<CreatePage />} />
+                  <Route path="/page/views" element={<PageAndLinkViews />} />
                 </Routes>
               </GlobalProvider>
             </Authenticator>

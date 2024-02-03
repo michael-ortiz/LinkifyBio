@@ -66,10 +66,11 @@ class PublicPageService {
                 const data = yield PageSchema_1.Page.get(pageId);
                 let linkViews = data.linkViews || [];
                 let link = linkViews.find((l) => l.id === linkId) || {
-                    id: "temp-id",
+                    id: "default",
                     views: 0,
                 };
-                if (link.id == "temp-id") {
+                // If link is not found, create a new one
+                if (link.id == "default") {
                     const newLink = {
                         id: linkId,
                         views: 0,
@@ -81,9 +82,7 @@ class PublicPageService {
                     id: link.id,
                     views: link.views + 1,
                 };
-                console.log(linkViews);
                 linkViews = linkViews.map(item => item === link ? incrementedViewLink : link);
-                console.log(linkViews);
                 yield PageSchema_1.Page.update({ id: pageId }, { linkViews });
                 return true;
             }

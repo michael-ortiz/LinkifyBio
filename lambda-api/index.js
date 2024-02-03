@@ -53,7 +53,7 @@ app.get('/:pageId', (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         catchErrors(err, next);
     }
 }));
-app.put('/views/:pageId/link/:linkId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+app.put('/:pageId/views/link/:linkId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const response = yield publicService.incrementLinkViews(req.params.pageId, req.params.linkId);
         res.json(response);
