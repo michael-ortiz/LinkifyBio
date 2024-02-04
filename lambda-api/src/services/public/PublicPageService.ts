@@ -54,7 +54,7 @@ export class PublicPageService {
 
         } catch (error) {
             console.log(error);
-            throw new NotFoundException("An error ocurredwhen fetching page.");
+            throw new NotFoundException("An error ocurred when fetching page.");
         }
     }
 
