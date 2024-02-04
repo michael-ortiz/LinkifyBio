@@ -110,5 +110,6 @@ In the react app, there are references to `linkifybio.com` / `linkifybio` that a
 
 Push your changes, and wait for the workflow to run and deploy your application.
 
+If you have any problems, please open an issue and I will try to answer as soon as possible!
 
-
+Enjoy!
