@@ -2,7 +2,7 @@ import { Container, TextField, Box, Link, Typography, IconButton, Breadcrumbs, A
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material-next/Button';
-import { getBio, updateBioInfo, deletePage, updatePageid, checkIfAliasIsAvailable } from '../../../api/admin/AdminApi';
+import { updateBioInfo, deletePage, updatePageid, checkIfAliasIsAvailable, getPage } from '../../../api/admin/AdminApi';
 import { GlobalContext } from '../../../context/GlobalContext';
 import { Delete, ArrowBack, Close, Check } from '@mui/icons-material';
 import Dropzone from 'react-dropzone';
@@ -91,7 +91,7 @@ function PageSettings() {
             descriptionTitle: descriptionTitle,
         }).then((data) => {
 
-            getBio(state.selectedPage.id).then((data) => {
+            getPage(state.selectedPage.id).then((data) => {
                 dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
                 navigate('/console/actions');
                 setIsLoading(false);

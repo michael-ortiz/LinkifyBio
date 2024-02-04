@@ -4,7 +4,7 @@ import { validateCreatePageRequest, validateUpdatePageInfoRequest } from "../../
 import { S3Client, PutObjectCommand, NotFound } from "@aws-sdk/client-s3";
 import crypto from 'crypto';
 import { Page } from "../../../schema/PageSchema";
-import { IPage, IPageColors, IPageInfo } from "../../../interfaces/IPage";
+import { IPage, IPageColors, IPageInfo, IPageLink } from "../../../interfaces/IPage";
 import { validatePageColors, validatePageId } from "../../../utils/CoreUtils";
 import { NotFoundException } from "../../../excpetions/Exceptions";
 
@@ -12,6 +12,54 @@ const s3Client = new S3Client({ region: 'us-east-1' });
 
 
 export default class AdminPagesService {
+
+    async getPageData(pageId: string, owner: string): Promise<IPage> {
+
+        validatePageId(pageId);
+
+        try {
+
+            const data = await Page.get({id: pageId, owner});
+
+            const bioInfo: IPageInfo = {
+                name: data.bioInfo.name,
+                imageUrl: data.bioInfo.imageUrl,
+                descriptionTitle: data.bioInfo.descriptionTitle,
+            }
+
+            const links: IPageLink[] = data.links ?? []
+                .map((link: IPageLink): IPageLink => ({
+                    id: link.id,
+                    name: link.name,
+                    url: link.url,
+                    updatedAt: link.updatedAt
+                }))
+
+            const socialMediaLinks: IPageLink[] = data.socialMediaLinks ?? []
+                .map((link: IPageLink): IPageLink => ({
+                    id: link.id,
+                    name: link.name,
+                    url: link.url,
+                    updatedAt: link.updatedAt
+                }))
+
+            return {
+                id: data.id,
+                bioInfo,
+                links,
+                socialMediaLinks,
+                pageColors: data.pageColors,
+                verified: data.verified,
+                linkViews: data.linkViews,
+                pageViews: data.pageViews,
+                createdAt: data.createdAt,
+            }
+
+        } catch (error) {
+            console.log(error);
+            throw new NotFoundException("An error ocurredwhen fetching page.");
+        }
+    }
 
     async createPage(request: IPage, owner: string): Promise<IPage> {
 

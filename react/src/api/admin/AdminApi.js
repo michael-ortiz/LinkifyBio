@@ -2,15 +2,20 @@ import { fetchAuthSession } from '@aws-amplify/auth';
 
 const url = 'https://5hemoatd625go3vvm3com5es6u0oinwm.lambda-url.us-east-1.on.aws';
 
-export async function getBio(id) {
-    const response = await fetch(`${url}/${id}`);
+export async function getPage(id) {
+    const response = await fetch(`${url}/admin/page/${id}`, {
+        headers: {
+            Authorization: (await fetchAuthSession()).tokens.accessToken.toString()
+        }
+    });
+
     return response.json();
 }
 
 export async function listPages() {
     const response = await fetch(`${url}/admin/page/list`, {
         headers: {
-            authorization: (await fetchAuthSession()).tokens.accessToken.toString()
+            Authorization: (await fetchAuthSession()).tokens.accessToken.toString()
         }
     });
     return response.json();
@@ -21,7 +26,7 @@ export async function updateLink(id, link) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            authorization: (await fetchAuthSession()).tokens.accessToken.toString()
+            Authorization: (await fetchAuthSession()).tokens.accessToken.toString()
         },
         body: JSON.stringify(link)
     });
@@ -40,7 +45,7 @@ export async function updateSocialLink(id, link) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            authorization: (await fetchAuthSession()).tokens.accessToken.toString()
+            Authorization: (await fetchAuthSession()).tokens.accessToken.toString()
         },
         body: JSON.stringify(link)
     });
@@ -59,7 +64,7 @@ export async function reorderLinks(id, orderedLinkIds) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            authorization: (await fetchAuthSession()).tokens.accessToken.toString()
+            Authorization: (await fetchAuthSession()).tokens.accessToken.toString()
         },
         body: JSON.stringify(orderedLinkIds)
     });
@@ -78,7 +83,7 @@ export async function reorderSocialLinks(id, orderedLinkIds) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            authorization: (await fetchAuthSession()).tokens.accessToken.toString()
+            Authorization: (await fetchAuthSession()).tokens.accessToken.toString()
         },
         body: JSON.stringify(orderedLinkIds)
     });
@@ -97,7 +102,7 @@ export async function deleteLink(id, linkId) {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
-            authorization: (await fetchAuthSession()).tokens.accessToken.toString()
+            Authorization: (await fetchAuthSession()).tokens.accessToken.toString()
         },
     });
 
@@ -109,7 +114,7 @@ export async function deletePage(id) {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
-            authorization: (await fetchAuthSession()).tokens.accessToken.toString()
+            Authorization: (await fetchAuthSession()).tokens.accessToken.toString()
         },
     });
 
@@ -121,7 +126,7 @@ export async function deleteSocialLink(id, linkId) {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
-            authorization: (await fetchAuthSession()).tokens.accessToken.toString()
+            Authorization: (await fetchAuthSession()).tokens.accessToken.toString()
         },
     });
 
@@ -133,7 +138,7 @@ export async function addLink(id, link) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            authorization: (await fetchAuthSession()).tokens.accessToken.toString()
+            Authorization: (await fetchAuthSession()).tokens.accessToken.toString()
         },
         body: JSON.stringify(link)
     });
@@ -152,7 +157,7 @@ export async function addSocialLink(id, link) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            authorization: (await fetchAuthSession()).tokens.accessToken.toString()
+            Authorization: (await fetchAuthSession()).tokens.accessToken.toString()
         },
         body: JSON.stringify(link)
     });
@@ -171,7 +176,7 @@ export async function updateBioInfo(id, page) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            authorization: (await fetchAuthSession()).tokens.accessToken.toString()
+            Authorization: (await fetchAuthSession()).tokens.accessToken.toString()
         },
         body: JSON.stringify(page)
     });
@@ -195,7 +200,7 @@ export async function uploadProfileImage(id, file) {
         method: 'POST',
         body: formData,
         headers: {
-            authorization: (await fetchAuthSession()).tokens.accessToken.toString()
+            Authorization: (await fetchAuthSession()).tokens.accessToken.toString()
         },
     });
 
@@ -213,7 +218,7 @@ export async function createPagte(id, name, descriptionTitle, imageUrl) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            authorization: (await fetchAuthSession()).tokens.accessToken.toString()
+            Authorization: (await fetchAuthSession()).tokens.accessToken.toString()
         },
         body: JSON.stringify({
             id,
@@ -238,7 +243,7 @@ export async function checkIfAliasIsAvailable(id) {
     const response = await fetch(`${url}/admin/page/${id}/availability`, {
         headers: {
             'Content-Type': 'application/json',
-            authorization: (await fetchAuthSession()).tokens.accessToken.toString()
+            Authorization: (await fetchAuthSession()).tokens.accessToken.toString()
         },
     });
 
@@ -250,7 +255,7 @@ export async function updatePageid(id, newId) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            authorization: (await fetchAuthSession()).tokens.accessToken.toString()
+            Authorization: (await fetchAuthSession()).tokens.accessToken.toString()
         },
     });
 
@@ -263,7 +268,7 @@ export async function updatePageColors(id, colors) {
         body: JSON.stringify(colors),
         headers: {
             'Content-Type': 'application/json',
-            authorization: (await fetchAuthSession()).tokens.accessToken.toString()
+            Authorization: (await fetchAuthSession()).tokens.accessToken.toString()
         },
     });
 

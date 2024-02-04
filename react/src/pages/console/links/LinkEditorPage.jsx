@@ -2,7 +2,7 @@ import { Container, TextField, Box, Link, Typography, IconButton, Breadcrumbs } 
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material-next/Button';
-import { getBio, updateLink, deleteLink } from '../../../api/admin/AdminApi';
+import { updateLink, deleteLink, getPage } from '../../../api/admin/AdminApi';
 import { GlobalContext } from '../../../context/GlobalContext';
 import { Delete, ArrowBack } from '@mui/icons-material';
 import { useConfirm } from "material-ui-confirm";
@@ -31,7 +31,7 @@ function LinkEditorPage() {
             position: state.selectedLink.position
         }).then((data) => {
 
-            getBio(state.selectedPage.id).then((data) => {
+            getPage(state.selectedPage.id).then((data) => {
                 setIsLoading(false);
                 dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
                 navigate(`/console/links/view`)
@@ -46,7 +46,7 @@ function LinkEditorPage() {
             .then(() => {
                 try {
                     deleteLink(state.selectedPage.id, id).then((data) => {
-                        getBio(state.selectedPage.id).then((data) => {
+                        getPage(state.selectedPage.id).then((data) => {
                             dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
                             navigate(`/console/links/view`)
                         });

@@ -2,7 +2,7 @@ import { Container, TextField, Box, IconButton, Breadcrumbs, Link, Typography } 
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material-next/Button';
-import { getBio, addSocialLink } from '../../../api/admin/AdminApi';
+import { addSocialLink, getPage } from '../../../api/admin/AdminApi';
 import { GlobalContext } from '../../../context/GlobalContext';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import Header from '../../../components/Header';
@@ -25,7 +25,7 @@ function SocialLinkAddPage() {
             url: linkUrl
         }).then((data) => {
 
-            getBio(state.selectedPage.id).then((data) => {
+            getPage(state.selectedPage.id).then((data) => {
                 dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
                 setIsLoading(false);
                 navigate(`/console/social/view`)

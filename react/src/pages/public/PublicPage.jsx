@@ -1,7 +1,7 @@
 import Button from '@mui/material-next/Button';
 import { Container, Avatar, CircularProgress, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import { getBioData } from '../../api/public/PublicApi';
+import { getPublicPage } from '../../api/public/PublicApi';
 import React from 'react';
 import { SocialIcon } from 'react-social-icons/component'
 import 'react-social-icons'
@@ -25,7 +25,7 @@ export default class PublicPage extends React.Component {
 
     componentDidMount() {
         const id = window.location.href.split('/')[3]
-        getBioData(id).then((data) => {
+        getPublicPage(id).then((data) => {
             this.setState({ pageId: data.id });
             this.setState({ bioInfo: data.bioInfo });
             this.setState({ links: data.links });

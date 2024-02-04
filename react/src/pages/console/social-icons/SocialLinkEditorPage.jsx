@@ -2,7 +2,7 @@ import { Container, TextField, Box, Link, Typography, IconButton, Breadcrumbs } 
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material-next/Button';
-import { getBio, updateSocialLink, deleteSocialLink } from '../../../api/admin/AdminApi';
+import { updateSocialLink, deleteSocialLink, getPage } from '../../../api/admin/AdminApi';
 import { GlobalContext } from '../../../context/GlobalContext';
 import { Delete, ArrowBack } from '@mui/icons-material';
 import { useConfirm } from "material-ui-confirm";
@@ -28,7 +28,7 @@ function SocialLinkEditorPage() {
             url: linkUrl,
         }).then((data) => {
 
-            getBio(state.selectedPage.id).then((data) => {
+            getPage(state.selectedPage.id).then((data) => {
                 dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
                 navigate(`/console/social/view`)
                 setIsLoading(false)
@@ -51,7 +51,7 @@ function SocialLinkEditorPage() {
                 try {
                     setIsLoading(true)
                     deleteSocialLink(state.selectedPage.id, id).then((data) => {
-                        getBio(state.selectedPage.id).then((data) => {
+                        getPage(state.selectedPage.id).then((data) => {
                             dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
                             setIsLoading(false)
                             navigate(`/console/social/view`)

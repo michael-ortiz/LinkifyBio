@@ -2,7 +2,7 @@ import { Container, TextField, Box, IconButton, Breadcrumbs, Link, Typography } 
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material-next/Button';
-import { getBio, addLink } from '../../../api/admin/AdminApi';
+import { addLink, getPage } from '../../../api/admin/AdminApi';
 import { GlobalContext } from '../../../context/GlobalContext';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import Header from '../../../components/Header';
@@ -28,7 +28,7 @@ function LinkAddPage() {
 
             setIsLoading(false);
 
-            getBio(state.selectedPage.id).then((data) => {
+            getPage(state.selectedPage.id).then((data) => {
                 dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
                 navigate(`/console/links/view`)
             });

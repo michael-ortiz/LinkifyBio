@@ -1,17 +1,25 @@
 import { ListItemText, ListItem, List, Box, Container, Divider, ListItemIcon, Card, IconButton, Breadcrumbs, Typography, Link } from '@mui/material';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../../context/GlobalContext';
 import { withAuthenticator } from '@aws-amplify/ui-react'
 import { Link as LinkIcon } from '@mui/icons-material';
 import Header from '../../../components/Header';
 import { MainBoxStyle } from '../../../constants/Styles';
-import { ArrowBack } from '@mui/icons-material';
+import { ArrowBack, Visibility } from '@mui/icons-material';
+import { getPage } from '../../../api/admin/AdminApi';
 
 function PageAndLinkViews() {
     const navigate = useNavigate();
 
     const { state } = useContext(GlobalContext);
+
+    useEffect(() => {
+
+        getPage().then((data) => {
+            dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
+        });
+    });
 
     const linkViews = state.selectedPage.linkViews.map(view => {
         const link = state.selectedPage.links.find(link => link.id === view.id);
@@ -43,18 +51,28 @@ function PageAndLinkViews() {
                         <Link underline="hover" color="inherit" href="/console/actions">
                             {state.selectedPage.id}
                         </Link>
-                        <Typography color="text.primary">views</Typography>
+                        <Typography color="text.primary">views & clicks</Typography>
                     </Breadcrumbs>
                 </Box>
 
 
-                <h2>Total Page Views</h2>
+                <h2>Page Views</h2>
 
-                <center>
-                    <Card variant="outlined" sx={{ width: '30%' }}>
-                        <h2>{pageViews.views}</h2>
-                    </Card>
-                </center>
+                <nav>
+                    <List>
+                        <React.Fragment>
+                            <Divider />
+                            <ListItem>
+                                <ListItemIcon>
+                                    <Visibility />
+                                </ListItemIcon>
+
+                                <ListItemText primary={state.selectedPage.id} secondary={"Views: " + pageViews.views} />
+                            </ListItem>
+                            <Divider />
+                        </React.Fragment>
+                    </List>
+                </nav>
 
                 <h2>Link Clicks</h2>
 

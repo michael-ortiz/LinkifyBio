@@ -56,6 +56,16 @@ app.put('/:pageId/click/link/:linkId', async (req: Request, res: Response, next:
   }
 });
 
+app.get('/admin/page/:pageId', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const token = await validateToken(req.headers.authorization);
+    const response = await adminServices.pages.getPageData(req.params.pageId, token.username);
+    res.json(response);
+  } catch (err) {
+    catchErrors(err, next);
+  }
+});
+
 app.post('/admin/page/create', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = await validateToken(req.headers.authorization);
