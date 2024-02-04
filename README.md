@@ -79,11 +79,12 @@ This will connect to the lambda in AWS and will require Cognito for authenticati
 
 The whole infrastructure is located in the `terraform` folder.
 
-You will need to change the following local variables to use your own domain in `vars.tf`.
-
 #### Important
 
 The backend in Terraform expects that you use a valid domain name from Route 53. If you rather not use a domain, you will need to remove references from Terraform to not use a Route53 record, and cloudfront.
+
+You will need to change the following local variables to use your own domain in `vars.tf`.
+
 
 ```
 locals {
