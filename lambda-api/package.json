@@ -2,8 +2,8 @@
   "scripts": {
     "build": "tsc",
     "start": "npm run build && node index.js",
-    "start:local": "localstack start -d && npm run build && NODE_ENV=local node index.js",
-    "create-s3-bucket": "awslocal s3 mb s3://linkifybio-profile-images-production && awslocal s3api put-bucket-website --bucket linkifybio-profile-images-production --website-configuration '{\"IndexDocument\": {\"Suffix\": \"index.html\"}, \"ErrorDocument\": {\"Key\": \"error.html\"}}'",
+    "start:local": "localstack start -d && npm run create-s3-bucket && npm run build && NODE_ENV=local node index.js",
+    "create-s3-bucket": "awslocal s3 mb s3://linkifybio-profile-images-local && awslocal s3api put-bucket-website --bucket linkifybio-profile-images-local --website-configuration '{\"IndexDocument\": {\"Suffix\": \"index.html\"}, \"ErrorDocument\": {\"Key\": \"error.html\"}}'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

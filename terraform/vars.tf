@@ -13,7 +13,3 @@ variable "environment" {
   type = string
   default = "production"
 }
-
-variable "account_id" {
-  default = "587758787678"
-}

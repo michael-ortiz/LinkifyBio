@@ -5,26 +5,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Page = void 0;
 const dynamoose_1 = __importDefault(require("dynamoose"));
-const dotenv = require('dotenv');
-dotenv.config();
+require('dotenv').config(process.env.NODE_ENV === 'local' && { path: '.env.local' });
 if (process.env.NODE_ENV === 'local') {
-    console.log('Using local dynamodb');
     dynamoose_1.default.Table.defaults.set({ create: true });
-    const ddb = new dynamoose_1.default.aws.ddb.DynamoDB({
-        endpoint: "http://localhost:4566",
+    dynamoose_1.default.aws.ddb.set(new dynamoose_1.default.aws.ddb.DynamoDB({
+        endpoint: process.env.LOCALSTACK_ENDPOINT,
         credentials: {
             accessKeyId: "test",
             secretAccessKey: "test"
         }
-    });
-    dynamoose_1.default.aws.ddb.set(ddb);
+    }));
 }
 else {
-    const ddb = new dynamoose_1.default.aws.ddb.DynamoDB({
-        region: "us-east-1"
-    });
-    dynamoose_1.default.aws.ddb.set(ddb);
     dynamoose_1.default.Table.defaults.set({ create: false });
+    dynamoose_1.default.aws.ddb.set(new dynamoose_1.default.aws.ddb.DynamoDB({
+        region: "us-east-1"
+    }));
 }
 const PageSchema = new dynamoose_1.default.Schema({
     id: {

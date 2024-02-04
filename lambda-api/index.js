@@ -21,15 +21,10 @@ const PublicPageService_1 = require("./src/services/public/PublicPageService");
 const Auth_1 = require("./src/utils/Auth");
 const app = (0, express_1.default)();
 const serverless = require('serverless-http');
-const cors = require("cors");
 const fileUpload = require('express-fileupload');
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(fileUpload());
-app.use(cors({
-    origin: '*',
-    methods: ['GET', 'POST', 'DELETE', 'PUT'],
-}));
 app.use(function (req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Credentials", "true");

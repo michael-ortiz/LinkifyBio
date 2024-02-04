@@ -96,3 +96,10 @@ export function validatePageColors(colors: IPageColors) {
         throw new Error("Color is invalid.");
     }
 }
+
+export function getProfileImageUrl(hashedFileName: string): string {
+
+    const host = process.env.NODE_ENV === 'local' ? `http://${process.env.PROFILE_IMAGES_BUCKET_NAME}.s3-website.localhost.localstack.cloud:4566` : `https://${process.env.CDN_DOMAIN_NAME}`;
+
+    return `${host}/${encodeURIComponent(hashedFileName)}`
+}

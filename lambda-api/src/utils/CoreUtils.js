@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validatePageColors = exports.validateDescription = exports.validateName = exports.validateUrl = exports.validateUrlAllowingNull = exports.validateLinkId = exports.validatePageId = exports.formatUrl = void 0;
+exports.getProfileImageUrl = exports.validatePageColors = exports.validateDescription = exports.validateName = exports.validateUrl = exports.validateUrlAllowingNull = exports.validateLinkId = exports.validatePageId = exports.formatUrl = void 0;
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const urlRegex = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
 const pageIdRegex = /^[a-zA-Z0-9-]*$/;
@@ -81,3 +81,8 @@ function validatePageColors(colors) {
     }
 }
 exports.validatePageColors = validatePageColors;
+function getProfileImageUrl(hashedFileName) {
+    const host = process.env.NODE_ENV === 'local' ? `http://${process.env.PROFILE_IMAGES_BUCKET_NAME}.s3-website.localhost.localstack.cloud:4566` : `https://${process.env.CDN_DOMAIN_NAME}`;
+    return `${host}/${encodeURIComponent(hashedFileName)}`;
+}
+exports.getProfileImageUrl = getProfileImageUrl;

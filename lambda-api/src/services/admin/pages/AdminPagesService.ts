@@ -1,18 +1,17 @@
 
 import { validateCreatePageRequest, validateUpdatePageInfoRequest } from "../../../utils/RequestValidationUtils";
-
-import { S3Client, PutObjectCommand, NotFound } from "@aws-sdk/client-s3";
-import crypto from 'crypto';
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { Page } from "../../../schema/PageSchema";
 import { IPage, IPageColors, IPageInfo, IPageLink } from "../../../interfaces/IPage";
-import { validatePageColors, validatePageId } from "../../../utils/CoreUtils";
+import { getProfileImageUrl, validatePageColors, validatePageId } from "../../../utils/CoreUtils";
 import { GeneralException, NotFoundException } from "../../../excpetions/Exceptions";
+import crypto from 'crypto';
 
 const s3Client = process.env.NODE_ENV === 'local' ?
 
     new S3Client({
         region: 'us-east-1', 
-        endpoint: 'http://localhost:4566',
+        endpoint: process.env.LOCALSTACK_ENDPOINT,
         credentials: {
             accessKeyId: 'test',
             secretAccessKey: 'test',
@@ -25,8 +24,6 @@ const s3Client = process.env.NODE_ENV === 'local' ?
 export default class AdminPagesService {
 
     async getPage(pageId: string, owner: string): Promise<IPage> {
-
-        console.log(pageId, owner);
 
         validatePageId(pageId);
 
@@ -239,11 +236,11 @@ export default class AdminPagesService {
         await s3Client.send(new PutObjectCommand(params));
 
         return {
-            imageUrl: process.env.NODE_ENV === 'local' ?
-            `http://${process.env.PROFILE_IMAGES_BUCKET_NAME}.s3-website.localhost.localstack.cloud:4566/${encodeURIComponent(hashedFileName)}` : 
-            `https://${process.env.CDN_DOMAIN_NAME}/${encodeURIComponent(hashedFileName)}`
-        };
+            imageUrl: getProfileImageUrl(hashedFileName)
+        }
     }
+
+
 
     async updatePageColors(id: string, colors: IPageColors, owner: string): Promise<IPage> {
 

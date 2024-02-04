@@ -8,17 +8,11 @@ import { validateToken } from './src/utils/Auth';
 
 const app = express();
 const serverless = require('serverless-http');
-const cors = require("cors");
 const fileUpload = require('express-fileupload');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload());
-
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'DELETE', 'PUT'],
-}));
 
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");

@@ -14,14 +14,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const RequestValidationUtils_1 = require("../../../utils/RequestValidationUtils");
 const client_s3_1 = require("@aws-sdk/client-s3");
-const crypto_1 = __importDefault(require("crypto"));
 const PageSchema_1 = require("../../../schema/PageSchema");
 const CoreUtils_1 = require("../../../utils/CoreUtils");
 const Exceptions_1 = require("../../../excpetions/Exceptions");
+const crypto_1 = __importDefault(require("crypto"));
 const s3Client = process.env.NODE_ENV === 'local' ?
     new client_s3_1.S3Client({
         region: 'us-east-1',
-        endpoint: 'http://localhost:4566',
+        endpoint: process.env.LOCALSTACK_ENDPOINT,
         credentials: {
             accessKeyId: 'test',
             secretAccessKey: 'test',
@@ -33,7 +33,6 @@ class AdminPagesService {
     getPage(pageId, owner) {
         var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(pageId, owner);
             (0, CoreUtils_1.validatePageId)(pageId);
             try {
                 const data = yield PageSchema_1.Page.get({ id: pageId, owner });
@@ -217,9 +216,7 @@ class AdminPagesService {
             // Uploading files to the bucket
             yield s3Client.send(new client_s3_1.PutObjectCommand(params));
             return {
-                imageUrl: process.env.NODE_ENV === 'local' ?
-                    `http://${process.env.PROFILE_IMAGES_BUCKET_NAME}.s3-website.localhost.localstack.cloud:4566/${encodeURIComponent(hashedFileName)}` :
-                    `https://${process.env.CDN_DOMAIN_NAME}/${encodeURIComponent(hashedFileName)}`
+                imageUrl: (0, CoreUtils_1.getProfileImageUrl)(hashedFileName)
             };
         });
     }
