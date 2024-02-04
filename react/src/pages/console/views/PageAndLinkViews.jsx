@@ -92,7 +92,7 @@ function PageAndLinkViews() {
                             </React.Fragment>
                         ))}
                     </List>
-                    {linkViews.length === 0 && <center><h3>No clicks</h3></center>}
+                    {linkViews.length === 0 && <center><p>No clicks</p></center>}
                 </nav>
 
             </Box>
