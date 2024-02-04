@@ -12,14 +12,14 @@ import { getPage } from '../../../api/admin/AdminApi';
 function PageAndLinkViews() {
     const navigate = useNavigate();
 
-    const { state } = useContext(GlobalContext);
+    const { state, dispatch } = useContext(GlobalContext);
 
     useEffect(() => {
 
-        getPage().then((data) => {
+        getPage(state.selectedPage.id).then((data) => {
             dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
         });
-    });
+    }, []);
 
     const linkViews = state.selectedPage.linkViews.map(view => {
         const link = state.selectedPage.links.find(link => link.id === view.id);
