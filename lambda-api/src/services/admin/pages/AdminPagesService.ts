@@ -6,14 +6,16 @@ import crypto from 'crypto';
 import { Page } from "../../../schema/PageSchema";
 import { IPage, IPageColors, IPageInfo, IPageLink } from "../../../interfaces/IPage";
 import { validatePageColors, validatePageId } from "../../../utils/CoreUtils";
-import { NotFoundException } from "../../../excpetions/Exceptions";
+import { GeneralException, NotFoundException } from "../../../excpetions/Exceptions";
 
 const s3Client = new S3Client({ region: 'us-east-1' });
 
 
 export default class AdminPagesService {
 
-    async getPageData(pageId: string, owner: string): Promise<IPage> {
+    async getPage(pageId: string, owner: string): Promise<IPage> {
+
+        console.log(pageId, owner);
 
         validatePageId(pageId);
 
@@ -57,7 +59,7 @@ export default class AdminPagesService {
 
         } catch (error) {
             console.log(error);
-            throw new NotFoundException("An error ocurred when fetching page.");
+            throw new GeneralException("An error ocurred when fetching page.");
         }
     }
 

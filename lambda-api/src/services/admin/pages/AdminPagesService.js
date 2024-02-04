@@ -20,9 +20,10 @@ const CoreUtils_1 = require("../../../utils/CoreUtils");
 const Exceptions_1 = require("../../../excpetions/Exceptions");
 const s3Client = new client_s3_1.S3Client({ region: 'us-east-1' });
 class AdminPagesService {
-    getPageData(pageId, owner) {
+    getPage(pageId, owner) {
         var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(pageId, owner);
             (0, CoreUtils_1.validatePageId)(pageId);
             try {
                 const data = yield PageSchema_1.Page.get({ id: pageId, owner });
@@ -59,7 +60,7 @@ class AdminPagesService {
             }
             catch (error) {
                 console.log(error);
-                throw new Exceptions_1.NotFoundException("An error ocurred when fetching page.");
+                throw new Exceptions_1.GeneralException("An error ocurred when fetching page.");
             }
         });
     }

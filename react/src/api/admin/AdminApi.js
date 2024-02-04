@@ -3,7 +3,7 @@ import { fetchAuthSession } from '@aws-amplify/auth';
 const url = 'https://5hemoatd625go3vvm3com5es6u0oinwm.lambda-url.us-east-1.on.aws';
 
 export async function getPage(id) {
-    const response = await fetch(`${url}/admin/page/${id}`, {
+    const response = await fetch(`${url}/admin/page/get/${id}`, {
         headers: {
             Authorization: (await fetchAuthSession()).tokens.accessToken.toString()
         }

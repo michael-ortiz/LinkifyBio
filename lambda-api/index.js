@@ -62,10 +62,10 @@ app.put('/:pageId/click/link/:linkId', (req, res, next) => __awaiter(void 0, voi
         catchErrors(err, next);
     }
 }));
-app.get('/admin/page/:pageId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+app.get('/admin/page/get/:pageId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const token = yield (0, Auth_1.validateToken)(req.headers.authorization);
-        const response = yield adminServices.pages.getPageData(req.params.pageId, token.username);
+        const response = yield adminServices.pages.getPage(req.params.pageId, token.username);
         res.json(response);
     }
     catch (err) {

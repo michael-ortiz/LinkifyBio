@@ -38,7 +38,7 @@ const adminServices = {
 const publicService = new PublicPageService();
 
 
-app.get('/:pageId', async (req: Request, res: Response, next: NextFunction) => {
+app.get('/page/get/:pageId', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const response = await publicService.getPageData(req.params.pageId);
     res.json(response);
@@ -56,10 +56,10 @@ app.put('/:pageId/click/link/:linkId', async (req: Request, res: Response, next:
   }
 });
 
-app.get('/admin/page/:pageId', async (req: Request, res: Response, next: NextFunction) => {
+app.get('/admin/page/get/:pageId', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = await validateToken(req.headers.authorization);
-    const response = await adminServices.pages.getPageData(req.params.pageId, token.username);
+    const response = await adminServices.pages.getPage(req.params.pageId, token.username);
     res.json(response);
   } catch (err) {
     catchErrors(err, next);
