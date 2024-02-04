@@ -1,5 +1,4 @@
-import e from "express";
-import { NotFoundException } from "../../excpetions/Exceptions";
+import { GeneralException } from "../../excpetions/Exceptions";
 import { IPage, IPageInfo, IPageLink } from "../../interfaces/IPage";
 import { Page } from "../../schema/PageSchema"
 import { validateLinkId, validatePageId } from "../../utils/CoreUtils";
@@ -54,7 +53,7 @@ export class PublicPageService {
 
         } catch (error) {
             console.log(error);
-            throw new NotFoundException("An error ocurred when fetching page.");
+            throw new GeneralException("An error ocurred when fetching page.");
         }
     }
 

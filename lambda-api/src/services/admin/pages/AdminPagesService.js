@@ -20,6 +20,49 @@ const CoreUtils_1 = require("../../../utils/CoreUtils");
 const Exceptions_1 = require("../../../excpetions/Exceptions");
 const s3Client = new client_s3_1.S3Client({ region: 'us-east-1' });
 class AdminPagesService {
+    getPageData(pageId, owner) {
+        var _a, _b;
+        return __awaiter(this, void 0, void 0, function* () {
+            (0, CoreUtils_1.validatePageId)(pageId);
+            try {
+                const data = yield PageSchema_1.Page.get({ id: pageId, owner });
+                const bioInfo = {
+                    name: data.bioInfo.name,
+                    imageUrl: data.bioInfo.imageUrl,
+                    descriptionTitle: data.bioInfo.descriptionTitle,
+                };
+                const links = (_a = data.links) !== null && _a !== void 0 ? _a : []
+                    .map((link) => ({
+                    id: link.id,
+                    name: link.name,
+                    url: link.url,
+                    updatedAt: link.updatedAt
+                }));
+                const socialMediaLinks = (_b = data.socialMediaLinks) !== null && _b !== void 0 ? _b : []
+                    .map((link) => ({
+                    id: link.id,
+                    name: link.name,
+                    url: link.url,
+                    updatedAt: link.updatedAt
+                }));
+                return {
+                    id: data.id,
+                    bioInfo,
+                    links,
+                    socialMediaLinks,
+                    pageColors: data.pageColors,
+                    verified: data.verified,
+                    linkViews: data.linkViews,
+                    pageViews: data.pageViews,
+                    createdAt: data.createdAt,
+                };
+            }
+            catch (error) {
+                console.log(error);
+                throw new Exceptions_1.NotFoundException("An error ocurred when fetching page.");
+            }
+        });
+    }
     createPage(request, owner) {
         return __awaiter(this, void 0, void 0, function* () {
             (0, RequestValidationUtils_1.validateCreatePageRequest)(request);

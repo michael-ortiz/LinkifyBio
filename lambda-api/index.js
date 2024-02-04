@@ -62,6 +62,16 @@ app.put('/:pageId/click/link/:linkId', (req, res, next) => __awaiter(void 0, voi
         catchErrors(err, next);
     }
 }));
+app.get('/admin/page/:pageId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const token = yield (0, Auth_1.validateToken)(req.headers.authorization);
+        const response = yield adminServices.pages.getPageData(req.params.pageId, token.username);
+        res.json(response);
+    }
+    catch (err) {
+        catchErrors(err, next);
+    }
+}));
 app.post('/admin/page/create', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const token = yield (0, Auth_1.validateToken)(req.headers.authorization);

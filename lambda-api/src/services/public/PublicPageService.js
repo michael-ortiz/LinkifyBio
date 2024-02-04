@@ -54,7 +54,7 @@ class PublicPageService {
             }
             catch (error) {
                 console.log(error);
-                throw new Exceptions_1.NotFoundException("An error ocurredwhen fetching page.");
+                throw new Exceptions_1.GeneralException("An error ocurred when fetching page.");
             }
         });
     }
