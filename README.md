@@ -16,7 +16,7 @@ These are the services used to run the application:
 * Cognito for user creations and authentication
 * Cloudfront for CDN
 * Route53 for DNS management
-* SSM Paramstore for secrets (Social Login data)
+* SSM Paramstore for secrets (Social Federetion Credentials: ex Google)
 
 ## Run Application
 
