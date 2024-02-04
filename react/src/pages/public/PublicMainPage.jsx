@@ -34,7 +34,6 @@ export default function PublicMainPage() {
 
         getCurrentUser().then((data) => {
 
-            console.log(data);
             if (data) {
                 setIsSignedIn(true)
             }
@@ -54,7 +53,7 @@ export default function PublicMainPage() {
 
     const handleAuthClick = () => {
 
-        if (isSignedIn) {
+        if (isSignedIn || import.meta.env.VITE_NODE_ENV === 'local') {
             navigate('/console');
         } else {
             setShowAuth(true);

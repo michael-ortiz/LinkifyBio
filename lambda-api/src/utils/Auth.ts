@@ -15,6 +15,15 @@ interface CognitoIdOrAccessTokenPayload {
 
 export async function validateToken(token: string | undefined): Promise<CognitoIdOrAccessTokenPayload> {
 
+    // By pass token validation in local environment
+    if (process.env.NODE_ENV === "local") {
+        return {
+            scope: "local",
+            exp: 0,
+            username: "local"
+        }
+    }
+
     if (!token) {
         throw new Unauthorized("Token not provided.");
     }

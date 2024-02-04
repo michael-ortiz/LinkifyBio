@@ -47,7 +47,6 @@ export default class PublicPage extends React.Component {
     }
 
     setBackgroundColor = (color) => {
-        console.log(color)
         document.body.style.backgroundColor = color;
     }
 

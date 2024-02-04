@@ -8,8 +8,19 @@ import { IPage, IPageColors, IPageInfo, IPageLink } from "../../../interfaces/IP
 import { validatePageColors, validatePageId } from "../../../utils/CoreUtils";
 import { GeneralException, NotFoundException } from "../../../excpetions/Exceptions";
 
-const s3Client = new S3Client({ region: 'us-east-1' });
+const s3Client = process.env.NODE_ENV === 'local' ?
 
+    new S3Client({
+        region: 'us-east-1', 
+        endpoint: 'http://localhost:4566',
+        credentials: {
+            accessKeyId: 'test',
+            secretAccessKey: 'test',
+        },
+        forcePathStyle: true,
+    })
+
+    : new S3Client({ region: 'us-east-1' });
 
 export default class AdminPagesService {
 
@@ -21,7 +32,7 @@ export default class AdminPagesService {
 
         try {
 
-            const data = await Page.get({id: pageId, owner});
+            const data = await Page.get({ id: pageId, owner });
 
             const bioInfo: IPageInfo = {
                 name: data.bioInfo.name,
@@ -158,11 +169,9 @@ export default class AdminPagesService {
 
         } catch (error) {
             console.log(error);
-            throw error; 
+            throw error;
         }
     }
-
-
 
     async updatePageInfo(id: string, info: IPageInfo, owner: string): Promise<IPageInfo> {
 
@@ -230,7 +239,9 @@ export default class AdminPagesService {
         await s3Client.send(new PutObjectCommand(params));
 
         return {
-            imageUrl: `https://${process.env.CDN_DOMAIN_NAME}/${encodeURIComponent(hashedFileName)}`
+            imageUrl: process.env.NODE_ENV === 'local' ?
+            `http://${process.env.PROFILE_IMAGES_BUCKET_NAME}.s3-website.localhost.localstack.cloud:4566/${encodeURIComponent(hashedFileName)}` : 
+            `https://${process.env.CDN_DOMAIN_NAME}/${encodeURIComponent(hashedFileName)}`
         };
     }
 

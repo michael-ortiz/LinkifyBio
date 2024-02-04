@@ -19,6 +19,14 @@ const verifier = aws_jwt_verify_1.CognitoJwtVerifier.create({
 });
 function validateToken(token) {
     return __awaiter(this, void 0, void 0, function* () {
+        // By pass token validation in local environment
+        if (process.env.NODE_ENV === "local") {
+            return {
+                scope: "local",
+                exp: 0,
+                username: "local"
+            };
+        }
         if (!token) {
             throw new Exceptions_1.Unauthorized("Token not provided.");
         }

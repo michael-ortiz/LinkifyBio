@@ -2,7 +2,6 @@ import { ListItemText, ListItem, List, Box, Container, Divider, ListItemIcon, Ca
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../../context/GlobalContext';
-import { withAuthenticator } from '@aws-amplify/ui-react'
 import { Link as LinkIcon } from '@mui/icons-material';
 import Header from '../../../components/Header';
 import { MainBoxStyle } from '../../../constants/Styles';
@@ -101,5 +100,5 @@ function PageAndLinkViews() {
     );
 }
 
-export default withAuthenticator(PageAndLinkViews);
+export default PageAndLinkViews;
 

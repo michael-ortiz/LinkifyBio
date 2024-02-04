@@ -14,7 +14,12 @@ function Header() {
 
     const navigate = useNavigate();
 
-    const { signOut } = useAuthenticator()
+    let authenticator
+
+    if (import.meta.env.VITE_NODE_ENV !== 'local') {
+
+        authenticator = useAuthenticator()
+    }
 
     const [openSettings, setOpenSettings] = useState(false);
 
@@ -29,14 +34,17 @@ function Header() {
 
     useEffect(() => {
 
-        getCurrentUser().then((data) => {
-            const username = data.username.toLowerCase();
-            if (username.includes('google')) {
-                setIsFederated(true);
-            }
-        }).catch((error) => {
-            setIsFederated(false);
-        });
+        if (import.meta.env.VITE_NODE_ENV !== 'local') {
+
+            getCurrentUser().then((data) => {
+                const username = data.username.toLowerCase();
+                if (username.includes('google')) {
+                    setIsFederated(true);
+                }
+            }).catch((error) => {
+                setIsFederated(false);
+            });
+        }
 
     }, []);
 
@@ -72,15 +80,21 @@ function Header() {
                 </DialogActions>
             </Dialog>
 
-            <Box sx={{ marginTop: 2, alignItems: 'right' }}>
-                <Button variant="outlined" sx={{ color: '#8f2f00', borderColor: '#8f2f00' }} onClick={() => signOut()}>Sign Out</Button>
+            { import.meta.env.VITE_NODE_ENV === 'local' ?
+                 <h3>Local Environemnt</h3>
+                 :
+                 <Box sx={{ marginTop: 2, alignItems: 'right' }}>
+                    <Button variant="outlined" sx={{ color: '#8f2f00', borderColor: '#8f2f00' }} onClick={() => authenticator.signOut()}>Sign Out</Button>
 
-                {!isFederated &&
-                    <IconButton onClick={() => setOpenSettings(true)}>
-                        <Settings sx={{ color: '#8f2f00' }} />
-                    </IconButton>
-                }
-            </Box>
+                    {!isFederated &&
+                        <IconButton onClick={() => setOpenSettings(true)}>
+                            <Settings sx={{ color: '#8f2f00' }} />
+                        </IconButton>
+                    }
+                </Box>
+            }
+
+
 
         </Box>
     );

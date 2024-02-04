@@ -1,10 +1,30 @@
 import dynamoose from 'dynamoose';
-import { IPage, IPageInfo, IPageLink } from '../interfaces/IPage';
+import { IPage } from '../interfaces/IPage';
 import { Item } from 'dynamoose/dist/Item';
+
 const dotenv = require('dotenv');
 dotenv.config();
 
-dynamoose.Table.defaults.set({ create: false });
+if (process.env.NODE_ENV === 'local') {
+    console.log('Using local dynamodb');
+    dynamoose.Table.defaults.set({ create: true });
+    const ddb = new dynamoose.aws.ddb.DynamoDB({
+        endpoint: "http://localhost:4566",
+        credentials: {
+            accessKeyId: "test",
+            secretAccessKey: "test"
+        }
+    });
+    dynamoose.aws.ddb.set(ddb);
+
+} else {
+
+    const ddb = new dynamoose.aws.ddb.DynamoDB({
+        region: "us-east-1"
+    });
+    dynamoose.aws.ddb.set(ddb);
+    dynamoose.Table.defaults.set({ create: false });
+}
 
 export interface PageModel extends IPage, Item { }
 

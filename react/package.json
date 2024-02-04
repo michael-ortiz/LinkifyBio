@@ -5,6 +5,7 @@
   "proxy": "http://localhost:3500/",
   "type": "module",
   "scripts": {
+    "dev:local": "VITE_NODE_ENV=local vite",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",

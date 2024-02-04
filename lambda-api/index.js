@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const dynamoose_1 = __importDefault(require("dynamoose"));
 const Exceptions_1 = require("./src/excpetions/Exceptions");
 const AdminLinksService_1 = __importDefault(require("./src/services/admin/links/AdminLinksService"));
 const AdminSocialIconsService_1 = __importDefault(require("./src/services/admin/social/AdminSocialIconsService"));
@@ -44,7 +43,7 @@ const adminServices = {
     pages: new AdminPagesService_1.default(),
 };
 const publicService = new PublicPageService_1.PublicPageService();
-app.get('/:pageId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+app.get('/page/get/:pageId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const response = yield publicService.getPageData(req.params.pageId);
         res.json(response);
@@ -257,9 +256,3 @@ module.exports.handler = (event, context, callback) => {
     const response = handler(event, context, callback);
     return response;
 };
-// Create new DynamoDB instance
-const ddb = new dynamoose_1.default.aws.ddb.DynamoDB({
-    "region": "us-east-1"
-});
-// Set DynamoDB instance to the Dynamoose DDB instance
-dynamoose_1.default.aws.ddb.set(ddb);
