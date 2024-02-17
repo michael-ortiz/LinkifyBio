@@ -11,7 +11,7 @@ This application is meant to run on AWS.
 These are the services used to run the application:
 
 * S3 for static website hosting
-* Lambda for backend APIs
+* Lambda for backend APIs (Node.js Express + Dynamoose)
 * DynamoDB for database
 * Cognito for user creations and authentication
 * Cloudfront for CDN
