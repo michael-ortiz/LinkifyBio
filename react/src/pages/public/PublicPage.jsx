@@ -112,7 +112,7 @@ export default class PublicPage extends React.Component {
                                                     incrementClickView(this.state.pageId, link.id)
                                                 }}
                                             >
-                                                <SocialIcon url={link.url}  bgColor="transparent" fgColor={this.state.pageColors.buttonLinkIconColor} style={{ height: 30, width: 30 }} />
+                                                <SocialIcon url={link.url} bgColor="transparent" fgColor={this.state.pageColors.buttonLinkIconColor} style={{ height: 30, width: 30 }} />
                                                 <Box style={{ textAlign: 'center', flexGrow: 1, marginRight: 30, color: this.state.pageColors.buttonTextColor }}>
                                                     {link.name}
                                                 </Box>
@@ -124,27 +124,32 @@ export default class PublicPage extends React.Component {
                             }
                         </Box>
                     </Box>
-                    <Box display="flex" justifyContent="center" sx={{ marginTop: 5 }}>
-                        <Button variant="filled"
-                            href='https://linkifybio.com'
-                            sx={{
-                                color: "#8f2f00",
-                                backgroundColor: 'white',
-                                '&:hover': {
-                                    backgroundColor: 'gainsboro',
-                                }
-                            }}
 
-                            startIcon={
-                                <img
-                                    src={'/logox100.png'}
-                                    style={{ height: 20, width: 20, marginRight: -3 }}
-                                    draggable="false"
-                                    alt='linkifybio'
-                                />}>
-                            Create your LinkifyBio
-                        </Button>
-                    </Box>
+
+                    { !this.state.isLoading &&
+                        <Box display="flex" justifyContent="center" sx={{ marginTop: 5 }}>
+                            <Button variant="filled"
+                                href='https://linkifybio.com'
+                                sx={{
+                                    color: "#8f2f00",
+                                    backgroundColor: 'white',
+                                    '&:hover': {
+                                        backgroundColor: 'gainsboro',
+                                    }
+                                }}
+
+                                startIcon={
+                                    <img
+                                        src={'/logox100.png'}
+                                        style={{ height: 20, width: 20, marginRight: -3 }}
+                                        draggable="false"
+                                        alt='linkifybio'
+                                    />}>
+                                Create your LinkifyBio
+                            </Button>
+                        </Box>
+                    }
+
                 </Container>
             );
 
