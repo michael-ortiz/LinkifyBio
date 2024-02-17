@@ -135,14 +135,14 @@ export default function PublicMainPage() {
 
                     }
 
-                    <Button variant="outlined" sx={{ color: "black", height: 45 }} size="small" onClick={() => window.open('https://github.com/michael-ortiz/LinkifyBio', '_blank')}>
+                    { showAuth &&
+                        <Authenticator loginMechanisms={['email']} socialProviders={["google"]} />
+                    }
+
+                    <Button variant="outlined" sx={{ color: "black", height: 45, marginTop: 5 }} size="small" onClick={() => window.open('https://github.com/michael-ortiz/LinkifyBio', '_blank')}>
                         <SocialIcon url="https://github.com/michael-ortiz/LinkifyBio" bgColor="transparent" fgColor='black' />
                         Open Source Project
                     </Button>
-
-                    {showAuth &&
-                        <Authenticator loginMechanisms={['email']} socialProviders={["google"]} />
-                    }
 
                 </Box>
             </Box>
