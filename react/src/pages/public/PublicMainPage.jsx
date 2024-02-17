@@ -9,6 +9,7 @@ import { getCurrentUser } from '@aws-amplify/auth';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import { Helmet } from 'react-helmet';
+import { SocialIcon } from 'react-social-icons';
 
 export default function PublicMainPage() {
 
@@ -76,7 +77,7 @@ export default function PublicMainPage() {
 
             <Helmet>
                 <title>LinkifyBio: A Public Page for your Links in Bio</title>
-                <meta name="description" content="Create a centralized public page for all your social media links. Share this link in your bio and let your followers access all your platforms from one place."/>
+                <meta name="description" content="Create a centralized public page for all your social media links. Share this link in your bio and let your followers access all your platforms from one place." />
             </Helmet>
 
             <HeaderPublic />
@@ -133,6 +134,11 @@ export default function PublicMainPage() {
                         </Box>
 
                     }
+
+                    <Button variant="outlined" sx={{ color: "black", height: 45 }} size="small" onClick={() => window.open('https://github.com/michael-ortiz/LinkifyBio', '_blank')}>
+                        <SocialIcon url="https://github.com/michael-ortiz/LinkifyBio" bgColor="transparent" fgColor='black' />
+                        Open Source Project
+                    </Button>
 
                     {showAuth &&
                         <Authenticator loginMechanisms={['email']} socialProviders={["google"]} />
