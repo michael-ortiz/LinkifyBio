@@ -39,7 +39,7 @@ export default class PublicPage extends React.Component {
             this.setState({ pageColors: data.pageColors ?? this.defaultColors });
             this.setState({ isLoading: false })
             this.setState({ error: false })
-        }).catch((error) => {
+        }).catch(() => {
             this.setState({ error: true })
             this.setBackgroundColor(this.state.pageColors.backgroundColor)
         });
@@ -126,7 +126,7 @@ export default class PublicPage extends React.Component {
                     </Box>
 
 
-                    { !this.state.isLoading &&
+                    {!this.state.isLoading &&
                         <Box display="flex" justifyContent="center" sx={{ marginTop: 5 }}>
                             <Button variant="filled"
                                 href='https://linkifybio.com'

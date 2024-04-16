@@ -23,7 +23,7 @@ function SocialLinkAddPage() {
         setIsLoading(true);
         addSocialLink(state.selectedPage.id, {
             url: linkUrl
-        }).then((data) => {
+        }).then(() => {
 
             getPage(state.selectedPage.id).then((data) => {
                 dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
@@ -32,7 +32,7 @@ function SocialLinkAddPage() {
             }).catch((error) => {
                 console.log(error);
                 setIsLoading(false);
-            });;
+            });
 
         }).catch((error) => {
             alert('Failed to add social icon. Please check for a valid URL and try again.');

@@ -89,7 +89,7 @@ function PageSettings() {
             name: name,
             imageUrl: imageUrl,
             descriptionTitle: descriptionTitle,
-        }).then((data) => {
+        }).then(() => {
 
             getPage(state.selectedPage.id).then((data) => {
                 dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
@@ -164,7 +164,7 @@ function PageSettings() {
                 setIsLoading(true);
 
                 try {
-                    deletePage(state.selectedPage.id).then((data) => {
+                    deletePage(state.selectedPage.id).then(() => {
                         dispatch({ type: 'SET_SELECTED_PAGE', payload: {} });
                         navigate(`/console`)
                         setIsLoading(false);

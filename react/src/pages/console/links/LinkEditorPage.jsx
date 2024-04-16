@@ -29,7 +29,7 @@ function LinkEditorPage() {
             name: linkName,
             url: linkUrl,
             position: state.selectedLink.position
-        }).then((data) => {
+        }).then(() => {
 
             getPage(state.selectedPage.id).then((data) => {
                 setIsLoading(false);
@@ -45,7 +45,7 @@ function LinkEditorPage() {
         confirm({ title: name, description: `Are you sure you want to delete this link?` })
             .then(() => {
                 try {
-                    deleteLink(state.selectedPage.id, id).then((data) => {
+                    deleteLink(state.selectedPage.id, id).then(() => {
                         getPage(state.selectedPage.id).then((data) => {
                             dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
                             navigate(`/console/links/view`)

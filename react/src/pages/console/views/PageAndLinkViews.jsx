@@ -1,4 +1,4 @@
-import { ListItemText, ListItem, List, Box, Container, Divider, ListItemIcon, Card, IconButton, Breadcrumbs, Typography, Link } from '@mui/material';
+import { ListItemText, ListItem, List, Box, Container, Divider, ListItemIcon, IconButton, Breadcrumbs, Typography, Link } from '@mui/material';
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../../context/GlobalContext';
@@ -18,7 +18,7 @@ function PageAndLinkViews() {
         getPage(state.selectedPage.id).then((data) => {
             dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
         });
-    }, []);
+    });
 
     const linkViews = state.selectedPage.linkViews.map(view => {
         const link = state.selectedPage.links.find(link => link.id === view.id);
