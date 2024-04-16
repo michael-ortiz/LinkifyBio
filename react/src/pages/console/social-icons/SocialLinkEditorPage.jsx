@@ -26,7 +26,7 @@ function SocialLinkEditorPage() {
         updateSocialLink(state.selectedPage.id, {
             id: state.selectedLink.id,
             url: linkUrl,
-        }).then((data) => {
+        }).then(() => {
 
             getPage(state.selectedPage.id).then((data) => {
                 dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
@@ -35,12 +35,12 @@ function SocialLinkEditorPage() {
             }).catch((error) => {
                 console.log(error);
                 setIsLoading(false);
-            });;
+            });
 
         }).catch((error) => {
             console.log(error);
             setIsLoading(false);
-        });;
+        });
     };
 
     const deleteLinkAction = async (id, url) => {
@@ -50,13 +50,13 @@ function SocialLinkEditorPage() {
             .then(() => {
                 try {
                     setIsLoading(true)
-                    deleteSocialLink(state.selectedPage.id, id).then((data) => {
+                    deleteSocialLink(state.selectedPage.id, id).then(() => {
                         getPage(state.selectedPage.id).then((data) => {
                             dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
                             setIsLoading(false)
                             navigate(`/console/social/view`)
                         });
-                    }).catch((error) => {
+                    }).catch(() => {
                         setIsLoading(false)
                     });
 

@@ -6,8 +6,7 @@ export async function getPublicPage(pageId) {
 }
 
 export async function incrementClickView(pageId, linkId) {
-    const response = await fetch(`${url}/${pageId}/click/link/${linkId}`, {
+    await fetch(`${url}/${pageId}/click/link/${linkId}`, {
         method: 'PUT'
     });
-    
 }

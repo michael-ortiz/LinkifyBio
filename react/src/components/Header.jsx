@@ -16,10 +16,7 @@ function Header() {
 
     let authenticator
 
-    if (import.meta.env.VITE_NODE_ENV !== 'local') {
-
-        authenticator = useAuthenticator()
-    }
+    authenticator = useAuthenticator()
 
     const [openSettings, setOpenSettings] = useState(false);
 
@@ -41,7 +38,7 @@ function Header() {
                 if (username.includes('google')) {
                     setIsFederated(true);
                 }
-            }).catch((error) => {
+            }).catch(() => {
                 setIsFederated(false);
             });
         }
@@ -80,10 +77,10 @@ function Header() {
                 </DialogActions>
             </Dialog>
 
-            { import.meta.env.VITE_NODE_ENV === 'local' ?
-                 <h3>Local Environemnt</h3>
-                 :
-                 <Box sx={{ marginTop: 2, alignItems: 'right' }}>
+            {import.meta.env.VITE_NODE_ENV === 'local' ?
+                <h3>Local Environemnt</h3>
+                :
+                <Box sx={{ marginTop: 2, alignItems: 'right' }}>
                     <Button variant="outlined" sx={{ color: '#8f2f00', borderColor: '#8f2f00' }} onClick={() => authenticator.signOut()}>Sign Out</Button>
 
                     {!isFederated &&

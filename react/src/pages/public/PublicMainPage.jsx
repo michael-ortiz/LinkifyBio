@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Authenticator } from '@aws-amplify/ui-react';
 import { Container, Box, useMediaQuery } from '@mui/material';
 import Button from '@mui/material-next/Button';
@@ -38,7 +38,7 @@ export default function PublicMainPage() {
             if (data) {
                 setIsSignedIn(true)
             }
-        }).catch((error) => {
+        }).catch(() => {
             setIsSignedIn(false);
 
         });
@@ -135,7 +135,7 @@ export default function PublicMainPage() {
 
                     }
 
-                    { showAuth &&
+                    {showAuth &&
                         <Authenticator loginMechanisms={['email']} socialProviders={["google"]} />
                     }
 

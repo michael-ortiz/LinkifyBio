@@ -24,7 +24,7 @@ function LinkAddPage() {
         addLink(state.selectedPage.id, {
             name: linkName,
             url: linkUrl
-        }).then((data) => {
+        }).then(() => {
 
             setIsLoading(false);
 

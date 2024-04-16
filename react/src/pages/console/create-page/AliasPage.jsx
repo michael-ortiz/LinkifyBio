@@ -21,19 +21,19 @@ function AliasPage() {
 
     const isAliasAvailable = useCallback((alias) => {
         latestIdChecked.current = alias;
-    
+
         if (!validateAlias(alias)) {
             setIsAvailable(false);
             return;
         }
-    
+
         checkIfAliasIsAvailable(alias)
             .then((response) => {
                 if (alias === latestIdChecked.current) {
                     setIsAvailable(response.available);
                 }
             })
-            .catch((error) => {
+            .catch(() => {
                 if (alias === latestIdChecked.current) {
                     setIsAvailable(false);
                 }
