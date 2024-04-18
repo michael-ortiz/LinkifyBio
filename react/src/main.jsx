@@ -6,5 +6,5 @@ import { ConfirmProvider } from "material-ui-confirm";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ConfirmProvider>
     <App />
-  </ConfirmProvider>
+  </ConfirmProvider>,
 );
