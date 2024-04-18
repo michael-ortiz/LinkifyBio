@@ -14,26 +14,24 @@ import MainPage from './pages/console/MainPage';
 import PageAndLinkViews from './pages/console/views/PageAndLinkViews';
 import { GlobalProvider } from './context/GlobalContext';
 
-
 export default function ConsoleRoutes() {
-    return (
-        <GlobalProvider>
-            <Routes>
-                <Route path="/" element={<MainPage />} />
-                <Route path="/actions" element={<ActionsPage />} />
-                <Route path="/links/view" element={<LinksPage />} />
-                <Route path="/link/editor" element={<LinkEditorPage />} />
-                <Route path="/link/add" element={<LinkAddPage />} />
-                <Route path="/social/view" element={<SocialLinksPage />} />
-                <Route path="/social/editor" element={<SocialLinkEditorPage />} />
-                <Route path="/social/add" element={<SocialLinkAddPage />} />
-                <Route path="/page/settings" element={<PageSettings />} />
-                <Route path="/page/colors" element={<PageColors />} />
-                <Route path="/page/create/alias" element={<AliasPage />} />
-                <Route path="/page/create/details" element={<CreatePage />} />
-                <Route path="/page/views" element={<PageAndLinkViews />} />
-            </Routes>
-        </GlobalProvider>
-
-    );
+  return (
+    <GlobalProvider>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/actions" element={<ActionsPage />} />
+        <Route path="/links/view" element={<LinksPage />} />
+        <Route path="/link/editor" element={<LinkEditorPage />} />
+        <Route path="/link/add" element={<LinkAddPage />} />
+        <Route path="/social/view" element={<SocialLinksPage />} />
+        <Route path="/social/editor" element={<SocialLinkEditorPage />} />
+        <Route path="/social/add" element={<SocialLinkAddPage />} />
+        <Route path="/page/settings" element={<PageSettings />} />
+        <Route path="/page/colors" element={<PageColors />} />
+        <Route path="/page/create/alias" element={<AliasPage />} />
+        <Route path="/page/create/details" element={<CreatePage />} />
+        <Route path="/page/views" element={<PageAndLinkViews />} />
+      </Routes>
+    </GlobalProvider>
+  );
 }
