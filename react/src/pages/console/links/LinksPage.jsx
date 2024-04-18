@@ -10,17 +10,17 @@ import {
   Typography,
   IconButton,
   ListItemIcon,
-} from "@mui/material";
-import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import Button from "@mui/material-next/Button";
-import { GlobalContext } from "../../../context/GlobalContext";
-import { ArrowBack, DragIndicator } from "@mui/icons-material";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { reorderLinks } from "../../../api/admin/AdminApi";
-import { SocialIcon } from "react-social-icons";
-import Header from "../../../components/Header";
-import { MainBoxStyle } from "../../../constants/Styles";
+} from '@mui/material';
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material-next/Button';
+import { GlobalContext } from '../../../context/GlobalContext';
+import { ArrowBack, DragIndicator } from '@mui/icons-material';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { reorderLinks } from '../../../api/admin/AdminApi';
+import { SocialIcon } from 'react-social-icons';
+import Header from '../../../components/Header';
+import { MainBoxStyle } from '../../../constants/Styles';
 
 function LinksPage() {
   const navigate = useNavigate();
@@ -47,10 +47,10 @@ function LinksPage() {
     const items = reorder(
       selectedPage.links,
       result.source.index,
-      result.destination.index,
+      result.destination.index
     );
 
-    dispatch({ type: "SET_LINKS", payload: items });
+    dispatch({ type: 'SET_LINKS', payload: items });
 
     let organizedLinks = [];
     items.forEach((element) => {
@@ -61,12 +61,12 @@ function LinksPage() {
   }
 
   return (
-    <Container maxWidth="false" sx={{ height: "100vh", width: "100vw" }}>
+    <Container maxWidth="false" sx={{ height: '100vh', width: '100vw' }}>
       <Header />
 
       <Box sx={MainBoxStyle}>
         <Box display="flex" justifyContent="left" alignItems="center">
-          <IconButton onClick={() => navigate("/console/actions")}>
+          <IconButton onClick={() => navigate('/console/actions')}>
             <ArrowBack />
           </IconButton>
           <Breadcrumbs separator="›" aria-label="breadcrumb">
@@ -86,13 +86,13 @@ function LinksPage() {
           variant="filled"
           href="/console/link/add"
           sx={{
-            width: "100%",
-            textAlign: "center",
-            backgroundColor: "#000000",
+            width: '100%',
+            textAlign: 'center',
+            backgroundColor: '#000000',
             marginTop: 4,
             marginBottom: 4,
-            "&:hover": {
-              backgroundColor: "#808080",
+            '&:hover': {
+              backgroundColor: '#808080',
             },
           }}
         >
@@ -118,28 +118,28 @@ function LinksPage() {
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
                               sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                flexWrap: "wrap",
-                                wordWrap: "break-word", // Add this line
-                                width: "100%",
+                                display: 'flex',
+                                flexDirection: 'row',
+                                flexWrap: 'wrap',
+                                wordWrap: 'break-word', // Add this line
+                                width: '100%',
                                 backgroundColor:
                                   snapshot.isDraggingOver &&
                                   link.id === snapshot.draggingOverWith
-                                    ? "#1DA1F2"
-                                    : "inherit",
+                                    ? '#1DA1F2'
+                                    : 'inherit',
                                 color:
                                   snapshot.isDraggingOver &&
                                   link.id === snapshot.draggingOverWith
-                                    ? "white"
-                                    : "inherit",
-                                "&:hover": {
-                                  backgroundColor: "action.hover",
+                                    ? 'white'
+                                    : 'inherit',
+                                '&:hover': {
+                                  backgroundColor: 'action.hover',
                                 },
                               }}
                               onClick={() => {
                                 dispatch({
-                                  type: "SET_SELECTED_LINK",
+                                  type: 'SET_SELECTED_LINK',
                                   payload: link,
                                 });
                                 navigate(`/console/link/editor`);
@@ -151,8 +151,8 @@ function LinksPage() {
                                     color:
                                       snapshot.isDraggingOver &&
                                       link.id === snapshot.draggingOverWith
-                                        ? "white"
-                                        : "inherit",
+                                        ? 'white'
+                                        : 'inherit',
                                   }}
                                 />
                               </ListItemIcon>

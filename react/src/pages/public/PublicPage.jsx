@@ -1,18 +1,18 @@
-import Button from "@mui/material-next/Button";
-import { Container, Avatar, CircularProgress, Typography } from "@mui/material";
-import Box from "@mui/material/Box";
-import { getPublicPage } from "../../api/public/PublicApi";
-import React from "react";
-import { SocialIcon } from "react-social-icons/component";
-import "react-social-icons";
-import { Helmet } from "react-helmet";
-import { DefaultPageColors } from "../../constants/DefaultColors";
-import { incrementClickView } from "../../api/public/PublicApi";
+import Button from '@mui/material-next/Button';
+import { Container, Avatar, CircularProgress, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import { getPublicPage } from '../../api/public/PublicApi';
+import React from 'react';
+import { SocialIcon } from 'react-social-icons/component';
+import 'react-social-icons';
+import { Helmet } from 'react-helmet';
+import { DefaultPageColors } from '../../constants/DefaultColors';
+import { incrementClickView } from '../../api/public/PublicApi';
 export default class PublicPage extends React.Component {
   defaultColors = DefaultPageColors;
 
   state = {
-    pageId: "",
+    pageId: '',
     bioInfo: {},
     links: [],
     socialMediaLinks: [],
@@ -23,7 +23,7 @@ export default class PublicPage extends React.Component {
   };
 
   componentDidMount() {
-    const id = window.location.href.split("/")[3];
+    const id = window.location.href.split('/')[3];
     getPublicPage(id)
       .then((data) => {
         this.setState({ pageId: data.id });
@@ -55,7 +55,7 @@ export default class PublicPage extends React.Component {
       return (
         <Container maxWidth="sm">
           <Helmet>
-            <title>{`${this.state.bioInfo.name === undefined ? "Loading" : this.state.bioInfo.name} - LinkifyBio`}</title>
+            <title>{`${this.state.bioInfo.name === undefined ? 'Loading' : this.state.bioInfo.name} - LinkifyBio`}</title>
           </Helmet>
           <Box display="flex" justifyContent="center" alignItems="center">
             <Box
@@ -81,7 +81,7 @@ export default class PublicPage extends React.Component {
                     sx={{
                       width: 100,
                       height: 100,
-                      display: this.state.isImageLoaded ? "block" : "none",
+                      display: this.state.isImageLoaded ? 'block' : 'none',
                     }}
                   />
                 </center>
@@ -117,7 +117,7 @@ export default class PublicPage extends React.Component {
                     <Box
                       key={index}
                       width="100%"
-                      style={{ marginBottom: "10px" }}
+                      style={{ marginBottom: '10px' }}
                     >
                       <Button
                         color="tertiary"
@@ -126,13 +126,13 @@ export default class PublicPage extends React.Component {
                         href={link.url}
                         target="_blank"
                         sx={{
-                          width: "100%",
+                          width: '100%',
                           backgroundColor: this.state.pageColors.buttonColor,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center", // Change this line
-                          padding: "12px",
-                          "&:hover": {
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center', // Change this line
+                          padding: '12px',
+                          '&:hover': {
                             backgroundColor:
                               this.state.pageColors.buttonHoverColor,
                           },
@@ -149,7 +149,7 @@ export default class PublicPage extends React.Component {
                         />
                         <Box
                           style={{
-                            textAlign: "center",
+                            textAlign: 'center',
                             flexGrow: 1,
                             marginRight: 30,
                             color: this.state.pageColors.buttonTextColor,
@@ -175,15 +175,15 @@ export default class PublicPage extends React.Component {
                 variant="filled"
                 href="https://linkifybio.com"
                 sx={{
-                  color: "#8f2f00",
-                  backgroundColor: "white",
-                  "&:hover": {
-                    backgroundColor: "gainsboro",
+                  color: '#8f2f00',
+                  backgroundColor: 'white',
+                  '&:hover': {
+                    backgroundColor: 'gainsboro',
                   },
                 }}
                 startIcon={
                   <img
-                    src={"/logox100.png"}
+                    src={'/logox100.png'}
                     style={{ height: 20, width: 20, marginRight: -3 }}
                     draggable="false"
                     alt="linkifybio"
@@ -198,13 +198,13 @@ export default class PublicPage extends React.Component {
       );
     } else {
       return (
-        <Container maxWidth="sm" style={{ height: "100vh" }}>
+        <Container maxWidth="sm" style={{ height: '100vh' }}>
           <Box
             display="flex"
             flexDirection="column"
             justifyContent="center"
             alignItems="center"
-            style={{ height: "100%" }}
+            style={{ height: '100%' }}
           >
             <Typography variant="h2" align="center">
               Oops!
@@ -216,11 +216,11 @@ export default class PublicPage extends React.Component {
             <Button
               variant="contained"
               href="https://linkifybio.com"
-              sx={{ marginTop: 10, color: "#8f2f00" }}
+              sx={{ marginTop: 10, color: '#8f2f00' }}
               color="primary"
               startIcon={
                 <img
-                  src={"/logox100.png"}
+                  src={'/logox100.png'}
                   style={{ height: 20, width: 20, marginRight: -3 }}
                   draggable="false"
                   alt="linkifybio"

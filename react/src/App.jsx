@@ -1,13 +1,11 @@
-import PublicPage from "./pages/public/PublicPage";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-
-import { Authenticator } from "@aws-amplify/ui-react";
-import { Amplify } from "aws-amplify";
-import "@aws-amplify/ui-react/styles.css";
-
-import PublicMainPage from "./pages/public/PublicMainPage";
-import ConsoleRoutes from "./ConsoleRoutes";
-import config from "./congito/AwsExports.json";
+import PublicPage from './pages/public/PublicPage';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Authenticator } from '@aws-amplify/ui-react';
+import { Amplify } from 'aws-amplify';
+import '@aws-amplify/ui-react/styles.css';
+import PublicMainPage from './pages/public/PublicMainPage';
+import ConsoleRoutes from './ConsoleRoutes';
+import config from './congito/AwsExports.json';
 
 Amplify.configure(config);
 
@@ -22,18 +20,18 @@ export default function App() {
           element={
             <div
               style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100vh",
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100vh',
               }}
             >
-              {import.meta.env.VITE_NODE_ENV === "local" ? (
+              {import.meta.env.VITE_NODE_ENV === 'local' ? (
                 <ConsoleRoutes />
               ) : (
                 <Authenticator
-                  loginMechanisms={["email"]}
-                  socialProviders={["google"]}
+                  loginMechanisms={['email']}
+                  socialProviders={['google']}
                 >
                   <ConsoleRoutes />
                 </Authenticator>
@@ -45,4 +43,3 @@ export default function App() {
     </BrowserRouter>
   );
 }
-

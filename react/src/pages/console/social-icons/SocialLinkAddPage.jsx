@@ -6,23 +6,23 @@ import {
   Breadcrumbs,
   Link,
   Typography,
-} from "@mui/material";
-import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import Button from "@mui/material-next/Button";
-import { addSocialLink, getPage } from "../../../api/admin/AdminApi";
-import { GlobalContext } from "../../../context/GlobalContext";
-import ArrowBack from "@mui/icons-material/ArrowBack";
-import Header from "../../../components/Header";
-import { MainBoxStyle } from "../../../constants/Styles";
-import CircularProgress from "@mui/material/CircularProgress";
+} from '@mui/material';
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material-next/Button';
+import { addSocialLink, getPage } from '../../../api/admin/AdminApi';
+import { GlobalContext } from '../../../context/GlobalContext';
+import ArrowBack from '@mui/icons-material/ArrowBack';
+import Header from '../../../components/Header';
+import { MainBoxStyle } from '../../../constants/Styles';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function SocialLinkAddPage() {
   const navigate = useNavigate();
 
   const { state, dispatch } = useContext(GlobalContext);
 
-  const [linkUrl, setLinkUrl] = React.useState("");
+  const [linkUrl, setLinkUrl] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
 
   const handleSubmit = async () => {
@@ -33,7 +33,7 @@ function SocialLinkAddPage() {
       .then(() => {
         getPage(state.selectedPage.id)
           .then((data) => {
-            dispatch({ type: "SET_SELECTED_PAGE", payload: data });
+            dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
             setIsLoading(false);
             navigate(`/console/social/view`);
           })
@@ -44,7 +44,7 @@ function SocialLinkAddPage() {
       })
       .catch((error) => {
         alert(
-          "Failed to add social icon. Please check for a valid URL and try again.",
+          'Failed to add social icon. Please check for a valid URL and try again.'
         );
         console.error(error);
         setIsLoading(false);
@@ -57,7 +57,7 @@ function SocialLinkAddPage() {
         display="flex"
         justifyContent="center"
         alignItems="center"
-        style={{ height: "100vh" }}
+        style={{ height: '100vh' }}
       >
         <CircularProgress />
       </Box>
@@ -65,12 +65,12 @@ function SocialLinkAddPage() {
   }
 
   return (
-    <Container maxWidth="false" sx={{ height: "100vh", width: "100vw" }}>
+    <Container maxWidth="false" sx={{ height: '100vh', width: '100vw' }}>
       <Header />
 
       <Box sx={MainBoxStyle}>
         <Box display="flex" justifyContent="left" alignItems="center">
-          <IconButton onClick={() => navigate("/console/links/view")}>
+          <IconButton onClick={() => navigate('/console/links/view')}>
             <ArrowBack />
           </IconButton>
           <Breadcrumbs separator="›" aria-label="breadcrumb">
@@ -92,9 +92,9 @@ function SocialLinkAddPage() {
         <form
           autoComplete="off"
           style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
           <TextField
@@ -105,7 +105,7 @@ function SocialLinkAddPage() {
             value={linkUrl}
             onChange={(e) => setLinkUrl(e.target.value)}
             InputLabelProps={{ shrink: true }}
-            style={{ width: "100%", marginBottom: "20px" }}
+            style={{ width: '100%', marginBottom: '20px' }}
           />
 
           <Button
@@ -113,11 +113,11 @@ function SocialLinkAddPage() {
             size="large"
             variant="filled"
             sx={{
-              width: "100%",
-              textAlign: "center",
-              backgroundColor: "#000000",
-              "&:hover": {
-                backgroundColor: "#808080", // Change this to your desired highlight color
+              width: '100%',
+              textAlign: 'center',
+              backgroundColor: '#000000',
+              '&:hover': {
+                backgroundColor: '#808080', // Change this to your desired highlight color
               },
             }}
             onClick={handleSubmit}

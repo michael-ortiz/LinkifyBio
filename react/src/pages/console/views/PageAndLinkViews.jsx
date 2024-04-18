@@ -10,15 +10,15 @@ import {
   Breadcrumbs,
   Typography,
   Link,
-} from "@mui/material";
-import React, { useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { GlobalContext } from "../../../context/GlobalContext";
-import { Link as LinkIcon } from "@mui/icons-material";
-import Header from "../../../components/Header";
-import { MainBoxStyle } from "../../../constants/Styles";
-import { ArrowBack, Visibility } from "@mui/icons-material";
-import { getPage } from "../../../api/admin/AdminApi";
+} from '@mui/material';
+import React, { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { GlobalContext } from '../../../context/GlobalContext';
+import { Link as LinkIcon } from '@mui/icons-material';
+import Header from '../../../components/Header';
+import { MainBoxStyle } from '../../../constants/Styles';
+import { ArrowBack, Visibility } from '@mui/icons-material';
+import { getPage } from '../../../api/admin/AdminApi';
 
 function PageAndLinkViews() {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ function PageAndLinkViews() {
 
   useEffect(() => {
     getPage(state.selectedPage.id).then((data) => {
-      dispatch({ type: "SET_SELECTED_PAGE", payload: data });
+      dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
     });
   });
 
@@ -35,7 +35,7 @@ function PageAndLinkViews() {
     const link = state.selectedPage.links.find((link) => link.id === view.id);
     return {
       ...view,
-      name: link ? link.name : "Unknown link name",
+      name: link ? link.name : 'Unknown link name',
     };
   });
 
@@ -44,12 +44,12 @@ function PageAndLinkViews() {
   document.body.scrollTop = document.documentElement.scrollTop = 0;
 
   return (
-    <Container maxWidth="false" sx={{ height: "100vh", width: "100vw" }}>
+    <Container maxWidth="false" sx={{ height: '100vh', width: '100vw' }}>
       <Header />
 
       <Box sx={MainBoxStyle}>
         <Box display="flex" justifyContent="left" alignItems="center">
-          <IconButton onClick={() => navigate("/console/actions")}>
+          <IconButton onClick={() => navigate('/console/actions')}>
             <ArrowBack />
           </IconButton>
           <Breadcrumbs separator="›" aria-label="breadcrumb">
@@ -76,7 +76,7 @@ function PageAndLinkViews() {
 
                 <ListItemText
                   primary={state.selectedPage.id}
-                  secondary={"Views: " + pageViews.views}
+                  secondary={'Views: ' + pageViews.views}
                 />
               </ListItem>
               <Divider />
@@ -98,7 +98,7 @@ function PageAndLinkViews() {
 
                   <ListItemText
                     primary={item.name}
-                    secondary={"Clicks: " + item.views}
+                    secondary={'Clicks: ' + item.views}
                   />
                 </ListItem>
                 <Divider />

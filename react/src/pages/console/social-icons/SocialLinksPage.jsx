@@ -10,18 +10,18 @@ import {
   Typography,
   IconButton,
   ListItemIcon,
-} from "@mui/material";
-import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import Button from "@mui/material-next/Button";
-import { GlobalContext } from "../../../context/GlobalContext";
-import { ArrowBack, DragIndicator } from "@mui/icons-material";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { reorderSocialLinks } from "../../../api/admin/AdminApi";
-import { SocialIcon } from "react-social-icons/component";
-import "react-social-icons";
-import Header from "../../../components/Header";
-import { MainBoxStyle } from "../../../constants/Styles";
+} from '@mui/material';
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material-next/Button';
+import { GlobalContext } from '../../../context/GlobalContext';
+import { ArrowBack, DragIndicator } from '@mui/icons-material';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { reorderSocialLinks } from '../../../api/admin/AdminApi';
+import { SocialIcon } from 'react-social-icons/component';
+import 'react-social-icons';
+import Header from '../../../components/Header';
+import { MainBoxStyle } from '../../../constants/Styles';
 
 function SocialLinksPage() {
   const navigate = useNavigate();
@@ -48,10 +48,10 @@ function SocialLinksPage() {
     const items = reorder(
       selectedPage.socialMediaLinks,
       result.source.index,
-      result.destination.index,
+      result.destination.index
     );
 
-    dispatch({ type: "SET_SOCIAL_LINKS", payload: items });
+    dispatch({ type: 'SET_SOCIAL_LINKS', payload: items });
 
     let organizedLinks = [];
     items.forEach((element) => {
@@ -62,12 +62,12 @@ function SocialLinksPage() {
   }
 
   return (
-    <Container maxWidth="false" sx={{ height: "100vh", width: "100vw" }}>
+    <Container maxWidth="false" sx={{ height: '100vh', width: '100vw' }}>
       <Header />
 
       <Box sx={MainBoxStyle}>
         <Box display="flex" justifyContent="left" alignItems="center">
-          <IconButton onClick={() => navigate("/console/actions")}>
+          <IconButton onClick={() => navigate('/console/actions')}>
             <ArrowBack />
           </IconButton>
           <Breadcrumbs separator="›" aria-label="breadcrumb">
@@ -87,13 +87,13 @@ function SocialLinksPage() {
           variant="filled"
           href="/console/social/add"
           sx={{
-            width: "100%",
-            textAlign: "center",
-            backgroundColor: "#000000",
+            width: '100%',
+            textAlign: 'center',
+            backgroundColor: '#000000',
             marginTop: 4,
             marginBottom: 4,
-            "&:hover": {
-              backgroundColor: "#808080",
+            '&:hover': {
+              backgroundColor: '#808080',
             },
           }}
         >
@@ -119,28 +119,28 @@ function SocialLinksPage() {
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
                               sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                flexWrap: "wrap",
-                                wordWrap: "break-word",
-                                width: "100%",
+                                display: 'flex',
+                                flexDirection: 'row',
+                                flexWrap: 'wrap',
+                                wordWrap: 'break-word',
+                                width: '100%',
                                 backgroundColor:
                                   snapshot.isDraggingOver &&
                                   link.id === snapshot.draggingOverWith
-                                    ? "#1DA1F2"
-                                    : "inherit",
+                                    ? '#1DA1F2'
+                                    : 'inherit',
                                 color:
                                   snapshot.isDraggingOver &&
                                   link.id === snapshot.draggingOverWith
-                                    ? "white"
-                                    : "inherit",
-                                "&:hover": {
-                                  backgroundColor: "action.hover",
+                                    ? 'white'
+                                    : 'inherit',
+                                '&:hover': {
+                                  backgroundColor: 'action.hover',
                                 },
                               }}
                               onClick={() => {
                                 dispatch({
-                                  type: "SET_SELECTED_LINK",
+                                  type: 'SET_SELECTED_LINK',
                                   payload: link,
                                 });
                                 navigate(`/console/social/editor`);
@@ -152,8 +152,8 @@ function SocialLinksPage() {
                                     color:
                                       snapshot.isDraggingOver &&
                                       link.id === snapshot.draggingOverWith
-                                        ? "white"
-                                        : "inherit",
+                                        ? 'white'
+                                        : 'inherit',
                                   }}
                                 />
                               </ListItemIcon>

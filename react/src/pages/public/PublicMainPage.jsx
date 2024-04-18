@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import { Authenticator } from "@aws-amplify/ui-react";
-import { Container, Box, useMediaQuery } from "@mui/material";
-import Button from "@mui/material-next/Button";
-import { useNavigate } from "react-router-dom";
-import HeaderPublic from "../../components/HeaderPublic";
-import { Hub } from "aws-amplify/utils";
-import { getCurrentUser } from "@aws-amplify/auth";
-import Typography from "@mui/material/Typography";
-import { useTheme } from "@mui/material/styles";
-import { Helmet } from "react-helmet";
-import { SocialIcon } from "react-social-icons";
+import { useEffect, useState } from 'react';
+import { Authenticator } from '@aws-amplify/ui-react';
+import { Container, Box, useMediaQuery } from '@mui/material';
+import Button from '@mui/material-next/Button';
+import { useNavigate } from 'react-router-dom';
+import HeaderPublic from '../../components/HeaderPublic';
+import { Hub } from 'aws-amplify/utils';
+import { getCurrentUser } from '@aws-amplify/auth';
+import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
+import { Helmet } from 'react-helmet';
+import { SocialIcon } from 'react-social-icons';
 
 export default function PublicMainPage() {
   const navigate = useNavigate();
@@ -19,15 +19,15 @@ export default function PublicMainPage() {
   const [index, setIndex] = useState(0);
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const rollCompanies = [
-    { name: "X", color: "#1DA1F2" },
-    { name: "Facebook", color: "#3B5998" },
-    { name: "Instagram", color: "#E1306C" },
-    { name: "LinkedIn", color: "#0077B5" },
-    { name: "Website", color: "blue" },
-    { name: "Blog", color: "orange" },
+    { name: 'X', color: '#1DA1F2' },
+    { name: 'Facebook', color: '#3B5998' },
+    { name: 'Instagram', color: '#E1306C' },
+    { name: 'LinkedIn', color: '#0077B5' },
+    { name: 'Website', color: 'blue' },
+    { name: 'Blog', color: 'orange' },
   ];
 
   useEffect(() => {
@@ -50,24 +50,24 @@ export default function PublicMainPage() {
   }, [rollCompanies.length]);
 
   const handleAuthClick = () => {
-    if (isSignedIn || import.meta.env.VITE_NODE_ENV === "local") {
-      navigate("/console");
+    if (isSignedIn || import.meta.env.VITE_NODE_ENV === 'local') {
+      navigate('/console');
     } else {
       setShowAuth(true);
     }
   };
 
   const authListener = (data) => {
-    if (data.payload.event === "signedIn") {
+    if (data.payload.event === 'signedIn') {
       setShowAuth(false);
-      navigate("/console");
+      navigate('/console');
     }
   };
 
-  Hub.listen("auth", authListener);
+  Hub.listen('auth', authListener);
 
   return (
-    <Container maxWidth="false" sx={{ height: "100vh", width: "100vw" }}>
+    <Container maxWidth="false" sx={{ height: '100vh', width: '100vw' }}>
       <Helmet>
         <title>LinkifyBio: A Public Page for your Links in Bio</title>
         <meta
@@ -98,69 +98,69 @@ export default function PublicMainPage() {
               size="large"
               variant="filled"
               sx={{
-                textAlign: "center",
-                backgroundColor: "#000000",
+                textAlign: 'center',
+                backgroundColor: '#000000',
                 marginBottom: 4,
-                "&:hover": {
-                  backgroundColor: "#808080",
+                '&:hover': {
+                  backgroundColor: '#808080',
                 },
               }}
               onClick={handleAuthClick}
             >
-              {isSignedIn ? "Go to Console" : "Log In or Create Account"}
+              {isSignedIn ? 'Go to Console' : 'Log In or Create Account'}
             </Button>
           )}
 
           {!showAuth && (
             <Box
               display="flex"
-              flexDirection={isMobile ? "column" : "row"}
+              flexDirection={isMobile ? 'column' : 'row'}
               justifyContent="center"
               alignItems="center"
             >
               <Box>
                 <Typography
                   variant="h3"
-                  align={isMobile ? "left" : "right"}
-                  style={{ fontWeight: "bold" }}
+                  align={isMobile ? 'left' : 'right'}
+                  style={{ fontWeight: 'bold' }}
                 >
                   Create a
                 </Typography>
                 <Typography
                   variant="h3"
-                  align={isMobile ? "left" : "right"}
-                  style={{ fontWeight: "bold" }}
+                  align={isMobile ? 'left' : 'right'}
+                  style={{ fontWeight: 'bold' }}
                 >
                   public page for
                 </Typography>
                 <Typography
                   variant="h2"
-                  align={isMobile ? "left" : "right"}
+                  align={isMobile ? 'left' : 'right'}
                   style={{
                     color: rollCompanies[index].color,
-                    fontWeight: "bold",
+                    fontWeight: 'bold',
                   }}
                 >
                   {rollCompanies[index].name}
                 </Typography>
                 <Typography
                   variant="h3"
-                  align={isMobile ? "left" : "right"}
-                  style={{ fontWeight: "bold" }}
+                  align={isMobile ? 'left' : 'right'}
+                  style={{ fontWeight: 'bold' }}
                 >
                   to showcase
                 </Typography>
                 <Typography
                   variant="h3"
-                  align={isMobile ? "left" : "right"}
-                  style={{ fontWeight: "bold" }}
+                  align={isMobile ? 'left' : 'right'}
+                  style={{ fontWeight: 'bold' }}
                 >
                   your links
                 </Typography>
                 <Typography
                   variant="h3"
-                  align={isMobile ? "left" : "right"}
-                  style={{ fontWeight: "bold" }}
+                  align={isMobile ? 'left' : 'right'}
+                  style={{ fontWeight: 'bold' }}
                 >
                   in bios!
                 </Typography>
@@ -170,8 +170,8 @@ export default function PublicMainPage() {
                 src="/welcome-image-screens.png"
                 alt="description"
                 style={{
-                  marginRight: "1em",
-                  width: !isMobile ? "50%" : "100%",
+                  marginRight: '1em',
+                  width: !isMobile ? '50%' : '100%',
                 }}
               />
             </Box>
@@ -179,19 +179,19 @@ export default function PublicMainPage() {
 
           {showAuth && (
             <Authenticator
-              loginMechanisms={["email"]}
-              socialProviders={["google"]}
+              loginMechanisms={['email']}
+              socialProviders={['google']}
             />
           )}
 
           <Button
             variant="outlined"
-            sx={{ color: "black", height: 45, marginTop: 5 }}
+            sx={{ color: 'black', height: 45, marginTop: 5 }}
             size="small"
             onClick={() =>
               window.open(
-                "https://github.com/michael-ortiz/LinkifyBio",
-                "_blank",
+                'https://github.com/michael-ortiz/LinkifyBio',
+                '_blank'
               )
             }
           >

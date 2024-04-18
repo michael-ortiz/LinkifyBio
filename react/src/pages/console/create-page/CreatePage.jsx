@@ -9,19 +9,19 @@ import {
   Avatar,
   Modal,
   Slider,
-} from "@mui/material";
-import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Button from "@mui/material-next/Button";
-import { createPagte } from "../../../api/admin/AdminApi";
-import { GlobalContext } from "../../../context/GlobalContext";
-import { ArrowBack, Close } from "@mui/icons-material";
-import Dropzone from "react-dropzone";
-import AvatarEditor from "react-avatar-editor";
-import { uploadProfileImage } from "../../../api/admin/AdminApi";
-import Header from "../../../components/Header";
-import { MainBoxStyle } from "../../../constants/Styles";
-import CircularProgress from "@mui/material/CircularProgress";
+} from '@mui/material';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material-next/Button';
+import { createPagte } from '../../../api/admin/AdminApi';
+import { GlobalContext } from '../../../context/GlobalContext';
+import { ArrowBack, Close } from '@mui/icons-material';
+import Dropzone from 'react-dropzone';
+import AvatarEditor from 'react-avatar-editor';
+import { uploadProfileImage } from '../../../api/admin/AdminApi';
+import Header from '../../../components/Header';
+import { MainBoxStyle } from '../../../constants/Styles';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function CreatePage() {
   const navigate = useNavigate();
@@ -33,8 +33,8 @@ function CreatePage() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageEditor, setImageEditor] = useState(null);
   const [id] = React.useState(state.alias);
-  const [name, setName] = React.useState("");
-  const [descriptionTitle, setDescriptionTitle] = React.useState("");
+  const [name, setName] = React.useState('');
+  const [descriptionTitle, setDescriptionTitle] = React.useState('');
   const [descriptionTitleLength, setDescriptionTitleLength] = React.useState(0);
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -77,7 +77,7 @@ function CreatePage() {
     setIsLoading(true);
 
     createPagte(id, name, descriptionTitle, selectedImage).then(() => {
-      dispatch({ type: "SET_DID_CREATE_PAGE", payload: true });
+      dispatch({ type: 'SET_DID_CREATE_PAGE', payload: true });
       setIsLoading(false);
       navigate(`/console`);
     });
@@ -89,7 +89,7 @@ function CreatePage() {
         display="flex"
         justifyContent="center"
         alignItems="center"
-        style={{ height: "100vh" }}
+        style={{ height: '100vh' }}
       >
         <CircularProgress />
       </Box>
@@ -97,12 +97,12 @@ function CreatePage() {
   }
 
   return (
-    <Container maxWidth="false" sx={{ height: "100vh", width: "100vw" }}>
+    <Container maxWidth="false" sx={{ height: '100vh', width: '100vw' }}>
       <Header />
 
       <Box sx={MainBoxStyle}>
         <Box display="flex" justifyContent="left" alignItems="center">
-          <IconButton onClick={() => navigate("/console/page/create/alias")}>
+          <IconButton onClick={() => navigate('/console/page/create/alias')}>
             <ArrowBack />
           </IconButton>
           <Breadcrumbs separator="›" aria-label="breadcrumb">
@@ -132,12 +132,12 @@ function CreatePage() {
         >
           <Box
             sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
               width: 400,
-              bgcolor: "background.paper",
+              bgcolor: 'background.paper',
               boxShadow: 24,
               borderRadius: 10,
               p: 4,
@@ -157,7 +157,7 @@ function CreatePage() {
                 onDrop={(dropped) => setSelectedImage(dropped[0])}
                 noClick
                 noKeyboard
-                style={{ width: "250px", height: "250px" }}
+                style={{ width: '250px', height: '250px' }}
               >
                 {({ getRootProps, getInputProps }) => (
                   <center>
@@ -196,13 +196,13 @@ function CreatePage() {
                 variant="filled"
                 onClick={handleImageUpload}
                 sx={{
-                  width: "100%",
-                  textAlign: "center",
-                  backgroundColor: "#000000",
+                  width: '100%',
+                  textAlign: 'center',
+                  backgroundColor: '#000000',
                   marginTop: 4,
                   marginBottom: 4,
-                  "&:hover": {
-                    backgroundColor: "#808080",
+                  '&:hover': {
+                    backgroundColor: '#808080',
                   },
                 }}
               >
@@ -215,13 +215,13 @@ function CreatePage() {
                   size="large"
                   variant="filled"
                   sx={{
-                    width: "100%",
-                    textAlign: "center",
-                    backgroundColor: "#000000",
+                    width: '100%',
+                    textAlign: 'center',
+                    backgroundColor: '#000000',
                     marginTop: 4,
                     marginBottom: 4,
-                    "&:hover": {
-                      backgroundColor: "#808080",
+                    '&:hover': {
+                      backgroundColor: '#808080',
                     },
                   }}
                   component="label"
@@ -241,20 +241,20 @@ function CreatePage() {
 
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column", // Change this line
-            justifyContent: "center",
-            alignItems: "center", // Add this line
-            margin: "20px 0",
+            display: 'flex',
+            flexDirection: 'column', // Change this line
+            justifyContent: 'center',
+            alignItems: 'center', // Add this line
+            margin: '20px 0',
           }}
         >
           <Avatar
-            src={selectedImage || ""}
+            src={selectedImage || ''}
             sx={{
               width: 100,
               height: 100,
-              userSelect: "none",
-              pointerEvents: "none",
+              userSelect: 'none',
+              pointerEvents: 'none',
             }}
             draggable="false"
           />
@@ -266,9 +266,9 @@ function CreatePage() {
         <form
           autoComplete="off"
           style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
           <TextField
@@ -278,7 +278,7 @@ function CreatePage() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             InputLabelProps={{ shrink: true }}
-            style={{ width: "100%", marginBottom: "20px" }}
+            style={{ width: '100%', marginBottom: '20px' }}
           />
 
           <TextField
@@ -293,7 +293,7 @@ function CreatePage() {
               setDescriptionTitleLength(e.target.value.length);
             }}
             InputLabelProps={{ shrink: true }}
-            style={{ width: "100%", marginBottom: "20px" }}
+            style={{ width: '100%', marginBottom: '20px' }}
           />
 
           <Button
@@ -301,11 +301,11 @@ function CreatePage() {
             size="large"
             variant="filled"
             sx={{
-              width: "100%",
-              textAlign: "center",
-              backgroundColor: "#000000",
-              "&:hover": {
-                backgroundColor: "#808080", // Change this to your desired highlight color
+              width: '100%',
+              textAlign: 'center',
+              backgroundColor: '#000000',
+              '&:hover': {
+                backgroundColor: '#808080', // Change this to your desired highlight color
               },
             }}
             onClick={handleSubmit}

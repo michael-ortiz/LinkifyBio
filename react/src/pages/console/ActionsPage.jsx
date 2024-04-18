@@ -10,10 +10,10 @@ import {
   Typography,
   IconButton,
   ListItemIcon,
-} from "@mui/material";
-import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { GlobalContext } from "../../context/GlobalContext";
+} from '@mui/material';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { GlobalContext } from '../../context/GlobalContext';
 import {
   Link as linksIcon,
   ArrowBack,
@@ -22,11 +22,11 @@ import {
   Visibility,
   Palette,
   BarChart,
-} from "@mui/icons-material";
-import copy from "copy-to-clipboard";
-import Button from "@mui/material-next/Button";
-import Header from "../../components/Header";
-import { MainBoxStyle } from "../../constants/Styles";
+} from '@mui/icons-material';
+import copy from 'copy-to-clipboard';
+import Button from '@mui/material-next/Button';
+import Header from '../../components/Header';
+import { MainBoxStyle } from '../../constants/Styles';
 
 function ActionsPage() {
   const navigate = useNavigate();
@@ -40,50 +40,50 @@ function ActionsPage() {
 
   const options = [
     {
-      title: "View Page",
+      title: 'View Page',
       path: `/${selectedPage.id}`,
       icon: Visibility,
       openNewTab: true,
     },
     {
-      title: "Manage Links",
-      path: "/console/links/view",
+      title: 'Manage Links',
+      path: '/console/links/view',
       icon: linksIcon,
       openNewTab: false,
     },
     {
-      title: "Manage Social Icons Links",
-      path: "/console/social/view",
+      title: 'Manage Social Icons Links',
+      path: '/console/social/view',
       icon: Public,
       openNewTab: false,
     },
     {
-      title: "Page Colors",
-      path: "/console/page/colors",
+      title: 'Page Colors',
+      path: '/console/page/colors',
       icon: Palette,
       openNewTab: false,
     },
     {
-      title: "Page Views & Clicks",
-      path: "/console/page/views",
+      title: 'Page Views & Clicks',
+      path: '/console/page/views',
       icon: BarChart,
       openNewTab: false,
     },
     {
-      title: "Page Settings",
-      path: "/console/page/settings",
+      title: 'Page Settings',
+      path: '/console/page/settings',
       icon: Settings,
       openNewTab: false,
     },
   ];
 
   return (
-    <Container maxWidth="false" sx={{ height: "100vh", width: "100vw" }}>
+    <Container maxWidth="false" sx={{ height: '100vh', width: '100vw' }}>
       <Header />
 
       <Box sx={MainBoxStyle}>
         <Box display="flex" justifyContent="left" alignItems="center">
-          <IconButton onClick={() => navigate("/console")}>
+          <IconButton onClick={() => navigate('/console')}>
             <ArrowBack />
           </IconButton>
           <Breadcrumbs separator="›" aria-label="breadcrumb">
@@ -107,14 +107,14 @@ function ActionsPage() {
           <Box>
             <Typography
               variant="body2"
-              style={{ fontWeight: "bold", color: "#006400" }}
+              style={{ fontWeight: 'bold', color: '#006400' }}
             >
               Your page is live:
             </Typography>
             <Box component="span">
-              <Link href={`/${selectedPage.id}`} style={{ color: "black" }}>
+              <Link href={`/${selectedPage.id}`} style={{ color: 'black' }}>
                 {`https://linkifybio.com/${selectedPage.id}`}
-              </Link>{" "}
+              </Link>{' '}
             </Box>
           </Box>
           <Box component="span">
@@ -122,14 +122,14 @@ function ActionsPage() {
               color="primary"
               size="small"
               variant="filled"
-              style={{ backgroundColor: "black", color: "white" }}
+              style={{ backgroundColor: 'black', color: 'white' }}
               onClick={() => {
                 copy(`https://linkifybio.com/${selectedPage.id}`);
                 setIsCopied(true);
                 setTimeout(() => setIsCopied(false), 2000); // Change back after 2 seconds
               }}
             >
-              {isCopied ? "Copied!" : "Copy URL"}
+              {isCopied ? 'Copied!' : 'Copy URL'}
             </Button>
           </Box>
         </Box>
@@ -142,15 +142,15 @@ function ActionsPage() {
               <React.Fragment key={index}>
                 <a
                   href={selectOption.path}
-                  target={selectOption.openNewTab ? "_blank" : ""}
+                  target={selectOption.openNewTab ? '_blank' : ''}
                   rel="noopener noreferrer"
-                  style={{ textDecoration: "none", color: "black" }}
+                  style={{ textDecoration: 'none', color: 'black' }}
                 >
                   <ListItem
                     sx={{
-                      width: "100%",
-                      "&:hover": {
-                        backgroundColor: "action.hover",
+                      width: '100%',
+                      '&:hover': {
+                        backgroundColor: 'action.hover',
                       },
                     }}
                   >

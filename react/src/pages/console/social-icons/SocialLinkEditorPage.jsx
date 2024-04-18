@@ -6,21 +6,21 @@ import {
   Typography,
   IconButton,
   Breadcrumbs,
-} from "@mui/material";
-import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import Button from "@mui/material-next/Button";
+} from '@mui/material';
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material-next/Button';
 import {
   updateSocialLink,
   deleteSocialLink,
   getPage,
-} from "../../../api/admin/AdminApi";
-import { GlobalContext } from "../../../context/GlobalContext";
-import { Delete, ArrowBack } from "@mui/icons-material";
-import { useConfirm } from "material-ui-confirm";
-import Header from "../../../components/Header";
-import { MainBoxStyle } from "../../../constants/Styles";
-import CircularProgress from "@mui/material/CircularProgress";
+} from '../../../api/admin/AdminApi';
+import { GlobalContext } from '../../../context/GlobalContext';
+import { Delete, ArrowBack } from '@mui/icons-material';
+import { useConfirm } from 'material-ui-confirm';
+import Header from '../../../components/Header';
+import { MainBoxStyle } from '../../../constants/Styles';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function SocialLinkEditorPage() {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ function SocialLinkEditorPage() {
 
   const { state, dispatch } = useContext(GlobalContext);
 
-  const [linkUrl, setLinkUrl] = React.useState(state.selectedLink.url || "");
+  const [linkUrl, setLinkUrl] = React.useState(state.selectedLink.url || '');
   const [isLoading, setIsLoading] = React.useState(false);
 
   const handleSubmit = async () => {
@@ -40,7 +40,7 @@ function SocialLinkEditorPage() {
       .then(() => {
         getPage(state.selectedPage.id)
           .then((data) => {
-            dispatch({ type: "SET_SELECTED_PAGE", payload: data });
+            dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
             navigate(`/console/social/view`);
             setIsLoading(false);
           })
@@ -66,7 +66,7 @@ function SocialLinkEditorPage() {
           deleteSocialLink(state.selectedPage.id, id)
             .then(() => {
               getPage(state.selectedPage.id).then((data) => {
-                dispatch({ type: "SET_SELECTED_PAGE", payload: data });
+                dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
                 setIsLoading(false);
                 navigate(`/console/social/view`);
               });
@@ -76,8 +76,8 @@ function SocialLinkEditorPage() {
             });
         } catch (error) {
           setIsLoading(false);
-          console.error("Failed to delete link:", error);
-          alert("Could not delete link. Please try again later.");
+          console.error('Failed to delete link:', error);
+          alert('Could not delete link. Please try again later.');
         }
       })
       .catch(() => {});
@@ -89,7 +89,7 @@ function SocialLinkEditorPage() {
         display="flex"
         justifyContent="center"
         alignItems="center"
-        style={{ height: "100vh" }}
+        style={{ height: '100vh' }}
       >
         <CircularProgress />
       </Box>
@@ -97,12 +97,12 @@ function SocialLinkEditorPage() {
   }
 
   return (
-    <Container maxWidth="false" sx={{ height: "100vh", width: "100vw" }}>
+    <Container maxWidth="false" sx={{ height: '100vh', width: '100vw' }}>
       <Header />
 
       <Box sx={MainBoxStyle}>
         <Box display="flex" justifyContent="left" alignItems="center">
-          <IconButton onClick={() => navigate("/console/social/view")}>
+          <IconButton onClick={() => navigate('/console/social/view')}>
             <ArrowBack />
           </IconButton>
           <Breadcrumbs separator="›" aria-label="breadcrumb">
@@ -133,9 +133,9 @@ function SocialLinkEditorPage() {
         <form
           autoComplete="off"
           style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
           <TextField
@@ -146,7 +146,7 @@ function SocialLinkEditorPage() {
             value={linkUrl}
             onChange={(e) => setLinkUrl(e.target.value)}
             InputLabelProps={{ shrink: true }}
-            style={{ width: "100%", marginBottom: "20px" }}
+            style={{ width: '100%', marginBottom: '20px' }}
           />
 
           <Button
@@ -154,11 +154,11 @@ function SocialLinkEditorPage() {
             size="large"
             variant="filled"
             sx={{
-              width: "100%",
-              textAlign: "center",
-              backgroundColor: "#000000",
-              "&:hover": {
-                backgroundColor: "#808080", // Change this to your desired highlight color
+              width: '100%',
+              textAlign: 'center',
+              backgroundColor: '#000000',
+              '&:hover': {
+                backgroundColor: '#808080', // Change this to your desired highlight color
               },
             }}
             onClick={handleSubmit}

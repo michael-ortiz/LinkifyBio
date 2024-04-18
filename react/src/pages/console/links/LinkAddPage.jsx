@@ -6,24 +6,24 @@ import {
   Breadcrumbs,
   Link,
   Typography,
-} from "@mui/material";
-import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import Button from "@mui/material-next/Button";
-import { addLink, getPage } from "../../../api/admin/AdminApi";
-import { GlobalContext } from "../../../context/GlobalContext";
-import ArrowBack from "@mui/icons-material/ArrowBack";
-import Header from "../../../components/Header";
-import { MainBoxStyle } from "../../../constants/Styles";
-import CircularProgress from "@mui/material/CircularProgress";
+} from '@mui/material';
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material-next/Button';
+import { addLink, getPage } from '../../../api/admin/AdminApi';
+import { GlobalContext } from '../../../context/GlobalContext';
+import ArrowBack from '@mui/icons-material/ArrowBack';
+import Header from '../../../components/Header';
+import { MainBoxStyle } from '../../../constants/Styles';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function LinkAddPage() {
   const navigate = useNavigate();
 
   const { state, dispatch } = useContext(GlobalContext);
 
-  const [linkName, setLinkName] = React.useState("");
-  const [linkUrl, setLinkUrl] = React.useState("");
+  const [linkName, setLinkName] = React.useState('');
+  const [linkUrl, setLinkUrl] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
 
   const handleSubmit = async () => {
@@ -36,13 +36,13 @@ function LinkAddPage() {
         setIsLoading(false);
 
         getPage(state.selectedPage.id).then((data) => {
-          dispatch({ type: "SET_SELECTED_PAGE", payload: data });
+          dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
           navigate(`/console/links/view`);
         });
       })
       .catch((error) => {
         alert(
-          "Failed to add link. Please check for a valid name and URL and try again.",
+          'Failed to add link. Please check for a valid name and URL and try again.'
         );
         console.error(error);
         setIsLoading(false);
@@ -55,7 +55,7 @@ function LinkAddPage() {
         display="flex"
         justifyContent="center"
         alignItems="center"
-        style={{ height: "100vh" }}
+        style={{ height: '100vh' }}
       >
         <CircularProgress />
       </Box>
@@ -63,12 +63,12 @@ function LinkAddPage() {
   }
 
   return (
-    <Container maxWidth="false" sx={{ height: "100vh", width: "100vw" }}>
+    <Container maxWidth="false" sx={{ height: '100vh', width: '100vw' }}>
       <Header />
 
       <Box sx={MainBoxStyle}>
         <Box display="flex" justifyContent="left" alignItems="center">
-          <IconButton onClick={() => navigate("/console/links/view")}>
+          <IconButton onClick={() => navigate('/console/links/view')}>
             <ArrowBack />
           </IconButton>
           <Breadcrumbs separator="›" aria-label="breadcrumb">
@@ -90,9 +90,9 @@ function LinkAddPage() {
         <form
           autoComplete="off"
           style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
           <TextField
@@ -102,7 +102,7 @@ function LinkAddPage() {
             value={linkName}
             onChange={(e) => setLinkName(e.target.value)}
             InputLabelProps={{ shrink: true }}
-            style={{ width: "100%", marginBottom: "20px" }}
+            style={{ width: '100%', marginBottom: '20px' }}
           />
 
           <TextField
@@ -113,7 +113,7 @@ function LinkAddPage() {
             value={linkUrl}
             onChange={(e) => setLinkUrl(e.target.value)}
             InputLabelProps={{ shrink: true }}
-            style={{ width: "100%", marginBottom: "20px" }}
+            style={{ width: '100%', marginBottom: '20px' }}
           />
 
           <Button
@@ -121,11 +121,11 @@ function LinkAddPage() {
             size="large"
             variant="filled"
             sx={{
-              width: "100%",
-              textAlign: "center",
-              backgroundColor: "#000000",
-              "&:hover": {
-                backgroundColor: "#808080", // Change this to your desired highlight color
+              width: '100%',
+              textAlign: 'center',
+              backgroundColor: '#000000',
+              '&:hover': {
+                backgroundColor: '#808080', // Change this to your desired highlight color
               },
             }}
             onClick={handleSubmit}

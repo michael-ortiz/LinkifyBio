@@ -10,27 +10,27 @@ import {
   Modal,
   Slider,
   InputAdornment,
-} from "@mui/material";
-import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Button from "@mui/material-next/Button";
+} from '@mui/material';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material-next/Button';
 import {
   updateBioInfo,
   deletePage,
   updatePageid,
   checkIfAliasIsAvailable,
   getPage,
-} from "../../../api/admin/AdminApi";
-import { GlobalContext } from "../../../context/GlobalContext";
-import { Delete, ArrowBack, Close, Check } from "@mui/icons-material";
-import Dropzone from "react-dropzone";
-import AvatarEditor from "react-avatar-editor";
-import { uploadProfileImage } from "../../../api/admin/AdminApi";
-import { useConfirm } from "material-ui-confirm";
-import Header from "../../../components/Header";
-import { MainBoxStyle } from "../../../constants/Styles";
-import CircularProgress from "@mui/material/CircularProgress";
-import { validateAlias } from "../../../utils/CoreUtils";
+} from '../../../api/admin/AdminApi';
+import { GlobalContext } from '../../../context/GlobalContext';
+import { Delete, ArrowBack, Close, Check } from '@mui/icons-material';
+import Dropzone from 'react-dropzone';
+import AvatarEditor from 'react-avatar-editor';
+import { uploadProfileImage } from '../../../api/admin/AdminApi';
+import { useConfirm } from 'material-ui-confirm';
+import Header from '../../../components/Header';
+import { MainBoxStyle } from '../../../constants/Styles';
+import CircularProgress from '@mui/material/CircularProgress';
+import { validateAlias } from '../../../utils/CoreUtils';
 
 function PageSettings() {
   const navigate = useNavigate();
@@ -42,19 +42,19 @@ function PageSettings() {
   const [zoom, setZoom] = React.useState(1.0);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageEditor, setImageEditor] = useState(null);
-  const [name, setName] = React.useState(state.selectedPage.bioInfo.name || "");
+  const [name, setName] = React.useState(state.selectedPage.bioInfo.name || '');
   const [imageUrl, setImageUrl] = useState(
-    state.selectedPage.bioInfo.imageUrl || "",
+    state.selectedPage.bioInfo.imageUrl || ''
   );
-  const [pageId, setPageId] = React.useState(state.selectedPage.id || "");
+  const [pageId, setPageId] = React.useState(state.selectedPage.id || '');
   const [editingPageId, setEditingPageId] = React.useState(false);
   const [isAvailable, setIsAvailable] = React.useState(false);
 
   const [descriptionTitle, setDescriptionTitle] = React.useState(
-    state.selectedPage.bioInfo.descriptionTitle || "",
+    state.selectedPage.bioInfo.descriptionTitle || ''
   );
   const [descriptionTitleLength, setDescriptionTitleLength] = React.useState(
-    state.selectedPage.bioInfo.descriptionTitle.length || "",
+    state.selectedPage.bioInfo.descriptionTitle.length || ''
   );
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -91,7 +91,7 @@ function PageSettings() {
   };
 
   const removeImage = () => {
-    setImageUrl("");
+    setImageUrl('');
     closePicEditor();
   };
 
@@ -109,8 +109,8 @@ function PageSettings() {
     }).then(() => {
       getPage(state.selectedPage.id)
         .then((data) => {
-          dispatch({ type: "SET_SELECTED_PAGE", payload: data });
-          navigate("/console/actions");
+          dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
+          navigate('/console/actions');
           setIsLoading(false);
         })
         .catch(() => setIsLoading(false));
@@ -126,19 +126,19 @@ function PageSettings() {
       setIsLoading(true);
 
       if (!validateAlias(pageId)) {
-        alert("This alias is invalid. Please choose another one.");
+        alert('This alias is invalid. Please choose another one.');
         return;
       }
 
       await checkIfAliasIsAvailable(pageId).then((data) => {
         if (!data.available) {
-          alert("This alias is already taken. Please choose another one.");
+          alert('This alias is already taken. Please choose another one.');
           return;
         }
       });
 
       await updatePageid(state.selectedPage.id, pageId).then((data) => {
-        dispatch({ type: "SET_SELECTED_PAGE", payload: data });
+        dispatch({ type: 'SET_SELECTED_PAGE', payload: data });
         setEditingPageId(editingPageId ? false : true);
         setIsLoading(false);
       });
@@ -148,7 +148,7 @@ function PageSettings() {
   };
 
   const isAliasAvailable = async (alias) => {
-    if (alias !== "") {
+    if (alias !== '') {
       checkIfAliasIsAvailable(alias)
         .then((data) => {
           setIsAvailable(data.available);
@@ -164,7 +164,7 @@ function PageSettings() {
   };
 
   const shouldShowAliasCheck = () => {
-    return editingPageId && pageId !== state.selectedPage.id && pageId !== "";
+    return editingPageId && pageId !== state.selectedPage.id && pageId !== '';
   };
 
   const deleteLinkAction = async () => {
@@ -177,14 +177,14 @@ function PageSettings() {
 
         try {
           deletePage(state.selectedPage.id).then(() => {
-            dispatch({ type: "SET_SELECTED_PAGE", payload: {} });
+            dispatch({ type: 'SET_SELECTED_PAGE', payload: {} });
             navigate(`/console`);
             setIsLoading(false);
           });
         } catch (error) {
           setIsLoading(false);
-          console.error("Failed to delete page:", error);
-          alert("Could not delete page. Please try again later.");
+          console.error('Failed to delete page:', error);
+          alert('Could not delete page. Please try again later.');
         }
       })
       .catch(() => {});
@@ -196,7 +196,7 @@ function PageSettings() {
         display="flex"
         justifyContent="center"
         alignItems="center"
-        style={{ height: "100vh" }}
+        style={{ height: '100vh' }}
       >
         <CircularProgress />
       </Box>
@@ -204,12 +204,12 @@ function PageSettings() {
   }
 
   return (
-    <Container maxWidth="false" sx={{ height: "100vh", width: "100vw" }}>
+    <Container maxWidth="false" sx={{ height: '100vh', width: '100vw' }}>
       <Header />
 
       <Box sx={MainBoxStyle}>
         <Box display="flex" justifyContent="left" alignItems="center">
-          <IconButton onClick={() => navigate("/console/actions")}>
+          <IconButton onClick={() => navigate('/console/actions')}>
             <ArrowBack />
           </IconButton>
           <Breadcrumbs separator="›" aria-label="breadcrumb">
@@ -238,12 +238,12 @@ function PageSettings() {
         >
           <Box
             sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
               width: 400,
-              bgcolor: "background.paper",
+              bgcolor: 'background.paper',
               boxShadow: 24,
               borderRadius: 10,
               p: 4,
@@ -263,7 +263,7 @@ function PageSettings() {
                 onDrop={(dropped) => setSelectedImage(dropped[0])}
                 noClick
                 noKeyboard
-                style={{ width: "250px", height: "250px" }}
+                style={{ width: '250px', height: '250px' }}
               >
                 {({ getRootProps, getInputProps }) => (
                   <center>
@@ -302,13 +302,13 @@ function PageSettings() {
                 variant="filled"
                 onClick={handleImageUpload}
                 sx={{
-                  width: "100%",
-                  textAlign: "center",
-                  backgroundColor: "#000000",
+                  width: '100%',
+                  textAlign: 'center',
+                  backgroundColor: '#000000',
                   marginTop: 4,
                   marginBottom: 4,
-                  "&:hover": {
-                    backgroundColor: "#808080",
+                  '&:hover': {
+                    backgroundColor: '#808080',
                   },
                 }}
               >
@@ -321,13 +321,13 @@ function PageSettings() {
                   size="large"
                   variant="filled"
                   sx={{
-                    width: "100%",
-                    textAlign: "center",
-                    backgroundColor: "#000000",
+                    width: '100%',
+                    textAlign: 'center',
+                    backgroundColor: '#000000',
                     marginTop: 4,
                     marginBottom: 4,
-                    "&:hover": {
-                      backgroundColor: "#808080",
+                    '&:hover': {
+                      backgroundColor: '#808080',
                     },
                   }}
                   component="label"
@@ -342,7 +342,7 @@ function PageSettings() {
                 </Button>
 
                 {imageUrl && (
-                  <Box sx={{ display: "flex", justifyContent: "center" }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                     <Button onClick={removeImage}>Remove Picture</Button>
                   </Box>
                 )}
@@ -353,11 +353,11 @@ function PageSettings() {
 
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column", // Change this line
-            justifyContent: "center",
-            alignItems: "center", // Add this line
-            margin: "20px 0",
+            display: 'flex',
+            flexDirection: 'column', // Change this line
+            justifyContent: 'center',
+            alignItems: 'center', // Add this line
+            margin: '20px 0',
           }}
         >
           <Avatar
@@ -365,8 +365,8 @@ function PageSettings() {
             sx={{
               width: 100,
               height: 100,
-              userSelect: "none",
-              pointerEvents: "none",
+              userSelect: 'none',
+              pointerEvents: 'none',
             }}
             draggable="false"
           />
@@ -398,19 +398,19 @@ function PageSettings() {
               endAdornment: (
                 <InputAdornment position="end">
                   {shouldShowAliasCheck() && isAvailable ? (
-                    <Check sx={{ color: "green" }} />
+                    <Check sx={{ color: 'green' }} />
                   ) : shouldShowAliasCheck() ? (
-                    <Close sx={{ color: "red" }} />
+                    <Close sx={{ color: 'red' }} />
                   ) : null}
                 </InputAdornment>
               ),
             }}
             inputProps={{
-              autoCorrect: "none",
-              autoCapitalize: "none",
-              autoComplete: "none",
+              autoCorrect: 'none',
+              autoCapitalize: 'none',
+              autoComplete: 'none',
             }}
-            style={{ flex: 1, marginRight: "10px" }}
+            style={{ flex: 1, marginRight: '10px' }}
           />
           <Button
             variant="contained"
@@ -419,7 +419,7 @@ function PageSettings() {
               editingPageId ? handleSubmitEditPageAlias : handleEditPageAlias
             }
           >
-            {editingPageId ? "Save" : "Edit"}
+            {editingPageId ? 'Save' : 'Edit'}
           </Button>
         </Box>
         <h2>Details</h2>
@@ -427,9 +427,9 @@ function PageSettings() {
         <form
           autoComplete="off"
           style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
           <TextField
@@ -439,7 +439,7 @@ function PageSettings() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             InputLabelProps={{ shrink: true }}
-            style={{ width: "100%", marginBottom: "20px" }}
+            style={{ width: '100%', marginBottom: '20px' }}
           />
 
           <TextField
@@ -454,20 +454,20 @@ function PageSettings() {
               setDescriptionTitleLength(e.target.value.length);
             }}
             InputLabelProps={{ shrink: true }}
-            style={{ width: "100%", marginBottom: "20px" }}
+            style={{ width: '100%', marginBottom: '20px' }}
           />
 
-          <Box sx={{ marginBottom: 5, width: "100%" }}>
+          <Box sx={{ marginBottom: 5, width: '100%' }}>
             <Button
               color="tertiary"
               size="large"
               variant="filled"
               sx={{
-                width: "100%",
-                textAlign: "center",
-                backgroundColor: "#000000",
-                "&:hover": {
-                  backgroundColor: "#808080", // Change this to your desired highlight color
+                width: '100%',
+                textAlign: 'center',
+                backgroundColor: '#000000',
+                '&:hover': {
+                  backgroundColor: '#808080', // Change this to your desired highlight color
                 },
               }}
               onClick={handleSubmit}

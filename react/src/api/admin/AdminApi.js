@@ -1,13 +1,13 @@
-import { fetchAuthSession } from "@aws-amplify/auth";
+import { fetchAuthSession } from '@aws-amplify/auth';
 
 const url =
-  import.meta.env.VITE_NODE_ENV === "local"
+  import.meta.env.VITE_NODE_ENV === 'local'
     ? import.meta.env.VITE_LOCAL_API_URL
     : import.meta.env.VITE_API_URL;
 
 const getToken = async () => {
-  if (import.meta.env.VITE_NODE_ENV === "local") {
-    return "local";
+  if (import.meta.env.VITE_NODE_ENV === 'local') {
+    return 'local';
   } else {
     return (await fetchAuthSession()).tokens.accessToken.toString();
   }
@@ -34,17 +34,17 @@ export async function listPages() {
 
 export async function updateLink(id, link) {
   const response = await fetch(`${url}/admin/page/${id}/link/update`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: await getToken(),
     },
     body: JSON.stringify(link),
   });
 
   if (!response.ok) {
-    console.error("Failed to make POST request:", response);
-    throw new Error("Failed to make POST request");
+    console.error('Failed to make POST request:', response);
+    throw new Error('Failed to make POST request');
   } else {
     const data = await response.json();
     return data;
@@ -53,17 +53,17 @@ export async function updateLink(id, link) {
 
 export async function updateSocialLink(id, link) {
   const response = await fetch(`${url}/admin/page/${id}/social/link/update`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: await getToken(),
     },
     body: JSON.stringify(link),
   });
 
   if (!response.ok) {
-    console.error("Failed to make POST request:", response);
-    throw new Error("Failed to make POST request");
+    console.error('Failed to make POST request:', response);
+    throw new Error('Failed to make POST request');
   } else {
     const data = await response.json();
     return data;
@@ -72,17 +72,17 @@ export async function updateSocialLink(id, link) {
 
 export async function reorderLinks(id, orderedLinkIds) {
   const response = await fetch(`${url}/admin/page/${id}/link/organize`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: await getToken(),
     },
     body: JSON.stringify(orderedLinkIds),
   });
 
   if (!response.ok) {
-    console.error("Failed to make POST request:", response);
-    throw new Error("Failed to make POST request");
+    console.error('Failed to make POST request:', response);
+    throw new Error('Failed to make POST request');
   } else {
     const data = await response.json();
     return data;
@@ -91,17 +91,17 @@ export async function reorderLinks(id, orderedLinkIds) {
 
 export async function reorderSocialLinks(id, orderedLinkIds) {
   const response = await fetch(`${url}/admin/page/${id}/social/link/organize`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: await getToken(),
     },
     body: JSON.stringify(orderedLinkIds),
   });
 
   if (!response.ok) {
-    console.error("Failed to make POST request:", response);
-    throw new Error("Failed to make POST request");
+    console.error('Failed to make POST request:', response);
+    throw new Error('Failed to make POST request');
   } else {
     const data = await response.json();
     return data;
@@ -112,12 +112,12 @@ export async function deleteLink(id, linkId) {
   const response = await fetch(
     `${url}/admin/page/${id}/link/remove/${linkId}`,
     {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: await getToken(),
       },
-    },
+    }
   );
 
   return response.json();
@@ -125,9 +125,9 @@ export async function deleteLink(id, linkId) {
 
 export async function deletePage(id) {
   const response = await fetch(`${url}/admin/page/${id}/remove`, {
-    method: "DELETE",
+    method: 'DELETE',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: await getToken(),
     },
   });
@@ -139,12 +139,12 @@ export async function deleteSocialLink(id, linkId) {
   const response = await fetch(
     `${url}/admin/page/${id}/social/link/remove/${linkId}`,
     {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: await getToken(),
       },
-    },
+    }
   );
 
   return response.json();
@@ -152,17 +152,17 @@ export async function deleteSocialLink(id, linkId) {
 
 export async function addLink(id, link) {
   const response = await fetch(`${url}/admin/page/${id}/link/add`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: await getToken(),
     },
     body: JSON.stringify(link),
   });
 
   if (!response.ok) {
-    console.error("Failed to make POST request:", response);
-    throw new Error("Failed to make POST request");
+    console.error('Failed to make POST request:', response);
+    throw new Error('Failed to make POST request');
   } else {
     const data = await response.json();
     return data;
@@ -171,17 +171,17 @@ export async function addLink(id, link) {
 
 export async function addSocialLink(id, link) {
   const response = await fetch(`${url}/admin/page/${id}/social/link/add`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: await getToken(),
     },
     body: JSON.stringify(link),
   });
 
   if (!response.ok) {
-    console.error("Failed to make POST request:", response);
-    throw new Error("Failed to make POST request");
+    console.error('Failed to make POST request:', response);
+    throw new Error('Failed to make POST request');
   } else {
     const data = await response.json();
     return data;
@@ -190,17 +190,17 @@ export async function addSocialLink(id, link) {
 
 export async function updateBioInfo(id, page) {
   const response = await fetch(`${url}/admin/page/${id}/info/update`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: await getToken(),
     },
     body: JSON.stringify(page),
   });
 
   if (!response.ok) {
-    console.error("Failed to make POST request:", response);
-    throw new Error("Failed to make POST request");
+    console.error('Failed to make POST request:', response);
+    throw new Error('Failed to make POST request');
   } else {
     const data = await response.json();
     return data;
@@ -209,10 +209,10 @@ export async function updateBioInfo(id, page) {
 
 export async function uploadProfileImage(id, file) {
   const formData = new FormData();
-  formData.append("file", file);
+  formData.append('file', file);
 
   const response = await fetch(`${url}/admin/upload/profile/image/id/${id}`, {
-    method: "POST",
+    method: 'POST',
     body: formData,
     headers: {
       Authorization: await getToken(),
@@ -220,8 +220,8 @@ export async function uploadProfileImage(id, file) {
   });
 
   if (!response.ok) {
-    console.error("Failed to make POST request:", response);
-    throw new Error("Failed to make POST request");
+    console.error('Failed to make POST request:', response);
+    throw new Error('Failed to make POST request');
   } else {
     const data = await response.json();
     return data;
@@ -230,9 +230,9 @@ export async function uploadProfileImage(id, file) {
 
 export async function createPagte(id, name, descriptionTitle, imageUrl) {
   const response = await fetch(`${url}/admin/page/create`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: await getToken(),
     },
     body: JSON.stringify({
@@ -246,8 +246,8 @@ export async function createPagte(id, name, descriptionTitle, imageUrl) {
   });
 
   if (!response.ok) {
-    console.error("Failed to make POST request:", response);
-    throw new Error("Failed to make POST request");
+    console.error('Failed to make POST request:', response);
+    throw new Error('Failed to make POST request');
   } else {
     const data = await response.json();
     return data;
@@ -257,7 +257,7 @@ export async function createPagte(id, name, descriptionTitle, imageUrl) {
 export async function checkIfAliasIsAvailable(id) {
   const response = await fetch(`${url}/admin/page/${id}/availability`, {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: await getToken(),
     },
   });
@@ -269,12 +269,12 @@ export async function updatePageid(id, newId) {
   const response = await fetch(
     `${url}/admin/page/${id}/update/pageId/${newId}`,
     {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: await getToken(),
       },
-    },
+    }
   );
 
   return response.json();
@@ -282,14 +282,13 @@ export async function updatePageid(id, newId) {
 
 export async function updatePageColors(id, colors) {
   const response = await fetch(`${url}/admin/page/${id}/update/colors`, {
-    method: "POST",
+    method: 'POST',
     body: JSON.stringify(colors),
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: await getToken(),
     },
   });
 
   return response.json();
 }
-
