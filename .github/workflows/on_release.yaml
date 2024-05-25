@@ -63,7 +63,7 @@ jobs:
           role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/linkifybio-oidc-role
           role-session-name: linkifybio-role-session
           aws-region: us-east-1
-          mask-aws-account-id: 'false'
+          mask-aws-account-id: 'true'
 
       - name: Check out code
         uses: actions/checkout@v4
