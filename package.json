@@ -1,6 +1,6 @@
 {
   "name": "linkifybio",
-  "version": "1.2.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "semantic-release": "semantic-release"
