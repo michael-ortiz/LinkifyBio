@@ -56,5 +56,30 @@ jobs:
 
       - name: Build React App
         run: npm run build
+    
+  terraform:
+    name: Run Terraform
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./terraform
+
+    steps:
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/linkifybio-oidc-role
+        role-session-name: linkifybio-role-session
+        aws-region: us-east-1
+        mask-aws-account-id: true
+
+    - name: Terraform Init
+      uses: hashicorp/setup-terraform@v3
+  
+    - name: Terraform Plan
+      run: terraform plan
+      
 
     
