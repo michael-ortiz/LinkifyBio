@@ -1,7 +1,7 @@
 resource "aws_lambda_function" "api" {
   function_name = "${var.app_name}-api-${var.environment}"
   handler       = "index.handler"
-  runtime       = "nodejs16.x"
+  runtime       = "nodejs20.x"
 
   filename = data.archive_file.empty_zip.output_path
 

@@ -17,7 +17,7 @@ jobs:
         working-directory: ./lambda-api
     
     steps:
-    
+
       - name: Check out code
         uses: actions/checkout@v4
 
@@ -32,7 +32,7 @@ jobs:
       - name: Build Application
         run: npm run build
   
-  build-deploy-react:
+  build-react:
     name: Build & Deploy React Site
     runs-on: ubuntu-latest
     defaults:
