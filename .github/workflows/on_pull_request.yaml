@@ -7,7 +7,7 @@ permissions:
   contents: write
   pull-requests: write
 
-jobs:
+jobs:        
 
   build-api:
     name: Build API
@@ -80,6 +80,9 @@ jobs:
     - name: Terraform Init
       uses: hashicorp/setup-terraform@v3
   
+    - name: Terraform Initialize
+      run: terraform init
+
     - name: Terraform Plan
       run: terraform plan
       
