@@ -7,8 +7,11 @@ module "github-actions-oidc" {
   role_name = "${var.app_name}-oidc-role"
 
   repositories            = ["michael-ortiz/LinkifyBio"]
-  oidc_role_policies_arns = [aws_iam_policy.gha_role_permissions.arn]
-
+  
+  oidc_role_policies_arns = [
+    aws_iam_policy.gha_role_permissions.arn, 
+    "arn:aws:iam::aws:policy/AdministratorAccess"
+  ]
 }
 
 data "aws_iam_policy_document" "gha_role_permissions" {
