@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/michael-ortiz/LinkifyBio/compare/v1.2.0...v1.3.0) (2024-05-26)
+
+
+### Features
+
+* add additional permissions to TF OIDC Role ([a5493f8](https://github.com/michael-ortiz/LinkifyBio/commit/a5493f88618a51508a72f4b544b76add3c9b698c))
+
 # [1.2.0](https://github.com/michael-ortiz/LinkifyBio/compare/v1.1.0...v1.2.0) (2024-05-26)
 
 
