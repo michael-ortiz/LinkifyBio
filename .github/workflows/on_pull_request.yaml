@@ -33,7 +33,7 @@ jobs:
         run: npm run build
   
   build-react:
-    name: Build & Deploy React Site
+    name: Build React Site
     runs-on: ubuntu-latest
     defaults:
       run:
