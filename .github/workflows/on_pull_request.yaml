@@ -1,0 +1,60 @@
+name: Release Production
+on:
+  pull_request:
+  
+permissions:
+  id-token: write
+  contents: write
+  pull-requests: write
+
+jobs:
+
+  build-api:
+    name: Build API
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./lambda-api
+    
+    steps:
+    
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Application
+        run: npm run build
+  
+  build-deploy-react:
+    name: Build & Deploy React Site
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./react
+    steps:
+
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build React App
+        run: npm run build
+
+    
