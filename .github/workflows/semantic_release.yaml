@@ -1,0 +1,30 @@
+name: Release Production
+on:
+  push:
+    branches:
+      - main
+permissions:
+  id-token: write
+  contents: write
+  pull-requests: write
+
+jobs:
+  semantic-release:
+    name: Run Semantic Release
+    runs-on: ubuntu-latest
+        
+    steps:
+
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Semantic Release
+        run: npm run semantic-release
