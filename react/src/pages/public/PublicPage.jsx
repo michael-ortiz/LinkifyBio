@@ -22,7 +22,6 @@ const PublicPage = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    console.log('Page Loaded TAMO');
     const id = window.location.href.split('/')[3];
     getPublicPage(id)
       .then((data) => {
