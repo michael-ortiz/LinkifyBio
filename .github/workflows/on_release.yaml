@@ -23,7 +23,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/linkifybio-oidc-role
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/linkifybio-oidc-role
           role-session-name: linkifybio-role-session
           aws-region: us-east-1
           mask-aws-account-id: true
@@ -60,7 +60,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/linkifybio-oidc-role
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/linkifybio-oidc-role
           role-session-name: linkifybio-role-session
           aws-region: us-east-1
           mask-aws-account-id: true
