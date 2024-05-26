@@ -2,7 +2,7 @@ name: Release Production
 on:
   release:
     types: [published]
-    
+
 permissions:
   id-token: write
   contents: write
@@ -79,5 +79,3 @@ jobs:
 
       - name: Deploy Application
         run: aws s3 sync --delete ./dist s3://linkifybio.com/
-
-    
