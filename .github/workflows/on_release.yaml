@@ -10,7 +10,7 @@ permissions:
 
 jobs:
 
-  approve:
+  approval:
     name: Approve Release
     runs-on: ubuntu-latest
     environment: 
@@ -20,6 +20,7 @@ jobs:
         run: echo "Make sure release looks good an Terraform plan is correct."
 
   terraform:
+    needs: approval
     name: Run Terraform Apply
     runs-on: ubuntu-latest
 
@@ -49,7 +50,7 @@ jobs:
       run: terraform apply -auto-approve
 
   build-deploy-api:
-    needs: terraform
+    needs: [approval, terraform]
     name: Build & Deploy API
     runs-on: ubuntu-latest
     defaults:
@@ -87,7 +88,7 @@ jobs:
           aws lambda update-function-code --function-name linkifybio-api-production --zip-file fileb://build.zip
   
   build-deploy-react:
-    needs: terraform
+    needs: [approval, terraform]
     name: Build & Deploy React Site
     runs-on: ubuntu-latest
     defaults:
