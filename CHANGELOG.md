@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/michael-ortiz/LinkifyBio/compare/v1.0.0...v1.1.0) (2024-05-26)
+
+
+### Features
+
+* test new release ([72aa0fd](https://github.com/michael-ortiz/LinkifyBio/commit/72aa0fdfbe3e3d6c2cc4a3c77bcb7a7b0ef2ea96))
+
 # 1.0.0 (2024-05-26)
 
 
