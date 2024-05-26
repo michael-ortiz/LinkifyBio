@@ -66,6 +66,7 @@ data "aws_iam_policy_document" "gha_tf_role_permissions" {
       "route53:*",
       "lambda:*",
       "cognito:*",
+      "cognito-idp:*",
       "cloudfront:*",
       "acm:*",
       "s3:*"
@@ -74,7 +75,24 @@ data "aws_iam_policy_document" "gha_tf_role_permissions" {
       "*"
     ]
   }
+
+  statement {
+    sid = "OtherTerraformPermissions"
+    effect = "Allow"
+    actions = [
+      "ses:GetIdentityVerificationAttributes",
+      "iam:Get*",
+      "iam:List*",
+      "kms:Describe*",
+      "kms:Get*",
+      "kms:List*",
+    ]
+    resources = [
+      "*"
+    ]
+  }
 }
+
 
 resource "aws_iam_policy" "gha_tf_role_permissions" {
   name        = "${var.app_name}-gha-tf-permissions"
