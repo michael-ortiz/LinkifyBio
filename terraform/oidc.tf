@@ -1,4 +1,4 @@
-module "github-actions-oidc" {
+module "github-actions-gha-oidc" {
   source  = "michael-ortiz/github-actions-oidc/aws"
   version = "~> 1.0"
 
@@ -13,7 +13,7 @@ module "github-actions-oidc" {
   ]
 }
 
-module "github-actions-oidc" {
+module "github-actions-terraform-oidc" {
   source  = "michael-ortiz/github-actions-oidc/aws"
   version = "~> 1.0"
 
