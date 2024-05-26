@@ -1,7 +1,8 @@
 name: Release Production
 on:
   release:
-    types: [published, created]
+    types: [published]
+    
 permissions:
   id-token: write
   contents: write
