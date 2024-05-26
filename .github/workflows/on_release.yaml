@@ -10,7 +10,47 @@ permissions:
 
 jobs:
 
+  approval:
+    name: Approve Release
+    runs-on: ubuntu-latest
+    environment: 
+      name: production
+    steps:
+      - name: Approve Release
+        run: echo "Make sure release looks good an Terraform plan is correct."
+
+  terraform:
+    needs: approval
+    name: Run Terraform Apply
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./terraform
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v4
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/linkifybio-oidc-role
+        role-session-name: linkifybio-role-session
+        aws-region: us-east-1
+        mask-aws-account-id: true
+
+    - name: Terraform Init
+      uses: hashicorp/setup-terraform@v3
+  
+    - name: Terraform Initialize
+      run: terraform init
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+
   build-deploy-api:
+    needs: [approval, terraform]
     name: Build & Deploy API
     runs-on: ubuntu-latest
     defaults:
@@ -48,6 +88,7 @@ jobs:
           aws lambda update-function-code --function-name linkifybio-api-production --zip-file fileb://build.zip
   
   build-deploy-react:
+    needs: [approval, terraform]
     name: Build & Deploy React Site
     runs-on: ubuntu-latest
     defaults:

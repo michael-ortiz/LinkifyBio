@@ -7,7 +7,7 @@ permissions:
   contents: write
   pull-requests: write
 
-jobs:
+jobs:        
 
   build-api:
     name: Build API
@@ -56,5 +56,35 @@ jobs:
 
       - name: Build React App
         run: npm run build
+    
+  terraform:
+    name: Run Terraform
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./terraform
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v4
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/linkifybio-oidc-role
+        role-session-name: linkifybio-role-session
+        aws-region: us-east-1
+        mask-aws-account-id: true
+
+    - name: Terraform Init
+      uses: hashicorp/setup-terraform@v3
+  
+    - name: Terraform Initialize
+      run: terraform init
+
+    - name: Terraform Plan
+      run: terraform plan
+      
 
     
