@@ -3,12 +3,6 @@ on:
   push:
     branches:
       - main
-permissions:
-  id-token: write
-  contents: write
-  pull-requests: write
-  deployments: write
-
 jobs:
   semantic-release:
     name: Run Semantic Release
@@ -32,4 +26,4 @@ jobs:
       - name: Run Semantic Release
         run: npm run semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GHA_GITHUB_TOKEN }}
