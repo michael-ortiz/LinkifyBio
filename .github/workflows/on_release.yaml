@@ -35,7 +35,7 @@ jobs:
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
-        role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/linkifybio-oidc-role
+        role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/linkifybio-oidc-tf-role
         role-session-name: linkifybio-role-session
         aws-region: us-east-1
         mask-aws-account-id: true
