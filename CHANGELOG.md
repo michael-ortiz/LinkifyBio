@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/michael-ortiz/LinkifyBio/compare/v1.3.0...v1.4.0) (2024-06-08)
+
+
+### Features
+
+* Update terraforrm-state-s3.tf ([d9eef1a](https://github.com/michael-ortiz/LinkifyBio/commit/d9eef1a2bc365536494b594c5a68b9f363a49e05))
+
 # [1.3.0](https://github.com/michael-ortiz/LinkifyBio/compare/v1.2.0...v1.3.0) (2024-05-26)
 
 
