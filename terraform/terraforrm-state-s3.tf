@@ -9,18 +9,13 @@ resource "aws_s3_bucket_versioning" "app_bucket_tfstate" {
   }
 }
 
-resource "aws_kms_key" "tfstate_key" {
-  description             = "This key is used to encrypt bucket objects"
-  deletion_window_in_days = 10
-}
-
 resource "aws_s3_bucket_server_side_encryption_configuration" "app_bucket_tfstate" {
   bucket = aws_s3_bucket.app_bucket_tfstate.id
 
   rule {
     apply_server_side_encryption_by_default {
-      kms_master_key_id = aws_kms_key.tfstate_key.arn
       sse_algorithm     = "aws:kms"
+      kms_master_key_id = "alias/aws/s3"
     }
   }
 }
