@@ -18,6 +18,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "app_bucket_tfstat
       kms_master_key_id = "alias/aws/s3"
     }
   }
+
 }
 
 resource "aws_dynamodb_table" "tfstate_lock" {
