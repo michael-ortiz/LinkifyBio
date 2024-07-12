@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/michael-ortiz/LinkifyBio/compare/v1.4.0...v1.5.0) (2024-07-12)
+
+
+### Features
+
+* empty release ([#19](https://github.com/michael-ortiz/LinkifyBio/issues/19)) ([1323ab4](https://github.com/michael-ortiz/LinkifyBio/commit/1323ab4ef633e6b7a52d1f16a7d77e40d7615517))
+
 # [1.4.0](https://github.com/michael-ortiz/LinkifyBio/compare/v1.3.0...v1.4.0) (2024-06-08)
 
 
