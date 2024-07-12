@@ -15,7 +15,7 @@ permissions:
 jobs:
 
   terraform:
-    name: Terraform Deploy
+    name: Terraform
     uses: michael-ortiz/aws-github-actions-terraform-workflow/.github/workflows/terraform-workflow.yaml@v1
     with:
       action: apply
