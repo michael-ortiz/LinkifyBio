@@ -94,3 +94,4 @@ jobs:
 
       - name: Deploy Application
         run: aws s3 sync --delete ./dist s3://linkifybio.com/
+        
