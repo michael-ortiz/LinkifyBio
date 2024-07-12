@@ -8,10 +8,6 @@ permissions:
   contents: write
   pull-requests: write
 
-
-
-
-
 jobs:
 
   terraform:
@@ -66,7 +62,7 @@ jobs:
           aws lambda update-function-code --function-name linkifybio-api-production --zip-file fileb://build.zip
   
   build-deploy-react:
-    needs: [approval, terraform]
+    needs: [terraform]
     name: Build & Deploy React Site
     runs-on: ubuntu-latest
     defaults:
